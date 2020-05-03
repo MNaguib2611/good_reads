@@ -1,0 +1,12 @@
+HELLO , World.
+
+
+
+
+1- To solve port(3000) is already in use problem:
+    lsof -i tcp:3000 
+    kill -9 PID
+
+
+
+2-    
