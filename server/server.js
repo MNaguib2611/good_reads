@@ -6,10 +6,12 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const passport = require('passport');
+const cors = require('cors')
 const flash = require('express-flash');
 const initializePassport = require('./passport-config');
 const app = express();
 const {ensureNotAuthentication, ensureAuthentication} = require('./middlewares/auth.js');
+const authorRouter = require('./routes/author');
 
 
 //users will be from UserModel
@@ -40,6 +42,9 @@ app.use(session({
 app.use(passport.initialize());
 // persistent login session
 app.use(passport.session());
+
+app.use(cors());
+app.use(express.json());
 
 
 app.get("/fail", (req, res) => {
@@ -107,6 +112,7 @@ app.get("/", ensureAuthentication, (req, res) => {
     res.json({"message": `welcome ${req.user.name}`});
 })
 
+app.use('/author', authorRouter);
 
 // app.listen();
 const server = app.listen(process.env.SESSION_PORT, (err) => {
