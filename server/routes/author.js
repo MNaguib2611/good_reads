@@ -1,24 +1,43 @@
 const router = require('express').Router();
-let Author = require('../models/author');
+const multer = require('multer');
+let authorController = require('../controllers/author')
 
-router.route('/').get((req, res) => {
-    Author.find()
-        .then(authors => res.json(authors))
-        .catch(err => res.status(400).json('Error: ' + err))
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString() + file.originalname);
+    }
 });
 
-router.route('/add').post((req, res) => {
-    const firstName = req.body.firstname;
-    const lastName = req.body.lastname;
-    const dateofbirth = Date.parse(req.body.dateofbirth);
-    const photo = req.body.photo
-    // const books = req.body.books
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
+        cb(null,true)
+    } else {
+        cb(new Error('only allowed types are jpeg, png, jpg'), false)
+    }
+}
 
-    const newAuthor = new Author({firstName, lastName, dateofbirth, photo})
-
-    newAuthor.save()
-        .then(() => res.json('Author added!'))
-        .catch(err => res.status(400).json('Error: ' + err))
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
 });
+
+//get all authors
+router.route('/').get(authorController.getAllAuthors);
+
+//add new author
+router.route('/add').post(upload.single('photo'), authorController.addAuthor);
+
+//get author by id
+router.route('/:id').get(authorController.getAuthorById)
+
+//delete author
+router.route('/:id').delete(authorController.deleteAuthor)
+
+//update author
+router.route('/edit/:id').put(authorController.editAuthor)
+
 
 module.exports = router;

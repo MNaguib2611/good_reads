@@ -1,34 +1,33 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
 const Schema = mongoose.Schema;
 
 const AuthorSchema = Schema({
-        firstname: {
+        name: {
             type: String,
-            // required: true,
+            required: true,
             unique: true,
             trim: true,
             minlength: 3
         },
-        lastname: {
+        bio: {
             type: String,
-            // required: true,
-            unique: true,
-            trim: true,
-            minlength: 3
+            minlength: 10
         },
-        dateofbirth: {
+        dateOfBirth: {
             type: Date,
             required: true
         },
         photo: {
-            type: String
+            type: String,
+            // data: Buffer
         },
-        // books: [
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: 'Book'
-        //     }
-        // ],
+        books: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book'
+            }
+        ],
     },
     {
         timestamps: true,
