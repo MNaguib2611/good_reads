@@ -1,5 +1,11 @@
 let Author = require('../models/author');
 
+// const search = async (req, res) => {
+//     const q = req.query.q || ""
+//     const authors = await Author.find({name: {$regex: q,$options: "i"}},'name bio dateOfBirth photo books')
+//     res.status(200).send(authors)
+// }
+
 exports.getAllAuthors = (req, res) => {
     Author.find()
         .select('name bio dateOfBirth photo books')
@@ -48,3 +54,8 @@ exports.editAuthor = (req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err ))
 }
+
+// module.exports={
+//     // search,
+//
+// }

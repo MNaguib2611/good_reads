@@ -69,7 +69,7 @@ app.use("/",authRouter);
 
 
 // user routes
-app.use('/author', authorRouter);
+app.use('/authors', authorRouter);
 
 const server = app.listen(process.env.SESSION_PORT, (err) => {
     if (!err) console.log('\x1b[32m%s\x1b[0m', `Server was started on port ${process.env.SESSION_PORT}`);

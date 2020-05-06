@@ -24,6 +24,8 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+// router.route('').get(authorController.search)
+
 //get all authors
 router.route('/').get(authorController.getAllAuthors);
 

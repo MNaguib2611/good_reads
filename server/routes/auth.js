@@ -2,7 +2,6 @@ const {UserModel} = require('../models/allModels');
 const passport = require('passport');
 const {ensureNotAuthentication, ensureAuthentication} = require('../middlewares/auth.js');
 const initializePassport = require('../passport-config');
-const bcrypt = require('bcrypt');
 const router = require('express').Router();
 
 
@@ -30,8 +29,17 @@ initializePassport(
 )
 
 
-
-router.post('/register', ensureNotAuthentication,function (req, res) {
+/*
+*   POST /register
+*   return user data
+*   Or error object
+*   "errors": {
+        "email": {
+            "message": "Email is required",
+            * }
+    * }
+* */
+router.post('/register', ensureNotAuthentication, async function (req, res) {
     const {
       body: {
         firstName,
@@ -43,21 +51,38 @@ router.post('/register', ensureNotAuthentication,function (req, res) {
       }
     } = req;
     // let password = bcrypt.hashSync(password, 10);
-    const user = new UserModel({
-        firstName,
-        lastName,
-        username,
-        password:bcrypt.hashSync(password, 10),
-        email,
-        image,
-    });
-    user.save(function (err) {
-      if (!err)  res.status(200).json({"message": "Regstiration Complete."});
-      else {
-          console.log(err);
-          res.status(500).json({"error": "Something went wrong!"});
+    try {
+        const user = new UserModel({
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
+            image,
+        });
+        await user.save();
+        return res.status(200).send(user);
+    } catch (e) {
+        if (e.errmsg && e.errmsg.indexOf('duplicate key error') !== -1) {
+            return res.status(500).send({
+                errors: {
+                    [Object.keys(e.keyValue)[0]]: {
+                        "message": `${Object.keys(e.keyValue)[0]} is already exist`
+                    }
+                }
+            })
         }
-    });
+        return res.status(500).send(e)
+    }
+
+    // user.save(function (err) {
+    //   if (!err)  res.status(200).json({"message": "Regstiration Complete."});
+    //   else {
+    //       // console.log(err);
+    //       // res.status(500).json({"error": "Something went wrong!"});
+    //       res.status(500).json(err);
+    //     }
+    // });
   });
 
 
