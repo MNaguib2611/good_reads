@@ -24,8 +24,7 @@ const AuthorSchema = Schema({
         },
         books: [
             {
-                // type: mongoose.Schema.Types.ObjectId,
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: 'Book'
             }
         ],

@@ -27,8 +27,7 @@ const addAuthor = (req, res) => {
     const name = req.body.name;
     const bio = req.body.bio;
     const dateOfBirth = Date.parse(req.body.dateOfBirth);
-    // const photo = req.file.path
-    const photo = ""
+    const photo = req.file.path
     const books = req.body.books
 
     const newAuthor = new Author({name, bio, dateOfBirth, photo, books})
