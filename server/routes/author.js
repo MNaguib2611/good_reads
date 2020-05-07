@@ -24,20 +24,27 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+/*
+* GET /authors/search?q=ahmed
+* Return array of authors objects with status code -> 200
+* Or status code -> 404 For Error or no authors found
+* */
+router.route('/search').get(authorController.search);
+
 //get all authors
-router.route('/').get(authorController.getAllAuthors);
+router.get('/',authorController.getAllAuthors);
 
 //add new author
-router.route('/add').post(upload.single('photo'), authorController.addAuthor);
+router.post('/add',upload.single('photo'), authorController.addAuthor);
 
 //get author by id
-router.route('/:id').get(authorController.getAuthorById)
+router.get('/:id',authorController.getAuthorById)
 
 //delete author
-router.route('/:id').delete(authorController.deleteAuthor)
+router.delete('/:id',authorController.deleteAuthor)
 
 //update author
-router.route('/edit/:id').put(authorController.editAuthor)
+router.put('/edit/:id',authorController.editAuthor)
 
 
 module.exports = router;

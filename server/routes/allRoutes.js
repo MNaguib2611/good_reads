@@ -1,5 +1,7 @@
 const authRouter   =  require('./auth');
 const authorRouter = require('./author');
+const userRouter = require('./user');
+const adminRouter = require('./admin');
 
 
 
@@ -8,4 +10,4 @@ const authorRouter = require('./author');
 
 
 
-module.exports = {authRouter,authorRouter}
+module.exports = {authRouter,authorRouter,userRouter,adminRouter}
