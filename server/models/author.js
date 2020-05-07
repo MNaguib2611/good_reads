@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const fs = require('fs');
 const Schema = mongoose.Schema;
 
 const AuthorSchema = Schema({
         name: {
             type: String,
-            required: true,
+            required: [true, 'Your name cannot be blank.'],
             unique: true,
             trim: true,
             minlength: 3
@@ -20,6 +19,7 @@ const AuthorSchema = Schema({
         },
         photo: {
             type: String,
+            required: true
             // data: Buffer
         },
         books: [
