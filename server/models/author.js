@@ -15,12 +15,9 @@ const AuthorSchema = Schema({
         },
         dateOfBirth: {
             type: Date,
-            required: true
         },
         photo: {
             type: String,
-            required: true
-            // data: Buffer
         },
         books: [
             {

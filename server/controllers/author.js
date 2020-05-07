@@ -15,11 +15,12 @@ const search = async (req, res) => {
         res.status(404).end()
     }
 }
+
 const getAllAuthors = (req, res) => {
     Author.find()
         .select('name bio dateOfBirth photo books')
         .then(authors => res.status(200).json(authors))
-        .catch(err => res.status(400).json('Error: ' + err))
+        .catch(err => res.status(400).json(err))
 }
 
 const addAuthor = (req, res) => {
@@ -38,25 +39,19 @@ const addAuthor = (req, res) => {
 
     newAuthor.save()
         .then(() => res.status(201).json('Author has been created successfully!'))
-        .catch(() => res.status(400).send({
-            "errors": {
-                "name": {
-                    "message": "Your name cannot be blank."
-                }
-            }
-        }))
+        .catch((e) => res.status(400).send(e))
 }
 
 const getAuthorById = (req, res) => {
     Author.findById(req.params.id)
         .then(author => res.status(200).json(author))
-        .catch((err) => res.status(400).json({ "error": { "message": "sorry, author id couldn't be found" } }))
+        .catch((err) => res.status(400).json({ "error": { "message": "sorry, author id was not found" } }))
 }
 
 const deleteAuthor = (req, res) => {
     Author.findByIdAndDelete(req.params.id)
         .then(() => res.status(200).json('Author has been deleted successfully'))
-        .catch(err => res.status(400).json({ "error": { "message": "sorry, author id couldn't be found" } }))
+        .catch(err => res.status(400).json({ "error": { "message": "sorry, author id was not found" } }))
 }
 
 const editAuthor = (req, res) => {
