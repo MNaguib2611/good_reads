@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 
+
 const userSchema = new mongoose.Schema({
     firstName: {type: String, required: [true, "First Name is required"], minlength: 2},
     lastName: {type: String, required: [true, "Last Name is required"], minlength: 2},
+    //isActive??if we have time
     isAdmin: {type: Boolean, default: false},
-    // isSuperAdmin    : {type: Boolean,default : false}, //the one who can modify other admins
-    username: {type: String, required: [true, "User Name is required"], unique: true, minlength: 2},
+    isSuperAdmin    : {type: Boolean,default : false}, //the one who can modify other admins
+    username: {type: String, required: [true, "Username is required"], unique: true, minlength: 2},
     email: {type: String, required: [true, "Email is required"], unique: true, lowercase: true,
         trim:true,
         validate: {
@@ -41,6 +43,13 @@ userSchema.pre('save',async function (next) {
     }
     next()
 })
+
+
+
+
+
+
+
 
 const UserModel = mongoose.model('User', userSchema);
 

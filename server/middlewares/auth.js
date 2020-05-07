@@ -29,6 +29,14 @@ function isAdmin(req, res, next) {
         res.redirect('/notAuthorized');
     }
 }
+function isSuperAdmin(req, res, next) {
+    if (req.user.isSuperAdmin && req.user.isAdmin) {
+        return next();
+    } else {
+        res.redirect('/notAuthorized');
+    }
+}
+
 
 module.exports =
-        { ensureNotAuthentication,ensureAuthentication}
+        { ensureNotAuthentication,ensureAuthentication,isAdmin,isSuperAdmin}

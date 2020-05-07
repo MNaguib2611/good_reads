@@ -10,23 +10,8 @@ const router = require('express').Router();
 //     res.json({"message": "Please Login to view this page ."});
 // })
 
-var users=[];
 
-//not sure if this is the best way !!!
-async function getusersArray(usersArr) {
-  await  UserModel.find({}, function (err, usersObjs) {
-        usersObjs.forEach(function (user){
-            usersArr.push(user);
-        });
-      });
-}
-getusersArray(users);
-
-initializePassport(
-    passport,
-    username => users.find(user => user.username === username),
-    id => users.find(user => user.id === id)
-)
+initializePassport(passport)
 
 
 /*
@@ -67,7 +52,7 @@ router.post('/register', ensureNotAuthentication, async function (req, res) {
             return res.status(500).send({
                 errors: {
                     [Object.keys(e.keyValue)[0]]: {
-                        "message": `${Object.keys(e.keyValue)[0]} is already exist`
+                        "message": `${Object.keys(e.keyValue)[0]}  already exists`
                     }
                 }
             })
@@ -93,7 +78,11 @@ router.get("/fail", (req, res) => {
 
 
 router.get("/success", (req, res) => {
-    res.status(200).json({"message": "Login success"})
+    if (req.user.isAdmin) {
+        res.status(200).json({"message": "Admin Login success"})     
+    } else {
+        res.status(200).json({"message": "Login success"})     
+    }
 })
 
 
@@ -131,15 +120,13 @@ router.delete('/logout', (req, res) => {
 
 
 router.get("/", ensureAuthentication, (req, res) => {
-    console.log(req.user);
-    
     res.json({"message": `welcome ${req.user.firstName}`});
 })
 
 
 
 router.get("/notAuthorized", (req, res) => {
-    res.json({"message": "unauthorized"});
+    res.status(401).json({"message": "unauthorized"});
 })
 
 
