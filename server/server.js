@@ -11,7 +11,7 @@ const flash = require('express-flash');
 const app = express();
 // const {ensureNotAuthentication, ensureAuthentication} = require('./middlewares/auth.js');
 // const authorRouter = require('./routes/author');
-const {authRouter,authorRouter,adminRouter,userRouter}   =  require('./routes/allRoutes');
+const {authRouter,authorRouter,adminRouter,userRouter, categoryRouter}   =  require('./routes/allRoutes');
 
 
 
@@ -73,6 +73,7 @@ app.use('/admin', adminRouter);
 // user routes
 app.use('/authors', authorRouter);
 app.use('/users', userRouter);
+app.use('/category', categoryRouter);
 
 const server = app.listen(process.env.SESSION_PORT, (err) => {
     if (!err) console.log('\x1b[32m%s\x1b[0m', `Server was started on port ${process.env.SESSION_PORT}`);

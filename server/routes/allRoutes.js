@@ -2,6 +2,7 @@ const authRouter   =  require('./auth');
 const authorRouter = require('./author');
 const userRouter = require('./user');
 const adminRouter = require('./admin');
+const categoryRouter = require('./categoey');
 
 
 
@@ -10,4 +11,4 @@ const adminRouter = require('./admin');
 
 
 
-module.exports = {authRouter,authorRouter,userRouter,adminRouter}
+module.exports = {authRouter,authorRouter,userRouter,adminRouter, categoryRouter}
