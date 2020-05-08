@@ -1,37 +1,37 @@
-"use strict";
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const bookSchema = new mongoose.Schema({
+const book = new Schema({
     name: {
         type: String,
-        trim:true,
-        required:[true,"name is required"]
+        required: [true, 'Name is required!'],
+        unique: true,
+        trim: true
     },
     description: {
         type: String,
-        trim:true,
-        required:[true,"description is required"]
+        default: null,
+        trim: true
     },
     image: {
-        type:String,
+        type: String,
+        default: null
     },
-    category:{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        required:[true,"Category is required"]
+        required: [true, 'Category is required!'],
+        ref: 'Category'
     },
-    author:{
+    author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Author',
-        required:[true,"Author is required"]
+        required: [true, 'Author is required!'],
+        ref: 'Author'
     }
-}, {
+}, 
+{
     timestamps: true
 });
 
+const Book = mongoose.model('Book', book);
 
-
-
-const Book = mongoose.model('Book', bookSchema)
-
-module.exports = Book
+module.exports = Book;
