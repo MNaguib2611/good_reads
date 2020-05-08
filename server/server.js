@@ -36,7 +36,6 @@ mongoose.connect("mongodb://localhost:27017/good_reads",{
 //     id => users.find(user => user.id === id)
 // )
 
-
 // Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

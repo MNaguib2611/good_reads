@@ -1,4 +1,4 @@
-const Book = require('../models/book')
+const Book = require('../models/book');
 
 const categoryBooks = (req, res)=>{
     Book.find({category: req.params.category})
@@ -12,18 +12,21 @@ const categoryBooks = (req, res)=>{
 // Retrieve all books
 const all = (req, res) => {
     Book.find({}).then((books) => {
-        res.json(books);
+        res.status(200).json(books);
+    }).catch((err) => {
+        res.status(400).json(err);
     });
 };
 
 // Create new book
 const create = (req, res) => {
     const book = new Book({
-        ...req.body
+        ...req.body,
+        image: req.file.path
     });
 
     book.save().then(() => {
-        res.json(book);
+        res.status(200).json(book);
     }).catch((err) => {
         res.status(400).json(err);
     });
