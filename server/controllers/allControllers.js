@@ -1,7 +1,7 @@
 
 const adminController = require('./admin');
 const userController = require('./user');
-
+const bookController = require('./book');
 
 
 
@@ -10,5 +10,6 @@ const userController = require('./user');
 
 module.exports = {
         adminController,
-        userController
+        userController,
+        bookController
     }

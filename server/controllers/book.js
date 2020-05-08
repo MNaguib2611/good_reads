@@ -9,6 +9,28 @@ const categoryBooks = (req, res)=>{
         .catch(err => res.status(400).json('Error: ' + err))
 }
 
+// Retrieve all books
+const all = (req, res) => {
+    Book.find({}).then((books) => {
+        res.json(books);
+    });
+};
+
+// Create new book
+const create = (req, res) => {
+    const book = new Book({
+        ...req.body
+    });
+
+    book.save().then(() => {
+        res.json(book);
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
+}
+
 module.exports = {
     categoryBooks,
+    all,
+    create
 }
