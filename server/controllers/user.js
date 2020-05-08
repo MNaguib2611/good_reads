@@ -1,4 +1,5 @@
 const {UserModel} = require('../models/allModels');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
@@ -17,7 +18,7 @@ const getOneUser    =  function (req, res) {
     });
 
 }
-const updateProfile    =async function (req, res) {
+const updateProfile = async function (req, res) {
     //check if users is only updating themselves
     if (req.params.id!=req.user._id) {
         res.status(403).json({"message":"action not permitted"})
@@ -48,7 +49,7 @@ const updateProfile    =async function (req, res) {
 
     })
 }
-const passwordUpdate    =  async function (req, res) {
+const passwordUpdate = async function (req, res) {
     const {
         body: {
             password,
@@ -81,6 +82,33 @@ const passwordUpdate    =  async function (req, res) {
 }
 
 
+const manageShelves = async (req, res) => {
+    const bookId = req.params["id"];
+    const userId = req.params["user_id"];
+    const {body:{status}} = req;
+    console.log(bookId,status,userId);
+    try{
+        const user = await UserModel.findById(userId)
+        let bookIsExist = false
+        user.books = user.books.map((book) => {
+            if(book.book.toString()  === bookId) {
+                book.status = status
+                bookIsExist = true
+            }
+            return book
+        })
+
+        if(!bookIsExist) {
+            user.books = user.books.concat({book:mongoose.Types.ObjectId(bookId),status})
+        }
+        await user.save()
+        return res.send({"message":"your Shelves updated successfully"})
+    } catch (e) {
+        // console.log(e)
+        return res.status(500).end()
+    }
+}
+
 
 
 
@@ -90,4 +118,5 @@ module.exports = {
     getOneUser,
     updateProfile,
     passwordUpdate,
+    manageShelves
 }

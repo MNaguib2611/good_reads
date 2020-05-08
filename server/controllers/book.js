@@ -23,7 +23,7 @@ const all = (req, res) => {
 const create = (req, res) => {
     const book = new Book({
         ...req.body,
-        image: req.file.path
+        // image: req.file.path || null
     });
 
     book.save().then(() => {
@@ -61,6 +61,9 @@ const remove = (req, res) => {
         res.status(400).json({"error": err});
     })
 };
+
+
+
 
 module.exports = {
     categoryBooks,

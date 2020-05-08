@@ -22,6 +22,7 @@ router.patch('/profile/:id',ensureAuthentication,userController.updateProfile );
 
 router.patch('/password_update',ensureAuthentication,userController.passwordUpdate )
 
+router.post('/:user_id/books/:id',userController.manageShelves)
 
 //we may need a separate router for this
 
