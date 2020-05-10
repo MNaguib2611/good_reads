@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
 
+// Destructure bookController
 const { bookController } = require('../controllers/allControllers');
 
 // Set upload files destination
@@ -25,6 +26,11 @@ router.put('/:bookId', upload.single('image'), (req, res) => {
 // Delete selected book
 router.delete('/:bookId', (req, res) => {
     bookController.remove(req, res);
+});
+
+// Rate selected book
+router.post('/:bookId/rate', (req, res) => {
+    bookController.rate(req, res);
 });
 
 module.exports = router;

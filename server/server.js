@@ -11,7 +11,7 @@ const flash = require('express-flash');
 const app = express();
 // const {ensureNotAuthentication, ensureAuthentication} = require('./middlewares/auth.js');
 // const authorRouter = require('./routes/author');
-const {authRouter, authorRouter, adminRouter, userRouter, categoryRouter, bookRouter}   =  require('./routes/allRoutes');
+const {authRouter, authorRouter, adminRouter, userRouter, categoryRouter, bookRouter} = require('./routes/allRoutes');
 const port = process.env.SESSION_PORT || 3000;
 
 
