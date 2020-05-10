@@ -29,7 +29,10 @@ router.patch('/password_update',ensureAuthentication,userController.passwordUpda
 * Or 500 status code if there is an error
 *
 * */
-router.post('/:user_id/books/:id',userController.manageShelves)
+router.post('/:user_id/books/:id',userController.manageShelves);
+
+
+router.get('/:user_id/books',userController.getUserBooks);
 
 //we may need a separate router for this
 
