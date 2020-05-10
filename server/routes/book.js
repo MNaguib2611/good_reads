@@ -5,6 +5,13 @@ const multer  = require('multer');
 // Destructure bookController
 const { bookController } = require('../controllers/allControllers');
 
+/*
+* GET /books/search?q=ahmed
+* Return array of books objects with status code -> 200
+* Or status code -> 404 For Error or no authors found
+* */
+router.route('/search').get(bookController.search);
+
 // Set upload files destination
 const upload = multer({ dest: 'public/uploads/' });
 

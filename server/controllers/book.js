@@ -1,6 +1,21 @@
 const fs = require('fs');
 const Book = require('../models/book');
 
+const search = async (req, res) => {
+    const q = req.query.q || ""
+    try {
+        const books = await Book.find({name: {$regex: q,$options: "i"}})
+        if(books.length === 0)
+        {
+            return res.status(404).end()
+        }
+        res.status(200).send(books)
+
+    } catch (e) {
+        res.status(404).end()
+    }
+}
+
 const categoryBooks = (req, res)=>{
     Book.find({category: req.params.category})
         .select('name author image')
@@ -100,5 +115,6 @@ module.exports = {
     create,
     update,
     remove,
-    rate
+    rate,
+    search
 }

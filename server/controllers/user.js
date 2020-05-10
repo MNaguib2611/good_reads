@@ -113,7 +113,7 @@ const getUserBooks = async (req, res) => {
     const pages = {
         hasPrevious: null
     }
-    if(req.query.page && req.query.page > 1) {
+    if (req.query.page && req.query.page > 1) {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
@@ -138,15 +138,15 @@ const getUserBooks = async (req, res) => {
             books: {$push: '$books'}
         },
 
-    }, {$addFields: {'pages': {...pages}}},{
+    }, {$addFields: {'pages': {...pages}}}, {
         $project: {
             pages: {
                 ...pages,
                 "numberOfBooks": {$cond: {if: {$isArray: "$books"}, then: {$size: "$books"}, else: "NA"}},
-                "hasNext": { $gt: [ {$size: "$books" }, (page+1)*limit ] }
+                "hasNext": {$gt: [{$size: "$books"}, (page + 1) * limit]}
             },
-            books:1,
-            books: {$slice: ["$books", page*limit, limit]}
+            books: 1,
+            books: {$slice: ["$books", page * limit, limit]}
         },
     }]).exec()
     return res.send(user[0])
