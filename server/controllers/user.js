@@ -137,7 +137,6 @@ const getUserBooks = async (req, res) => {
             _id: '$_id',
             books: {$push: '$books'}
         },
-
     }, {$addFields: {'pages': {...pages}}}, {
         $project: {
             pages: {

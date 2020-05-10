@@ -8,7 +8,7 @@ const { bookController } = require('../controllers/allControllers');
 /*
 * GET /books/search?q=ahmed
 * Return array of books objects with status code -> 200
-* Or status code -> 404 For Error or no authors found
+* Or status code -> 404 For Error or no books found
 * */
 router.route('/search').get(bookController.search);
 
