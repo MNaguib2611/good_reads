@@ -5,26 +5,21 @@ const AuthorSchema = Schema({
         name: {
             type: String,
             required: [true, 'Your name cannot be blank.'],
-            unique: true,
+            unique: [true, 'name already exist'],
             trim: true,
-            minlength: 3
         },
         bio: {
             type: String,
-            minlength: 10
+            default: null,
+            trim: true
         },
         dateOfBirth: {
             type: Date,
         },
-        photo: {
+        image: {
             type: String,
+            default: null
         },
-        books: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Book'
-            }
-        ],
     },
     {
         timestamps: true,

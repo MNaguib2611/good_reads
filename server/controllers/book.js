@@ -10,6 +10,16 @@ const categoryBooks = (req, res)=>{
         .catch(err => res.status(400).json('Error: ' + err))
 }
 
+//get author's books
+const getAuthorBooks = (req, res)=>{
+    Book.find({author: req.params.author})
+        .select('name author image')
+        .then(books=> {
+            res.status(200).json({"data": books})
+        })
+        .catch(err => res.status(400).json({'error: ': err}))
+}
+
 // Retrieve all books
 const all = (req, res) => {
     Book.find({}).then((books) => {
@@ -66,6 +76,7 @@ const remove = (req, res) => {
 
 
 module.exports = {
+    getAuthorBooks,
     categoryBooks,
     all,
     create,
