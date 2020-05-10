@@ -74,7 +74,7 @@ app.use('/admin', adminRouter);
 // user routes
 app.use('/authors', authorRouter);
 app.use('/users', userRouter);
-app.use('/category', categoryRouter);
+app.use('/categories', categoryRouter);
 app.use('/books', bookRouter);
 
 const server = app.listen(port, (err) => {

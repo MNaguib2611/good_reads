@@ -22,6 +22,14 @@ router.patch('/profile/:id',ensureAuthentication,userController.updateProfile );
 
 router.patch('/password_update',ensureAuthentication,userController.passwordUpdate )
 
+/*
+*
+* POST /users/:user_id/books/:id
+* Return { "message": "your Shelves updated successfully" } if updated successfully
+* Or 500 status code if there is an error
+*
+* */
+router.post('/:user_id/books/:id',userController.manageShelves)
 
 //we may need a separate router for this
 

@@ -1,10 +1,6 @@
 const {UserModel} = require('../models/allModels');
 const bcrypt = require('bcrypt');
 
-
-
-
-
 const getAllAdmins = function (req, res) {    
     UserModel.find({"isAdmin":true}, function (err, admins) {
         res.json(admins);
@@ -100,7 +96,7 @@ const adminPassUpdate = async function (req, res) {
     } = req;
 
     if ( await bcrypt.compare(password,req.user.password)) {
-        console.log("asdsadsad");
+        console.log("705-831-3812asdsadsad");
         
         UserModel.findByIdAndUpdate(
             { _id: req.user._id },
