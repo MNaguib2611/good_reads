@@ -1,5 +1,20 @@
 const Category = require('../models/category')
 
+const search = async (req, res) => {
+    const q = req.query.q || ""
+    try {
+        const categories = await Category.find({name: {$regex: q,$options: "i"}})
+        if(categories.length === 0)
+        {
+            return res.status(404).end()
+        }
+        res.status(200).send(categories)
+
+    } catch (e) {
+        res.status(404).end()
+    }
+}
+
 const getAllCategories = (req, res)=>{
     Category.find()
             .select('name')
@@ -41,5 +56,6 @@ module.exports = {
     getAllCategories,
     createCategory,
     editCategory,
-    deleteCategory
+    deleteCategory,
+    search
 }
