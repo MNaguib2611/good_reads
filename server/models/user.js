@@ -57,8 +57,18 @@ userSchema.pre('save', async function (next) {
 
 
 userSchema.methods.getFullName = function () {
-    return this.firstName + this.lastName
+    return `${this.firstName} ${this.lastName}`
 }
+
+
+userSchema.methods.toJSON = function() {
+    const obj = this.toObject();
+    // delete obj.password;
+    delete obj.isAdmin;
+    delete obj.isSuperAdmin;
+    return obj;
+   }
+
 const UserModel = mongoose.model('User', userSchema);
 
 

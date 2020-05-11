@@ -4,9 +4,12 @@ const bcrypt  = require('bcrypt');
 
  function initialize(passport) {     
     const authenticateUser =async (username,password,done) =>{
-        const user = await UserModel.findOne({ username: username }, function (err, user) {});
+        let user = await UserModel.findOne({ username: username }, function (err, user) {});
         if (user == null) {
-            return done(null,false,{message:'No user with that username'})
+            user = await UserModel.findOne({ email: username }, function (err, user) {});
+            if (user == null) {
+                return done(null,false,{message:'No user with that username'})
+            }
         } 
 
         try {            
