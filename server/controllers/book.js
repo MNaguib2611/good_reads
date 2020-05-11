@@ -104,8 +104,8 @@ const rate = (req, res) => {
         book.avgRate=sum/book.rate.length
         // Apply changes
         book.save().then((book) => {
-            // Return last saved document
-            res.status(200).json({"data": book.rate[book.rate.length - 1]});
+            // Return last saved document if new rate is added and rate via index if updated
+            res.status(200).json({"data": rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]});
         }).catch((err) => {
             res.status(500).json({"error": err});
         });
