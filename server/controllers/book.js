@@ -89,7 +89,7 @@ const rate = (req, res) => {
     // create rating object to save
     const rate = {
         rating: rating,
-        user: /*user._id*/{_id:"5eb292b0404a162ae4d463b7"}
+        user: user._id
     };
 
     Book.findById(bookId).then((book) => {
