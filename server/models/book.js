@@ -18,36 +18,40 @@ const rate = new Schema({
 });
 
 const book = new Schema({
-    name: {
-        type: String,
-        required: [true, 'Name is required!'],
-        unique: true,
-        trim: true
+        name: {
+            type: String,
+            required: [true, 'Name is required!'],
+            unique: true,
+            trim: true
+        },
+        description: {
+            type: String,
+            default: null,
+            trim: true
+        },
+        image: {
+            type: String,
+            default: null
+        },
+        avgRate: {
+            type: Number,
+            default: 0
+        },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: [true, 'Category is required!'],
+            ref: 'Category'
+        },
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: [true, 'Author is required!'],
+            ref: 'Author'
+        },
+        rate: [rate]
     },
-    description: {
-        type: String,
-        default: null,
-        trim: true
-    },
-    image: {
-        type: String,
-        default: null
-    },
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Category is required!'],
-        ref: 'Category'
-    },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, 'Author is required!'],
-        ref: 'Author'
-    },
-    rate: [rate]
-}, 
-{
-    timestamps: true
-});
+    {
+        timestamps: true
+    });
 
 const Book = mongoose.model('Book', book);
 

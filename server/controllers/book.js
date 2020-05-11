@@ -97,6 +97,11 @@ const rate = (req, res) => {
         
         // Check if the user has already a rate to alter if not push a new rate object
         rateIndex === -1 ? book.rate.push(rate) : book.rate[rateIndex].rating = rating;
+        // calculate avrage rate
+        const sum = book.rate.reduce((sum,rate)=>{
+            return sum+rate.rating;
+        },0)
+        book.avgRate=sum/book.rate.length
         // Apply changes
         book.save().then((book) => {
             // Return last saved document

@@ -1,4 +1,4 @@
-const {UserModel} = require('../models/allModels');
+const {UserModel,BookModel} = require('../models/allModels');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -117,38 +117,63 @@ const getUserBooks = async (req, res) => {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
-    const limit = 2;
-    const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
-        $lookup: {
-            from: "books",
-            localField: "books.book",
-            foreignField: "_id",
-            as: "books.book"
-        }
-    }, {$unwind: '$books.book'}, {$addFields: {'books.authors': []}}, {
-        $lookup: {
-            from: "authors",
-            localField: "books.book.author",
-            foreignField: "_id",
-            as: "books.authors"
-        }
-    }, {$unwind: '$books.authors'}, {
-        $group: {
-            _id: '$_id',
-            books: {$push: '$books'}
-        },
-    }, {$addFields: {'pages': {...pages}}}, {
-        $project: {
-            pages: {
-                ...pages,
-                "numberOfBooks": {$cond: {if: {$isArray: "$books"}, then: {$size: "$books"}, else: "NA"}},
-                "hasNext": {$gt: [{$size: "$books"}, (page + 1) * limit]}
+    const limit = 20;
+    try
+    {
+        const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
+            $lookup: {
+                from: "books",
+                localField: "books.book",
+                foreignField: "_id",
+                as: "books.book"
+            }
+        }, {$unwind: '$books.book'}, {$addFields: {'books.authors': []}}, {
+            $lookup: {
+                from: "authors",
+                localField: "books.book.author",
+                foreignField: "_id",
+                as: "books.authors"
+            }
+        }, {$unwind: '$books.authors'}, {
+            $group: {
+                _id: '$_id',
+                books: {$push: '$books'}
             },
-            books: 1,
-            books: {$slice: ["$books", page * limit, limit]}
-        },
-    }]).exec()
-    return res.send(user[0])
+        }, {$addFields: {'pages': {...pages}}}, {
+            $project: {
+                pages: {
+                    ...pages,
+                    "numberOfBooks": {$cond: {if: {$isArray: "$books"}, then: {$size: "$books"}, else: "NA"}},
+                    "hasNext": {$gt: [{$size: "$books"}, (page + 1) * limit]}
+                },
+                books: 1,
+                books: {$slice: ["$books", page * limit, limit]}
+            },
+        }]).exec()
+        if(user.length ===0|| user[0].books.length === 0){
+            return res.status(404).end();
+        }
+        const result = user[0]
+        /*result.books.forEach(async (book)=>*/for (let i=0;i<result.books.length;++i){
+            const book = result.books[i];
+            // console.log(book.book.rate[0].user)
+            const books= (await BookModel.findOne({_id:mongoose.Types.ObjectId(book.book._id),"rate.user":mongoose.Types.ObjectId(userId)},{"rate.user":{$elemMatch:mongoose.Types.ObjectId(userId)}}))
+            if(books){
+                const rate = books.rate.reduce((acc,rate)=>{
+                    if(rate.user.toString() === userId) {
+                        return acc + rate.rating
+                    }
+                    return acc
+                },0)
+                book.book.userRate = rate
+                // console.log("fddfddf",book)
+            }
+            // return book
+        }
+        return res.send(result)
+    } catch (e) {
+        return res.status(500).end()
+    }
 }
 
 
