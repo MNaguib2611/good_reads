@@ -29,24 +29,22 @@ const updateProfile = async function (req, res) {
             image,
         }
     } = req;
-    UserModel.findByIdAndUpdate(
-        {_id: req.user._id},
-        {
-            firstName,
-            lastName,
-            image,
-        },
-        function (err, result) {
+    const user = await UserModel.findById(req.user.id)
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.image = image;
 
-            if (err) {
-                console.log(err);
-                res.status(424).json({"message": "something went wrong"});
-            } else {
-                res.status(200).json({"message": "Account has been updated successfully"});
-            }
+    user.save((err) =>{
+        if (err) {
+            console.log(err);
+            res.status(424).json({"message":err.message});
+        } else {
+            res.status(200).json({"message": "Account has been updated successfully"});
+        }
 
-        })
+    })
 }
+
 const passwordUpdate = async function (req, res) {
     const {
         body: {
@@ -54,27 +52,20 @@ const passwordUpdate = async function (req, res) {
             newPassword
         }
     } = req;
-
-    if (await bcrypt.compare(password, req.user.password)) {
-        console.log("asdsadsad");
-
-        UserModel.findByIdAndUpdate(
-            {_id: req.user._id},
-            {
-                "password": await bcrypt.hash(newPassword, 8)
-            },
-            function (err, result) {
-
-                if (err) {
-                    console.log(err);
-                    res.status(424).json({"message": "something went wrong"});
-                } else {
-                    res.status(200).json({"message": "Password has been updated successfully"});
-                }
-
-            })
-    } else {
-        res.status(424).json({"message": "wrong password"});
+    
+    const user = await UserModel.findById(req.user.id)
+    if ( await bcrypt.compare(password,user.password)) {
+        user.password = newPassword;
+        user.save((err) =>{
+            if(err){
+                res.status(424).json({"message":err.message});
+            }
+            else{
+                res.status(200).json({"message":"Password has been updated successfully"});
+            }
+        })
+    }else{
+        res.status(424).json({"message":"wrong password"});
     }
 }
 

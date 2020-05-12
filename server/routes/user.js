@@ -34,8 +34,8 @@ router.post('/:user_id/books/:id',userController.manageShelves);
 
 router.get('/:user_id/books',userController.getUserBooks);
 
-//we may need a separate router for this
 
+//we may need a separate router for this
 // router.get('/:id/comments', function (req, res) {
 //     UserModel.findOne({'_id': req.params.id}).populate('comments').exec((err, user) => {
 //         res.json(user.posts);
@@ -43,22 +43,8 @@ router.get('/:user_id/books',userController.getUserBooks);
 
 // });
 
-// router.get('/:id/comments', function (req, res) {
-//     UserModel.findOne({'_id': req.params.id}).populate('books').exec((err, user) => {
-//         res.json(user.posts);
-//     });
-// });
 
-// router.post('/wantToReadBook', function (req, res) {
 
-// });
-
-// router.post('/readBook', function (req, res) {
-
-// });
-// router.post('/readingBook', function (req, res) {
-
-// });
 
 
 module.exports = router;

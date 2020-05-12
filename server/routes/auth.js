@@ -120,7 +120,7 @@ router.delete('/logout', (req, res) => {
 
 
 router.get("/", ensureAuthentication, (req, res) => {
-    res.json({"message": `welcome ${req.user.firstName}`});
+    res.json({"message": `welcome ${req.user.getFullName()}`});
 })
 
 
