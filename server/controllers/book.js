@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Book = require('../models/book');
+const User = require('../models/user');
 
 const search = async (req, res) => {
     const q = req.query.q || ""
@@ -27,7 +28,7 @@ const categoryBooks = (req, res)=>{
 
 // Retrieve all books
 const all = (req, res) => {
-    Book.find({}).then((books) => {
+    Book.find({}).populate('author').populate('category').then((books) => {
         res.status(200).json({"data": books});
     }).catch((err) => {
         res.status(500).json({"error": err});
@@ -52,9 +53,9 @@ const create = (req, res) => {
 const update = (req, res) => {
     const bookId = req.params.bookId;
 
-    Book.findOneAndUpdate({_id: bookId}, {
+    Book.findByIdAndUpdate(bookId, {
         ...req.body,
-        image: req.file.path
+        image: req.file && req.file.path
     }).then((book) => {
         // if a new image is added remove old one
         if(req.file){
@@ -97,11 +98,11 @@ const rate = (req, res) => {
         
         // Check if the user has already a rate to alter if not push a new rate object
         rateIndex === -1 ? book.rate.push(rate) : book.rate[rateIndex].rating = rating;
-        // calculate avrage rate
+        // calculate average rate
         const sum = book.rate.reduce((sum,rate)=>{
             return sum+rate.rating;
-        },0)
-        book.avgRate=sum/book.rate.length
+        },0);
+        book.avgRate=sum/book.rate.length;
         // Apply changes
         book.save().then((book) => {
             // Return last saved document if new rate is added and rate via index if updated
@@ -114,6 +115,15 @@ const rate = (req, res) => {
     })
 }
 
+const popular = (req, res) => {
+    // Retrieve books sorted by popularity and limited to 9
+    Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('author').populate('category').then((books) => {
+        res.status(200).json({"data": books});
+    }).catch((err) => {
+        res.status(500).json({"error": err});
+    });
+};
+
 module.exports = {
     categoryBooks,
     all,
@@ -121,5 +131,6 @@ module.exports = {
     update,
     remove,
     rate,
-    search
+    search,
+    popular
 }

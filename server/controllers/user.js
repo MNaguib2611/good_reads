@@ -83,20 +83,25 @@ const manageShelves = async (req, res) => {
     const bookId = req.params["id"];
     const userId = req.params["user_id"];
     const {body: {status}} = req;
-    console.log(bookId, status, userId);
+    
     try {
-        const user = await UserModel.findById(userId)
+        const user = await UserModel.findById(userId);
         let bookIsExist = false
         user.books = user.books.map((book) => {
             if (book.book.toString() === bookId) {
-                book.status = status
-                bookIsExist = true
+                book.status = status;
+                bookIsExist = true;
             }
             return book
         })
 
         if (!bookIsExist) {
-            user.books = user.books.concat({book: mongoose.Types.ObjectId(bookId), status})
+            user.books = user.books.concat({book: mongoose.Types.ObjectId(bookId), status});
+            BookModel.findByIdAndUpdate(bookId, {
+                $inc: { 
+                    popularity: 1
+                } 
+            }, {new: true});
         }
         await user.save()
         return res.send({"message": "your Shelves updated successfully"})
@@ -108,7 +113,7 @@ const manageShelves = async (req, res) => {
 
 const getUserBooks = async (req, res) => {
     const userId = req.params["user_id"];
-    const statusOptions = ['read', "reading", "want to read"];
+    const statusOptions = ["read", "reading", "want to read"];
     const status = (req.query.status && [statusOptions[req.query.status - 1]]) || statusOptions
     const pages = {
         hasPrevious: null
