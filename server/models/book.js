@@ -37,6 +37,10 @@ const book = new Schema({
             type: Number,
             default: 0
         },
+        popularity: {
+            type: Number,
+            default: 0
+        },
         category: {
             type: mongoose.Schema.Types.ObjectId,
             required: [true, 'Category is required!'],

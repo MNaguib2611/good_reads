@@ -16,28 +16,21 @@ router.route('/search').get(bookController.search);
 const upload = multer({ dest: 'public/uploads/' });
 
 // Retrieve all created books
-router.get('/', (req, res) => {
-    bookController.all(req, res);
-});
+router.get('/', bookController.all);
 
 // Create new book
-router.post('/', upload.single('image'), (req, res) => {
-    bookController.create(req, res);
-});
+router.post('/', upload.single('image'), bookController.create);
 
 // Update created book
-router.put('/:bookId', upload.single('image'), (req, res) => {
-    bookController.update(req, res);
-});
+router.put('/:bookId', upload.single('image'), bookController.update);
 
 // Delete selected book
-router.delete('/:bookId', (req, res) => {
-    bookController.remove(req, res);
-});
+router.delete('/:bookId', bookController.remove);
 
 // Rate selected book
-router.post('/:bookId/rate', (req, res) => {
-    bookController.rate(req, res);
-});
+router.post('/:bookId/rate', bookController.rate);
+
+// Retrieve popular books
+router.get('/popular', bookController.popular);
 
 module.exports = router;
