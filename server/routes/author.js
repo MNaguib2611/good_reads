@@ -49,7 +49,7 @@ router.get('/:id',authorController.getAuthorById)
 router.delete('/:id',authorController.deleteAuthor)
 
 //update author
-router.put('/edit/:id',authorController.updateAuthor)
+router.put('/edit/:id',upload.single('image'), authorController.updateAuthor)
 
 //get author books
 router.get('/books/:author', bookController.getAuthorBooks)

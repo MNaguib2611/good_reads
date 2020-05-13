@@ -28,7 +28,7 @@ const getAllAuthors = (req, res) => {
 const addAuthor = (req, res) => {
     const author = new Author({
         ...req.body,
-        image: req.file.path || null
+        image: req.file && req.file.path
     });
     author.save()
         .then(() => res.status(200).json({"data": author}))
@@ -47,6 +47,7 @@ const deleteAuthor = (req, res) => {
     const authorId = req.params.id;
 
     Author.findByIdAndDelete(authorId).then((author) => {
+        fs.unlinkSync(author.image);
         res.status(200).json({"data": author});
     }).catch((err) => {
         res.status(400).json({"error": err});
