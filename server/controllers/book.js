@@ -1,19 +1,22 @@
 const fs = require('fs');
-const Book = require('../models/book');
-const User = require('../models/user');
+const Book = require('../models/Book');
 
 const search = async (req, res) => {
     const q = req.query.q || ""
     try {
-        const books = await Book.find({name: {$regex: q,$options: "i"}})
+        const books = await Book.find({
+            name: {
+                $regex: q, $options: "i"
+            }
+        });
         if(books.length === 0)
         {
-            return res.status(404).end()
+            return res.status(404).end();
         }
-        res.status(200).send(books)
+        res.status(200).send(books);
 
     } catch (e) {
-        res.status(404).end()
+        res.status(404).end();
     }
 }
 
@@ -109,8 +112,8 @@ const rate = (req, res) => {
         // Check if the user has already a rate to alter if not push a new rate object
         rateIndex === -1 ? book.rate.push(rate) : book.rate[rateIndex].rating = rating;
         // calculate average rate
-        const sum = book.rate.reduce((sum,rate)=>{
-            return sum+rate.rating;
+        const sum = book.rate.reduce((sum,rate) => {
+            return sum+rate.rating
         },0);
         book.avgRate=sum/book.rate.length;
         // Apply changes
