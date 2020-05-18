@@ -61,6 +61,7 @@ userSchema.virtual('comment', {
     localField: '_id',
     foreignField: 'user'
 })
+
 userSchema.methods.getFullName = function () {
     return `${this.firstName} ${this.lastName}`
 }

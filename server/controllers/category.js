@@ -54,9 +54,10 @@ const deleteCategory = (req, res)=>{
 const categoryBooks = async (req, res)=>{
     try {
         const category = await Category.findById(req.params.category);
+        // console.log(category);
         await category.populate('books').execPopulate();
         // console.log(category.books);
-        if (!books) {
+        if (!category.books) {
             res.status(404).send('not found')
         }
         res.status(200).json(category.books)

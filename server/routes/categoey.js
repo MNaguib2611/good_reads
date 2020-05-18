@@ -6,11 +6,11 @@ const categoryController = require('../controllers/category')
 
 router.get('/', categoryController.getAllCategories)
 
-// router.get('/:category', categoryController.categoryBooks)
+router.get('/:category', categoryController.categoryBooks)
 
-router.post('/add', categoryController.createCategory)
+router.post('/', categoryController.createCategory)
 
-router.patch('/edit/:id', categoryController.editCategory)
+router.patch('/:id', categoryController.editCategory)
 
 router.delete('/:id', categoryController.deleteCategory)
 

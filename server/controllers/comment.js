@@ -9,27 +9,51 @@ const saveComment = async (req, res)=>{
         const book = req.body.book;
         const newComment = new CommentModel({content, user, book})
         await newComment.save()
-        res.status(201).json('Category has been created!')
+        res.status(201).json('Comment has been saved')
     } catch (error) {
         res.status(500).json('Error: ' + error)
     }
 }
 
-const retrieveComments = async (req, res)=>{
+const getAllComments = async (req, res) => {
     try {
-        const user = await User.findById(req.params.user);
-        await user.populate('comments').execPopulate();
-        // console.log(category.books);
-        if (!comments) {
+        const comments = await CommentModel.find().select('content');
+        if(!comments){
             res.status(404).send('not found');
         }
-        res.status(200).json(user.comment);
+        res.status(200).json(comments)
     } catch (error) {
         res.status(500).json(error);
     }
 }
 
+const userComments = async (req, res)=>{
+    // try {
+    //     // console.log(req.params.user);
+    //     const user = await User.findById(req.params.user);
+    //     // console.log(user);
+    //     await user.populate('comments').execPopulate();
+    //     console.log(user.comment);
+    //     if (!user.comment) {
+    //         res.status(404).send('not found');
+    //     }
+    //     res.status(200).json(user.comment);
+    // } catch (error) {
+    //     res.status(500).json(error);
+    // }
+    CommentModel.find({user: req.params.user})
+    .select('content')
+    .then(comments=> {
+        if (!comments) {
+            res.status(404).send('not found');
+        }
+        res.status(200).json(comments);
+    })
+    .catch(err => res.status(500).json(error))
+}
+
 module.exports = {
     saveComment,
-    retrieveComments,
+    userComments,
+    getAllComments,
 }
