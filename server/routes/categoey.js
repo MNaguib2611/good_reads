@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const categoryController = require('../controllers/category')
-const bookController = require('../controllers/book')
+// const bookController = require('../controllers/book')
 
 router.get('/', categoryController.getAllCategories)
 
-router.get('/:category', bookController.categoryBooks)
+// router.get('/:category', categoryController.categoryBooks)
 
 router.post('/add', categoryController.createCategory)
 

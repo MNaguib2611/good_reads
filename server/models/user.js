@@ -45,7 +45,11 @@ userSchema.pre('save',async function (next) {
 })
 
 
-
+userSchema.virtual('comment', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'user'
+})
 
 
 
