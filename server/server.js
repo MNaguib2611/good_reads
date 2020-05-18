@@ -11,7 +11,9 @@ const flash = require('express-flash');
 const app = express();
 // const {ensureNotAuthentication, ensureAuthentication} = require('./middlewares/auth.js');
 // const authorRouter = require('./routes/author');
-const {authRouter,authorRouter,adminRouter,userRouter, categoryRouter, commentRouter}   =  require('./routes/allRoutes');
+const {authRouter, authorRouter, adminRouter, userRouter, categoryRouter, bookRouter, commentRouter} = require('./routes/allRoutes');
+const port = process.env.SESSION_PORT || 3000;
+
 
 
 
@@ -34,7 +36,6 @@ mongoose.connect("mongodb://localhost:27017/good_reads",{
 //     id => users.find(user => user.id === id)
 // )
 
-
 // Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -53,7 +54,7 @@ app.use(passport.session());
 
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(express.static('public'));
 
 
 
@@ -73,10 +74,10 @@ app.use('/admin', adminRouter);
 // user routes
 app.use('/authors', authorRouter);
 app.use('/users', userRouter);
-app.use('/category', categoryRouter);
+app.use('/categories', categoryRouter);
+app.use('/books', bookRouter);
 app.use('/comments', commentRouter);
 
-const server = app.listen(process.env.SESSION_PORT, (err) => {
-    if (!err) console.log('\x1b[32m%s\x1b[0m', `Server was started on port ${process.env.SESSION_PORT}`);
-    
+const server = app.listen(port, (err) => {
+    if (!err) console.log('\x1b[32m%s\x1b[0m', `Server was started on port ${port}`);
 });

@@ -1,16 +1,20 @@
 const router = require('express').Router();
 const multer = require('multer');
 let authorController = require('../controllers/author')
+let bookController = require('../controllers/book')
 
+
+// Set upload files destination and file name
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './uploads/');
+        cb(null, 'public/uploads/');
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + file.originalname);
+        cb(null, file.originalname);
     }
 });
 
+// Set filters to image upload
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
         cb(null,true)
@@ -19,9 +23,10 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
+// Apply multer option to image upload
 const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter
+    storage,
+    fileFilter
 });
 
 /*
@@ -35,7 +40,7 @@ router.route('/search').get(authorController.search);
 router.get('/',authorController.getAllAuthors);
 
 //add new author
-router.post('/add',upload.single('photo'), authorController.addAuthor);
+router.post('/add',upload.single('image'), authorController.addAuthor);
 
 //get author by id
 router.get('/:id',authorController.getAuthorById)
@@ -44,7 +49,10 @@ router.get('/:id',authorController.getAuthorById)
 router.delete('/:id',authorController.deleteAuthor)
 
 //update author
-router.put('/edit/:id',authorController.editAuthor)
+router.put('/edit/:id',upload.single('image'), authorController.updateAuthor)
+
+//get author books
+router.get('/books/:author', bookController.getAuthorBooks)
 
 
 module.exports = router;

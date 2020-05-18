@@ -1,6 +1,6 @@
 const UserModel   = require('./user');
 const AuthorModel = require('./author');
-const BookModel = require('./book');
+const BookModel = require('./Book');
 
 
 

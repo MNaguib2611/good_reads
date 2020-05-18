@@ -16,7 +16,7 @@ router.get('/admins/:id', [ensureAuthentication,isAdmin], adminController.getOne
 
 
 //get all endusers
-router.get('/users', [ ensureAuthentication,isAdmin],adminController.getAllUsers);7
+router.get('/users', [ ensureAuthentication,isAdmin],adminController.getAllUsers);
 
 
 //get one enduser

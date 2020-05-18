@@ -1,10 +1,6 @@
 const {UserModel} = require('../models/allModels');
 const bcrypt = require('bcrypt');
 
-
-
-
-
 const getAllAdmins = function (req, res) {    
     UserModel.find({"isAdmin":true}, function (err, admins) {
         res.json(admins);
@@ -71,22 +67,23 @@ const adminPassReset =async function (req, res) {
     const {
         body: {password}
     } = req;
-    UserModel.findByIdAndUpdate(
-        { _id: req.params.id },
-        {
-            "password":await bcrypt.hash(password, 8)
-        },
-         function(err, result){
+    const admin = await UserModel.findById(req.params.id)
+    if (admin.isAdmin==false) {
+        res.status(424).json({"message":"this user is not an admin"});
+    }else{
 
-        if(err){
-            console.log(err);
-            res.status(424).json({"message":"something went wrong"});
-        }
-        else{
-            res.status(200).json({"message":"Admin has been updated successfully"});
-        }
-
-    })
+        admin.password = password;
+        admin.save((err) =>{
+            if(err){
+                // console.log(err);
+                res.status(424).json({"message":err.message});
+            }
+            else{
+                res.status(200).json({"message":"Admin has been updated successfully"});
+            }
+        })
+    }
+   
 }
 
 
@@ -98,25 +95,17 @@ const adminPassUpdate = async function (req, res) {
             newPassword
         }
     } = req;
-
-    if ( await bcrypt.compare(password,req.user.password)) {
-        console.log("asdsadsad");
-        
-        UserModel.findByIdAndUpdate(
-            { _id: req.user._id },
-            {
-                "password":await bcrypt.hash(newPassword, 8)
-            },
-             function(err, result){
     
+    const admin = await UserModel.findById(req.user.id)
+    if ( await bcrypt.compare(password,admin.password)) {
+        admin.password = newPassword;
+        admin.save((err) =>{
             if(err){
-                console.log(err);
-                res.status(424).json({"message":"something went wrong"});
+                res.status(424).json({"message":err.message});
             }
             else{
                 res.status(200).json({"message":"Password has been updated successfully"});
             }
-    
         })
     }else{
         res.status(424).json({"message":"wrong password"});
