@@ -1,12 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import Header from "./components/Header";
+import Login from "./components/auth/Login";
+
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div >
-        <Header/>
+
+    <Router>
+    <div>
+     <Navbar handleSearchedString={this.handleSearchedString} />
+      <Switch>
+        <Route exact path="/">
+        <div >
+          <Header/>
+        </div>
+        </Route>
+      </Switch>
     </div>
+  </Router>
   );
 }
 
