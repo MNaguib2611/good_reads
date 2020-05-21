@@ -13,6 +13,10 @@ const AuthorSchema = Schema({
             default: null,
             trim: true
         },
+        popularity: {
+            type: Number,
+            default: 0
+        },
         dateOfBirth: {
             type: Date,
         },

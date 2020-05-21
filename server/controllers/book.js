@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Book = require('../models/Book');
+const { UserModel } = require('../models/allModels');
 
 const search = async (req, res) => {
     const q = req.query.q || ""
@@ -95,6 +96,36 @@ const remove = (req, res) => {
     })
 };
 
+// Get User book shelve option
+const option = async (bookId, userId) => {
+    const user = await UserModel.findById(userId);
+    // Find book in user's books using current book id
+    return user.books.find((book) => book.book.toString() === bookId.toString());
+};
+
+// Get each book
+const book = (req, res) => {
+    const bookId = req.params.bookId;
+
+    // Find book by id and populate author and category data
+    Book.findById(bookId).populate('author').populate('category').then((book) => {
+        if(req.user){
+            // Get user book status options and rating
+            option(book._id, req.user._id).then(option => {
+                // Find user rating on current book
+                const rating = book.rate.find(rate => rate.user.toString() === req.user._id.toString());
+                // Check if the book is selected by user
+                res.status(200).json({"data": {book, status: option? option.status : "not selected", userRate: rating ? rating.rating : 0}});
+            });
+        }else{
+            // Return book data with no user activity
+            res.status(200).json({"data": book});
+        }
+    }).catch((err) => {
+        res.status(500).json({"error": err});
+    });
+};
+
 // Rate book
 const rate = (req, res) => {
     const bookId = req.params.bookId;
@@ -145,5 +176,11 @@ module.exports = {
     remove,
     rate,
     search,
+<<<<<<< HEAD
+    popular,
+    book
+}
+=======
     popular
 }
+>>>>>>> 24fc1abc64e8b298e6b28663ea41453e1c837f64
