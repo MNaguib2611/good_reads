@@ -23,7 +23,8 @@ const port = process.env.SESSION_PORT || 3000;
 mongoose.connect("mongodb://localhost:27017/good_reads",{
     useCreateIndex: true,
     useNewUrlParser:true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 },(err)=>{
     if (!err) console.log('\x1b[32m%s\x1b[0m','Connected to Mongodb');
     else console.log(err);

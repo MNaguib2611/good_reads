@@ -176,11 +176,8 @@ module.exports = {
     remove,
     rate,
     search,
-<<<<<<< HEAD
+
     popular,
     book
 }
-=======
-    popular
-}
->>>>>>> 24fc1abc64e8b298e6b28663ea41453e1c837f64
+

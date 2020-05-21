@@ -37,14 +37,14 @@ const BookCard = () => {
             </div>
             <ChangeStateBtn/>
             <div className="rating-container">
-                <p >Avg Rate: </p>
+                <p className="rate-text">Avg Rate: </p>
                 <ReactStars
                     count={5}
                     size={24}
                     value={2}
                     edit={false}
                     color2={'#F99A3D'} />
-                <p >Rate it: </p>
+                <p className="rate-text">Rate it: </p>
                 <ReactStars
                     count={5}
                     onChange={ratingChanged}
