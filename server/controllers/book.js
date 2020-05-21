@@ -21,14 +21,14 @@ const search = async (req, res) => {
     }
 }
 
-const categoryBooks = (req, res)=>{
-    Book.find({category: req.params.category})
-        .select('name author image')
-        .then(categories=> {
-            res.status(200).json(categories)
-        })
-        .catch(err => res.status(400).json('Error: ' + err))
-}
+// const categoryBooks = (req, res)=>{
+//     Book.find({category: req.params.category})
+//         .select('name author image')
+//         .then(categories=> {
+//             res.status(200).json(categories)
+//         })
+//         .catch(err => res.status(400).json('Error: ' + err))
+// }
 
 //get author's books
 const getAuthorBooks = (req, res)=>{
@@ -170,13 +170,17 @@ const popular = (req, res) => {
 
 module.exports = {
     getAuthorBooks,
-    categoryBooks,
     all,
     create,
     update,
     remove,
     rate,
     search,
+<<<<<<< HEAD
     popular,
     book
 }
+=======
+    popular
+}
+>>>>>>> 24fc1abc64e8b298e6b28663ea41453e1c837f64
