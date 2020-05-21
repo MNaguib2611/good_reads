@@ -3,6 +3,7 @@ import Header from "../Header";
 import '../../styles/my_books.scss';
 import Sidebar from "./Sidebar";
 import BookCard from "../BookCard";
+import Pagination from "./Pagination";
 
 const MyBooksPage = () => {
     return (<div className="page-container">
@@ -15,6 +16,7 @@ const MyBooksPage = () => {
                 <BookCard/>
                 <BookCard/>
                 <BookCard/>
+                <Pagination/>
             </div>
         </div>
     </div>)
