@@ -42,8 +42,26 @@ const getAuthorBooks = (req, res)=>{
 
 // Retrieve all books
 const all = (req, res) => {
-    Book.find({}).populate('author').populate('category').then((books) => {
-        res.status(200).json({"data": books});
+    const perPage = req.query.page ? 8 : null; // Books per page
+    const page = perPage ? parseInt(req.query.page) : 0; // Check if there is a query string for page number
+
+    // Skip data till last fetched document and limit to perpage variable, Limit will be null if no query parameter for page found
+    Book.find({}, null, { skip: perPage * (page-1), limit: perPage }).populate('author').populate('category').then((books) => {
+        // Get all book documents count
+        Book.countDocuments().exec((err, count) => {
+            if (err) res.status(500).end();
+
+            const data = perPage ? {
+                // return book data with current page number and all pages available
+                "data": {
+                    books,
+                    page,
+                    pages: parseInt(count/perPage)+1 // Count number of available pages
+                }
+            } : {"data": books};
+
+            res.status(200).json(data);
+        });
     }).catch((err) => {
         res.status(500).json({"error": err});
     });
