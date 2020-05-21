@@ -73,13 +73,13 @@ router.post('/register', ensureNotAuthentication, async function (req, res) {
 
 
 router.get("/fail", (req, res) => {
-    res.status(401).json({"message": "Login Failed"})
+    res.status(250).json({"message": "Login Failed"})
 })
 
 
 router.get("/success", (req, res) => {
     if (req.user.isAdmin) {
-        res.status(200).json({"message": "Admin Login success"})     
+        res.status(201).json({"message": "Admin Login success"})     
     } else {
         res.status(200).json({"message": "Login success"})     
     }
@@ -87,7 +87,7 @@ router.get("/success", (req, res) => {
 
 
 router.get("/logoutToView", (req, res) => {
-    res.json({"message": "You should logout to view that page"})
+    res.status(250).json({"message": "You should logout to view that page"})
 })
 
 router.get("/loginToView", ensureNotAuthentication, (req, res) => {
@@ -96,7 +96,7 @@ router.get("/loginToView", ensureNotAuthentication, (req, res) => {
 
 
 router.get("/login", ensureNotAuthentication, (req, res) => {
-    res.json({"message": "You can login here."});
+    res.status(200).json({"message": "You can login here."});
 })
 
 router.post("/login", ensureNotAuthentication, passport.authenticate('local', {

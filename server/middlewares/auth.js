@@ -1,5 +1,8 @@
 function ensureNotAuthentication(req, res, next) {
-    // console.log(req.user);
+    console.log(req.user);
+    console.log("--------------------------");
+    console.log(req);
+
     if (req.isAuthenticated()) {
         res.redirect('/logoutToView');
     } else {

@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const cookieSession = require('cookie-session');
 const passport = require('passport');
 const cors = require('cors')
 const flash = require('express-flash');
@@ -52,15 +53,22 @@ app.use(passport.initialize());
 // persistent login session
 app.use(passport.session());
 
-app.use(cors());
+
+
 app.use(express.json());
 app.use(express.static('public'));
 
 
 
 
-
-
+// app.use(cors());
+app.use(cors({
+  "origin": "http://localhost:3000",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": true,
+  "optionsSuccessStatus": 200,
+  "credentials": true
+}));
 
 //authentication routes
 app.use("/",authRouter);
