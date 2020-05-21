@@ -27,6 +27,9 @@ router.put('/:bookId', upload.single('image'), bookController.update);
 // Delete selected book
 router.delete('/:bookId', bookController.remove);
 
+// Retrieve one book
+router.get('/:bookId', bookController.book);
+
 // Rate selected book
 router.post('/:bookId/rate', bookController.rate);
 

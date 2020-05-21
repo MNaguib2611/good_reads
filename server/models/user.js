@@ -33,14 +33,14 @@ const userSchema = new mongoose.Schema({
     },
     image: {type: String,/* required: [true, "Image is required"]*/},
     comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}],
-    books: [{
-        book: {type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true},
-        status: {
-            type: String, enum: {
-                values: ["read", "reading", "want to read"], message: 'Status is required.'
-            }, required: true
-        }
-    }],
+    // books: [{
+    //     book: {type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true},
+    //     status: {
+    //         type: String, enum: {
+    //             values: ["read", "reading", "want to read"], message: 'Status is required.'
+    //         }, required: true
+    //     }
+    // }],
     lastActive: {type: Date},
 }, {
     timestamps: true,

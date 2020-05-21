@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Book = require('../models/Book');
+const { UserModel } = require('../models/allModels');
 
 const search = async (req, res) => {
     const q = req.query.q || ""
@@ -41,8 +42,26 @@ const getAuthorBooks = (req, res)=>{
 
 // Retrieve all books
 const all = (req, res) => {
-    Book.find({}).populate('author').populate('category').then((books) => {
-        res.status(200).json({"data": books});
+    const perPage = req.query.page ? 8 : null; // Books per page
+    const page = perPage ? parseInt(req.query.page) : 0; // Check if there is a query string for page number
+
+    // Skip data till last fetched document and limit to perpage variable, Limit will be null if no query parameter for page found
+    Book.find({}, null, { skip: perPage * (page-1), limit: perPage }).populate('author').populate('category').then((books) => {
+        // Get all book documents count
+        Book.countDocuments().exec((err, count) => {
+            if (err) res.status(500).end();
+
+            const data = perPage ? {
+                // return book data with current page number and all pages available
+                "data": {
+                    books,
+                    page,
+                    pages: parseInt(count/perPage)+1 // Count number of available pages
+                }
+            } : {"data": books};
+
+            res.status(200).json(data);
+        });
     }).catch((err) => {
         res.status(500).json({"error": err});
     });
@@ -95,6 +114,36 @@ const remove = (req, res) => {
     })
 };
 
+// Get User book shelve option
+const option = async (bookId, userId) => {
+    const user = await UserModel.findById(userId);
+    // Find book in user's books using current book id
+    return user.books.find((book) => book.book.toString() === bookId.toString());
+};
+
+// Get each book
+const book = (req, res) => {
+    const bookId = req.params.bookId;
+
+    // Find book by id and populate author and category data
+    Book.findById(bookId).populate('author').populate('category').then((book) => {
+        if(req.user){
+            // Get user book status options and rating
+            option(book._id, req.user._id).then(option => {
+                // Find user rating on current book
+                const rating = book.rate.find(rate => rate.user.toString() === req.user._id.toString());
+                // Check if the book is selected by user
+                res.status(200).json({"data": {book, status: option? option.status : "not selected", userRate: rating ? rating.rating : 0}});
+            });
+        }else{
+            // Return book data with no user activity
+            res.status(200).json({"data": book});
+        }
+    }).catch((err) => {
+        res.status(500).json({"error": err});
+    });
+};
+
 // Rate book
 const rate = (req, res) => {
     const bookId = req.params.bookId;
@@ -145,5 +194,8 @@ module.exports = {
     remove,
     rate,
     search,
-    popular
+
+    popular,
+    book
 }
+

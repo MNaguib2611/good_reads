@@ -8,6 +8,7 @@ const Header = () => {
                 <li className="nav-list"><a href="#">Categories</a></li>
                 <li className="nav-list"><a href="#">Books</a></li>
                 <li className="nav-list"><a href="#">Authors</a></li>
+                <li className="nav-list"><a href="#">My Books</a></li>
             </ul>
         </div>
         <div className="search-container">

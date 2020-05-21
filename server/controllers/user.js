@@ -1,4 +1,4 @@
-const {UserModel,BookModel} = require('../models/allModels');
+const {UserModel,BookModel,UserBooksModel} = require('../models/allModels');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -76,25 +76,29 @@ const manageShelves = async (req, res) => {
     const {body: {status}} = req;
     
     try {
-        const user = await UserModel.findById(userId);
-        let bookIsExist = false
-        user.books = user.books.map((book) => {
-            if (book.book.toString() === bookId) {
-                book.status = status;
-                bookIsExist = true;
-            }
-            return book
-        })
-
-        if (!bookIsExist) {
-            user.books = user.books.concat({book: mongoose.Types.ObjectId(bookId), status});
-            BookModel.findByIdAndUpdate(bookId, {
-                $inc: { 
-                    popularity: 1
-                } 
-            }, {new: true});
-        }
-        await user.save()
+        // const user = await UserModel.findById(userId);
+        // let bookIsExist = false
+        // user.books = user.books.map((book) => {
+        //     if (book.book.toString() === bookId) {
+        //         book.status = status;
+        //         bookIsExist = true;
+        //     }
+        //     return book
+        // })
+        //
+        // if (!bookIsExist) {
+        //     user.books = user.books.concat({book: mongoose.Types.ObjectId(bookId), status});
+        //     BookModel.findByIdAndUpdate(bookId, {
+        //         $inc: {
+        //             popularity: 1
+        //         }
+        //     }, {new: true});
+        // }
+        // await user.save()
+        await UserBooksModel.findOneAndUpdate({book:mongoose.Types.ObjectId(bookId),user:mongoose.Types.ObjectId(userId)}, {status}, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
         return res.send({"message": "your Shelves updated successfully"})
     } catch (e) {
         // console.log(e)
@@ -107,16 +111,16 @@ const getUserBooks = async (req, res) => {
     const statusOptions = ["read", "reading", "want to read"];
     const status = (req.query.status && [statusOptions[req.query.status - 1]]) || statusOptions
     const pages = {
-        hasPrevious: null
+        hasPrevious: false
     }
     if (req.query.page && req.query.page > 1) {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
-    const limit = 20;
+    const limit = 2;
     try
     {
-        const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
+        /*const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
             $lookup: {
                 from: "books",
                 localField: "books.book",
@@ -150,7 +154,7 @@ const getUserBooks = async (req, res) => {
             return res.status(404).end();
         }
         const result = user[0]
-        /*result.books.forEach(async (book)=>*/for (let i=0;i<result.books.length;++i){
+        /!*result.books.forEach(async (book)=>*!/for (let i=0;i<result.books.length;++i){
             const book = result.books[i];
             // console.log(book.book.rate[0].user)
             const books= (await BookModel.findOne({_id:mongoose.Types.ObjectId(book.book._id),"rate.user":mongoose.Types.ObjectId(userId)},{"rate.user":{$elemMatch:mongoose.Types.ObjectId(userId)}}))
@@ -166,8 +170,22 @@ const getUserBooks = async (req, res) => {
             }
             // return book
         }
-        return res.send(result)
+        return res.send(result)*/
+        const booksNumbers =  await UserBooksModel.find({user:mongoose.Types.ObjectId(userId),status:{$in:status}}).countDocuments();
+        pages.hasNext = booksNumbers > (page+1)*limit;
+        const books = await UserBooksModel.find({user:mongoose.Types.ObjectId(userId),status:{$in:status}}).limit(limit).skip(limit*page).populate({
+            path: 'book',
+            select:['avgRate','image','description','name','rate'],
+            populate: {
+                path: 'author',
+                model: 'Author',
+                select:['name']
+            },
+
+        })
+        return res.send({books, pages})
     } catch (e) {
+        console.log(e)
         return res.status(500).end()
     }
 }
