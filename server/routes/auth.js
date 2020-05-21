@@ -49,12 +49,13 @@ router.post('/register', ensureNotAuthentication, async function (req, res) {
         return res.status(200).send(user);
     } catch (e) {
         if (e.errmsg && e.errmsg.indexOf('duplicate key error') !== -1) {
-            return res.status(500).send({
-                errors: {
-                    [Object.keys(e.keyValue)[0]]: {
-                        "message": `${Object.keys(e.keyValue)[0]}  already exists`
-                    }
-                }
+            return res.status(250).send({
+                // errors: {
+                //     [Object.keys(e.keyValue)[0]]: {
+                //         "message": `${Object.keys(e.keyValue)[0]}  already exists`
+                //     }
+                // }
+                    "message": `${Object.keys(e.keyValue)[0]}  already exists`
             })
         }
         return res.status(500).send(e)

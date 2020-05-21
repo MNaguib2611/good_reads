@@ -5,23 +5,26 @@ import './Authentication.css';
 import { Link, useHistory } from "react-router-dom";
 const Authentication = (props) => {
 	const history = useHistory();
-	var [errorsLogin,setErrorsLogin]=useState("");
+	const [checkedV,setCheckedV]=useState(true);
+	const [errorsLogin,setErrorsLogin]=useState("");
 	const [errorsRegister,setErrorsRegister]=useState("");
 
 	const { value:usernameLogin, bind:bindUsernameLogin, reset:resetUsernameLogin } = useInput('');
 	const { value:passwordLogin, bind:bindPasswordLogin, reset:resetPasswordLogin } = useInput('');
 
-
+	const { value:usernameRegister, bind:bindUsernameRegister, reset:resetUsernameRegister } = useInput('');
+	const { value:passwordRegister, bind:bindPasswordRegister, reset:resetPasswordRegister } = useInput('');
+	const { value:passConfRegister, bind:bindPassConfRegister, reset:resetPassConfRegister } = useInput('');
+	const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
+	const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput('');
+	const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput('');
 
 	
 
 	const loginUrl=`${process.env.REACT_APP_BACKEND_URL}/login`
-	// const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`
+	const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`
 
-	const handleChange = (e,callback)=> {
-		const {target:{value}} = e;
-		callback(value);
-	  }
+
 	  
 	const handleLoginSubmit = (e)=> {
 	e.preventDefault();
@@ -47,19 +50,19 @@ const Authentication = (props) => {
 		.catch(error => {
 		console.log("login error", error);
 		});
-	resetUsernameLogin();
 	resetPasswordLogin();
 	}
-
 
 
     return (
 <div className="login-wrap">
     <div className="login-html">
-    <input id="tab-1" type="radio" name="tab" className="sign-in" checked onChange={handleChange}/>
+    <input id="tab-1" type="radio" name="tab" className="sign-in" checked/>
         <label htmlFor="tab-1" className="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" className="sign-up"/>
-        <label htmlFor="tab-2" className="tab">Sign Up</label>
+        <label htmlFor="tab-2" className="tab">
+			<Link  to="/register">Sign Up</Link>
+		</label>
 		<div className="login-form">
 		<form onSubmit={handleLoginSubmit}>
 			<div className="sign-in-htm">
@@ -91,41 +94,6 @@ const Authentication = (props) => {
 				
 			</div>
             </form>
-			<div className="sign-up-htm">
-				<div className="group">
-					<label htmlFor="user" className="label">Username</label>
-					<input id="user" type="text" name="username" className="input"/>
-				</div>
-				<div className="group">
-					<label htmlFor="firstName" className="label">First Name</label>
-					<input id="firstName" type="text" name="firstName" className="input" />
-				</div>
-				<div className="group">
-					<label htmlFor="lastName" className="label">Last Name</label>
-					<input id="lastName" type="text" name="lastName" className="input" />
-				</div>
-				<div className="group">
-					<label htmlFor="email" className="label">Email Address</label>
-					<input id="email" type="text" name="email" className="input" />
-				</div>
-				<div className="group">
-					<label htmlFor="password" className="label">Password</label>
-					<input id="password" type="password" name="password" className="input" data-type="password" />
-				</div>
-				<div className="group">
-					<label htmlFor="password-confirm" className="label">Repeat Password</label>
-					<input id="password-confirm" type="password" name="password-confirm" className="input" data-type="password" />
-				</div>
-				<div className="group">
-					<input type="submit" className="button" value="Sign Up" />
-				</div>
-				<div style={{textAlign:"center"}}>
-					<label htmlFor="tab-1" >Already Member?</label>
-				</div>
-				<div className="errors-div">
-					{/* {errorsRegister.map((err)=> <li>err</li>)} */}
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

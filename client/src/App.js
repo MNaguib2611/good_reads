@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from "./components/Header";
-import Authentication from "./components/auth/Authentication";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,9 +23,14 @@ function App() {
             <Header/>
           </div>
         </Route>
-        <Route exact path="/authenticate">
+        <Route exact path="/login">
           <div style={{backgroundImage: `url(${authBackground})`}}>
-            <Authentication/>
+            <Login/>
+          </div>
+        </Route>
+        <Route exact path="/register">
+          <div style={{backgroundImage: `url(${authBackground})`}}>
+            <Register/>
           </div>
         </Route>
       </Switch>
