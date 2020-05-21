@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Header";
 import '../../styles/my_books.scss';
 import Sidebar from "./Sidebar";
-import BookCard from "../BookCard";
+import BookCard from "./BookCard";
 import Pagination from "./Pagination";
 
 const MyBooksPage = () => {
