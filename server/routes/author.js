@@ -25,8 +25,8 @@ const fileFilter = (req, file, cb) => {
 
 // Apply multer option to image upload
 const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter
+    storage,
+    fileFilter
 });
 
 /*
