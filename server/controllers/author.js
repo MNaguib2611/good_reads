@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Author = require('../models/author');
-const Book = require('../models/book');
+const Book = require('../models/Book');
 
 // Search for author
 const search = async (req, res) => {
