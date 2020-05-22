@@ -96,6 +96,9 @@ router.get("/loginToView", ensureNotAuthentication, (req, res) => {
 })
 
 
+
+
+
 router.get("/login", ensureNotAuthentication, (req, res) => {
     res.status(200).json({"message": "You can login here."});
 })
@@ -130,6 +133,18 @@ router.get("/notAuthorized", (req, res) => {
     res.status(401).json({"message": "unauthorized"});
 })
 
+
+
+
+
+router.get("/logged_in", (req, res) => {    
+    const user=req.user;
+    if (user) {
+        res.status(200).json({"user":user})
+    }else{
+        res.status(200).json({"user":null})
+    }
+})
 
 
 

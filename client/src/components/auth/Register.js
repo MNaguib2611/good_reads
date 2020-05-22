@@ -1,8 +1,10 @@
-import React ,{useState , useEffect} from 'react';
+import React ,{useState} from 'react';
 import { useInput } from './hooks/input-hook.js';
 import axios from 'axios';
 import './Authentication.css';
 import { Link, useHistory } from "react-router-dom";
+const authBackground ="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&w=1000&q=80"
+
 const Authentication = (props) => {
 	const history = useHistory();
 
@@ -15,10 +17,10 @@ const Authentication = (props) => {
 	const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput('');
 	const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput('');
 
-	
+	const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`;
 
-	const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`
 
+	const handleChange =(e) =>{}
 	const handleRegisterSubmit = (e)=> {
 		e.preventDefault();
 		axios.post(registerUrl,
@@ -43,6 +45,7 @@ const Authentication = (props) => {
 			});
 		}
     return (
+<div style={{backgroundImage: `url(${authBackground})`}}>
 <div className="login-wrap">
     <div className="login-html">
     <input id="tab-1" type="radio" name="tab" className="sign-in" />
@@ -50,7 +53,7 @@ const Authentication = (props) => {
 	<Link  to="/login">Sign In</Link>
 	
 	</label>
-	<input id="tab-2" type="radio" name="tab" className="sign-up" checked/>
+	<input id="tab-2" type="radio" name="tab" className="sign-up" checked onChange={handleChange}/>
 	<label htmlFor="tab-2" className="tab">Sign Up</label>
 		<div className="login-form">
 		<div className="sign-up-htm">
@@ -103,6 +106,7 @@ const Authentication = (props) => {
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 )}

@@ -1,36 +1,26 @@
-import React ,{useState , useEffect} from 'react';
+import React ,{useState } from 'react';
 import { useInput } from './hooks/input-hook.js';
 import axios from 'axios';
 import './Authentication.css';
 import { Link, useHistory } from "react-router-dom";
-const Authentication = (props) => {
+import auth from "../../auth";
+
+
+const authBackground ="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&w=1000&q=80"
+
+const Login = (props) => {
 	const history = useHistory();
-	const [checkedV,setCheckedV]=useState(true);
 	const [errorsLogin,setErrorsLogin]=useState("");
-	const [errorsRegister,setErrorsRegister]=useState("");
 
 	const { value:usernameLogin, bind:bindUsernameLogin, reset:resetUsernameLogin } = useInput('');
 	const { value:passwordLogin, bind:bindPasswordLogin, reset:resetPasswordLogin } = useInput('');
 
-	const { value:usernameRegister, bind:bindUsernameRegister, reset:resetUsernameRegister } = useInput('');
-	const { value:passwordRegister, bind:bindPasswordRegister, reset:resetPasswordRegister } = useInput('');
-	const { value:passConfRegister, bind:bindPassConfRegister, reset:resetPassConfRegister } = useInput('');
-	const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
-	const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput('');
-	const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput('');
-
-	
-
 	const loginUrl=`${process.env.REACT_APP_BACKEND_URL}/login`
-	const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`
 
-
+	const handleChange =(e) =>{}
 	  
 	const handleLoginSubmit = (e)=> {
 	e.preventDefault();
-	// alert(`Submitting Name ${usernameLogin} ${passwordLogin}`);
-	//   console.log(e);
-	// const { username, password } = this.state;
 	axios.post(loginUrl,
 		{
 			username: usernameLogin,
@@ -42,22 +32,28 @@ const Authentication = (props) => {
 			if (response.status==250){
 				setErrorsLogin(response.data.message)
 			}else if(response.status==200){
-				history.push("/");
+				auth.login(() => {
+					history.push("/");
+				});
 			}else if(response.status==201){
-				history.push("/admin");
+				auth.login(() => {
+					history.push("/admin");
+				});
 			}	
 		})
 		.catch(error => {
 		console.log("login error", error);
 		});
+	resetUsernameLogin();
 	resetPasswordLogin();
 	}
 
 
     return (
+		<div style={{backgroundImage: `url(${authBackground})`}}>
 <div className="login-wrap">
     <div className="login-html">
-    <input id="tab-1" type="radio" name="tab" className="sign-in" checked/>
+    <input id="tab-1" type="radio" name="tab" className="sign-in" checked onChange={handleChange}/>
         <label htmlFor="tab-1" className="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" className="sign-up"/>
         <label htmlFor="tab-2" className="tab">
@@ -97,7 +93,7 @@ const Authentication = (props) => {
 		</div>
 	</div>
 </div>
-
+</div>
 )}
 
-export default Authentication
+export default Login
