@@ -117,7 +117,7 @@ const getUserBooks = async (req, res) => {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
-    const limit = 2;
+    const limit = 1;
     try
     {
         /*const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
