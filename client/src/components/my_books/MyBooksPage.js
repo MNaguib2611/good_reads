@@ -12,13 +12,10 @@ import {setPageNumber, setStatus} from "../../actions/my_books_action";
 const MyBooksPage = (props) => {
     const {books} = props;
     const {location: {search}} = props;
-    // console.log(props)
     const [query, setQuery] = useState({})
     useEffect(() => {
         const query = destructQuery(search);
-        console.log("query",query,search)
         setQuery(query)
-        // console.log(query['page'],";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
         props.dispatch(setStatus(query['status']))
         props.dispatch(setPageNumber(query['page']))
         props.getMyBooks(search)

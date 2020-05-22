@@ -9,8 +9,10 @@ export function getMyBooks(dispatch) {
             method: 'get',
             url: `${process.env.REACT_APP_BACKEND_URL}/users/5eb5cab85904e32858dd4249/books${query}`,
         }).then((response) => {
+            console.log(response.data,"kkkkkkkkkkkk")
             dispatch(myBooksSuccess(response.data.books,response.data.pages))
         }).catch((error) => {
+            console.log(error.response.data,"kkkkkkkkkkkk")
             dispatch(myBooksError(error.response.data));
         })
     }
