@@ -5,14 +5,12 @@ const ProtectedRoute = ({ component: Component, user, ...rest }) => {
   return (
     <Route {...rest} render={
       props => {
-            console.log("user"); 
-            console.log(user); 
-        if (user) {
+        if (!user) {
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={
             {
-              pathname: '/unauthorized',
+              pathname: '/',
               state: {
                 from: props.location
               }

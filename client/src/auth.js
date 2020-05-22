@@ -4,16 +4,11 @@ const loggedIn = `${process.env.REACT_APP_BACKEND_URL}/logged_in`
 class Auth {
     constructor() {
       this.authenticated = false;
-      this.user={}
     }
   
     async login(cb) {
-      this.authenticated = true;
-      await axios.get(loggedIn,{withCredentials: true}).then(response => {
-         this.user=`${response.data.user.firstName} ${response.data.user.lastName}`;
-        //  console.log(this.user);
-        // this.loggedUser();
-      }).then( cb())
+     this.authenticated = true;
+      await cb();
     }
   
     logout(cb) {
