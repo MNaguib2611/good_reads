@@ -8,6 +8,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
 import Unauthorized from './components/unauthorized/Unauthorized';
+import AddCategory from './components/admin/categoryForm';
 import auth from "./auth";
 import {
   BrowserRouter as Router,
@@ -43,7 +44,10 @@ function App() {
         <GuestRoute exact path='/register' user={auth.isAuthenticated()} component={Register} />          
 
         <ProtectedRoute exact path='/my_books' user={auth.isAuthenticated()} component={MyBooksPage} />
+        
         <Route exact path='/unauthorized' component={Unauthorized} />
+
+        <Route exact path='/categories/add' component={AddCategory} />
       </Switch>
   </Router>
   );
