@@ -2,11 +2,11 @@ import React ,{useState } from 'react';
 import '../styles/header.scss';
 import axios from 'axios';
 import { Link, useHistory , Redirect} from "react-router-dom";
-const loggedIn = `${process.env.REACT_APP_BACKEND_URL}/logged_in`
 
 
 
-const Header = () => {
+
+const Header = ({ dashboard }) => {
     const history = useHistory();
     const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
     const handleLogout =()=>{
@@ -24,10 +24,14 @@ const Header = () => {
         <div className="nav-container">
             <ul>
                 <li className="nav-list"><a href="/">Home</a></li>
+                {!dashboard &&
+                <>
                 <li className="nav-list"><a href="#">Categories</a></li>
                 <li className="nav-list"><a href="#">Books</a></li>
                 <li className="nav-list"><a href="#">Authors</a></li>
                 <li className="nav-list"><Link  to="/my_books?page=1">My Books</Link></li>
+                </>
+                }
             </ul>
         </div>
         <div className="search-container">
