@@ -17,15 +17,15 @@ export default class CategoryForm extends React.Component{
         
     }
 
-    // onSubmit = (e) => {
-    //     e.preventDefault();
-    //     console.log(this.props);
+    onSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.props);
         
-    //     // this.props.onSubmit({
-    //     //     name: this.state.name,
-    //     //     error: ''
-    //     // })
-    // };
+        this.props.onSubmit({
+            name: this.state.name,
+            error: ''
+        })
+    };
 
     render(){
         return(

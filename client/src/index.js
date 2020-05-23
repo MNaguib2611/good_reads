@@ -5,9 +5,7 @@ import App from './App';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from "react-redux";
-import {Switch} from "react-router-dom";
-import configureStore from "./store/configureStore";
+// import {Switch} from "react-router-dom";
 
 const store = configureStore();
 
