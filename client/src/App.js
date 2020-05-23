@@ -22,17 +22,25 @@ function App() {
     const [user, setUser] = useState(false)
     axios.get(loggedIn, {withCredentials: true}).then(response => {
         if (response.data.user) {
-            console.log("LLLLLLLLLLLLLLLL",response.data)
+            console.log("xxxxxxxxxx",response.data)
             auth.login(() => {
                 setUser(true)
             });
-        }
-    }).catch(err => {
-        // setLoggedUser(false);
-        console.log(err);
-    });
+          }
+        }).catch(err => {
+            // setLoggedUser(false);
+            console.log(err);
+      });
 
-
+    // axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/5eb36fdd4c430a63c3c3a788`,{withCredentials: true}).then(response => {
+    //   if (response.data.user) {
+    //       console.log("mmmmmmmm",response.data)
+    //     }
+    //   }).catch(err => {
+    //       // setLoggedUser(false);
+    //       console.log(err);
+    // });
+    
     return (
         <Router>
             <Switch>

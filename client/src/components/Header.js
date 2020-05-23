@@ -16,7 +16,6 @@ const Header = () => {
     });
     const history = useHistory();
     const handleLogout =()=>{
-       
         auth.logout(() => {
             history.push("/login");
         });

@@ -11,13 +11,12 @@ class Auth {
       await cb();
     }
   
-    logout(cb) {
+     logout(cb) {
         const logout = `${process.env.REACT_APP_BACKEND_URL}/logout`
-        axios.delete(logout,{withCredentials: true}).then(response => {
+        axios.delete(logout,{withCredentials: true}).then(async response => {
             // console.log(response.data.user);
             this.authenticated = false;
-            this.user=""
-            cb();
+           await cb();
         }).catch(err=>{
           console.log(err);
         });
