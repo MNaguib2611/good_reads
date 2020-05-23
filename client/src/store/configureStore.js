@@ -1,12 +1,12 @@
-import { createStore, combineReducers } from 'redux';
-import categoryReducer from '../reducers/admin/category'
-
+import { createStore, combineReducers,applyMiddleware ,compose} from 'redux';
+import thunk from "redux-thunk";
+import myBooksReducer from "../reducers/my_books_reducer";
 export default () => {
-    const store = createStore(
-        combineReducers({
-            categories: categoryReducer
-        })
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    const store = createStore(myBooksReducer
+         ,composeEnhancers(applyMiddleware(thunk))
     );
 
+
     return store;
-}
+};

@@ -1,56 +1,44 @@
-// import React from 'react';
-import React ,{useState , useEffect} from 'react';
-import axios from 'axios';
+import React from 'react';
 import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
+import AddBook from "./components/admin/book/addBook";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/categoryForm';
 import auth from "./auth";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
 } from "react-router-dom";
 // require('dotenv').config()
 
-const loggedIn = `${process.env.REACT_APP_BACKEND_URL}/logged_in`
-
 
 function App() {
-  const [user, setUser] = useState(false)
-    axios.get(loggedIn,{withCredentials: true}).then(response => {
-      if (response.data.user) {
-        auth.login(() => {
-          setUser(true)
-        });
-      }
-    }).catch(err=>{
-      // setLoggedUser(false);
-      console.log(err);
-    });
-  
-  
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Header} />
+   
+    return (
+        <Router>
+            <Switch>
 
-        <GuestRoute exact path='/login' user={auth.isAuthenticated()} component={Login} />
-        <GuestRoute exact path='/register' user={auth.isAuthenticated()} component={Register} />          
+                    <Route exact path="/" component={Header}/>
 
-        <ProtectedRoute exact path='/my_books' user={auth.isAuthenticated()} component={MyBooksPage} />
+                    <GuestRoute exact path='/login'  component={Login}/>
+                    <GuestRoute exact path='/register'  component={Register}/>
+                    <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
+                    <Route exact path='/unauthorized' component={Unauthorized}/>
+
+                    <ProtectedRoute exact path='/my_books' user={auth.isAuthenticated()} component={MyBooksPage} />
         
-        <Route exact path='/unauthorized' component={Unauthorized} />
+                    <Route exact path='/unauthorized' component={Unauthorized} />
 
-        <Route exact path='/categories/add' component={AddCategory} />
-      </Switch>
-  </Router>
-  );
+                    <Route exact path='/categories/add' component={AddCategory} />
+              </Switch>
+          </Router>
+    );
 }
 
 export default App;

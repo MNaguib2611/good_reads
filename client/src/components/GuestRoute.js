@@ -1,11 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ component: Component, user, ...rest }) => {
+const GuestRoute = ({ component: Component, ...rest }) => {
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+
   return (
     <Route {...rest} render={
       props => {
-        if (!user) {
+        if (!loggedUser) {
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={
@@ -22,4 +24,4 @@ const ProtectedRoute = ({ component: Component, user, ...rest }) => {
   )
 }
 
-export default ProtectedRoute;
+export default GuestRoute;

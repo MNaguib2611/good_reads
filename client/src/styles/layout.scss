@@ -1,0 +1,109 @@
+@import "src/styles/main";
+.container {
+    height: 100vh;
+    display: flex;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 3;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 3;
+    /* justify-content: space-between; */
+}
+
+.header .card1 {
+    flex-grow: 1;
+    flex-shrink: 5;
+    background-color: cyan;
+    border:5px yellow solid;
+}
+
+.header .card2 {
+    flex-grow: 1;
+    background-color: cyan;
+    border:5px yellow solid;
+}
+
+.header .card3 {
+    flex-grow: 2;
+    background-color: cyan;
+    border:5px yellow solid;
+}
+
+.side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $color_accent;
+    flex-grow: 0.1;
+}
+
+.side > div{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: medium;
+}
+
+.side ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.side li{
+    display: flex;
+    width: 100%;
+    background-color: $color_accent-light;
+    border: 2px solid;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-color: $color_accent;
+    padding: 2% 2% 2% 4%;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5%;
+}
+
+.side li:hover{
+    background-color: $color_primary;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.card span{
+    margin: 10px;
+}
+
+.svg {
+    padding-left: 2%;
+}
+
+.nav-list {
+    float: left;
+    display: block;
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-grow: 4;
+    align-items: center;
+    background-color: $color_accent-lighter;
+}
+
+.body > div {
+    flex-basis: 30%;
+    height: 47%;
+    background-color: darkmagenta;
+    border:5px rgb(153, 96, 56) solid;
+}

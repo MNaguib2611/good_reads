@@ -12,6 +12,7 @@ const router = express.Router();
 
 
 
+// router.get('/books',ensureAuthentication,userController.getUserBooks);
 
 router.get('/',ensureAuthentication, userController.getAllUsers);
 
@@ -32,7 +33,7 @@ router.patch('/password_update',ensureAuthentication,userController.passwordUpda
 router.post('/:user_id/books/:id',userController.manageShelves);
 
 
-router.get('/:user_id/books',userController.getUserBooks);
+router.get('/:user_id/books',ensureAuthentication,userController.getUserBooks);
 
 
 //we may need a separate router for this

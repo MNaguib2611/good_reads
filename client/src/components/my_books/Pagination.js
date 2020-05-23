@@ -1,19 +1,15 @@
 import React from "react";
+import {connect} from 'react-redux'
 import '../../styles/pagination.scss'
-const Pagination = () => {
+import {Link} from "react-router-dom";
+const Pagination = ({page,nextURL,prevURL,hasPrevious,hasNext}) => {
     return(<div className="center">
             <div className="pagination">
-                <a href="#">&laquo;</a>
-                {/*<a href="#">1</a>*/}
-                <a href="#" className="active">2</a>
-                {/*<a href="#">3</a>*/}
-                {/*<a href="#">4</a>*/}
-                {/*<a href="#">5</a>*/}
-                {/*<a href="#">6</a>*/}
-                <a href="#">&raquo;</a>
+                {hasPrevious && <Link to={prevURL}>&laquo;</Link>}
+                <a  className="active">{page}</a>
+                {hasNext && <Link to={nextURL}>&raquo;</Link>}
             </div>
-        </div>
-    )
+        </div>)
 }
 
 export default Pagination
