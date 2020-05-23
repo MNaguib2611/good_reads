@@ -3,7 +3,7 @@
 	background:#c8c8c8;
 	color:#6a6f8c;
     font:600 16px/18px 'Open Sans',sans-serif;
-    
+
 } */
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
