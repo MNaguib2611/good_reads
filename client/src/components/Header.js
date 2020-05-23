@@ -1,23 +1,22 @@
 import React ,{useState } from 'react';
 import '../styles/header.scss';
 import axios from 'axios';
-import auth from "../auth";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory , Redirect} from "react-router-dom";
 const loggedIn = `${process.env.REACT_APP_BACKEND_URL}/logged_in`
 
 
 
 const Header = () => {
-    const [user,setUser]=useState("");
-    axios.get(loggedIn,{withCredentials: true}).then(response => {
-        if (response.data.user) {
-            setUser(`${response.data.user.firstName} ${response.data.user.lastName}`);
-        }
-    });
     const history = useHistory();
+    const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
     const handleLogout =()=>{
-        auth.logout(() => {
+        const logout = `${process.env.REACT_APP_BACKEND_URL}/logout`
+        axios.delete(logout,{withCredentials: true}).then(response => {
+            console.log(response.data);
+            localStorage.removeItem("loggedUser");
             history.push("/login");
+        }).catch(err=>{
+          console.log(err);
         });
       }
 
@@ -35,11 +34,11 @@ const Header = () => {
             <input className="search-input" placeholder="search Books, Categories, Authors"/>
         </div>
         
-        {auth.isAuthenticated()?
+        {loggedUser?
         <>
         <div className="user-profile-container">
             <img src="../../img/user_avatar.jpg" alt="Avatar" className="avatar"/>
-            <p className="user-name">{user}</p>
+            <p className="user-name">{`${loggedUser.firstName}  ${loggedUser.lastName} ` }</p>
         </div>
         <div className="logout-container">
             <ul>
