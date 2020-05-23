@@ -17,7 +17,7 @@ const BookCard = (props) => {
             <div className="module line-clamp">
                 <p className="book-card-desc ">{book.book.description}</p>
             </div>
-            <ChangeStateBtn currentStatus={book.status}/>
+            <ChangeStateBtn currentStatus={book.status} book_id={book.book._id}/>
             <div className="rating-container">
                 <p className="rate-text">Avg Rate: </p>
                 <ReactStars
