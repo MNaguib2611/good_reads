@@ -7,6 +7,7 @@ import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
+import AddBook from "./components/admin/book/addBook";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import auth from "./auth";
 import {
@@ -43,6 +44,7 @@ function App() {
         <GuestRoute exact path='/register' user={auth.isAuthenticated()} component={Register} />          
 
         <ProtectedRoute exact path='/my_books' user={auth.isAuthenticated()} component={MyBooksPage} />
+        <ProtectedRoute exact path='/admin/book' user={auth.isAuthenticated()} component={AddBook} />
         <Route exact path='/unauthorized' component={Unauthorized} />
       </Switch>
   </Router>

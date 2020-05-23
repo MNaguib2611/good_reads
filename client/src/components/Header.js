@@ -7,7 +7,7 @@ const loggedIn = `${process.env.REACT_APP_BACKEND_URL}/logged_in`
 
 
 
-const Header = () => {
+const Header = ({ dashboard }) => {
     const [user,setUser]=useState("");
     axios.get(loggedIn,{withCredentials: true}).then(response => {
         if (response.data.user) {
@@ -26,10 +26,14 @@ const Header = () => {
         <div className="nav-container">
             <ul>
                 <li className="nav-list"><a href="/">Home</a></li>
+                {!dashboard &&
+                <>
                 <li className="nav-list"><a href="#">Categories</a></li>
                 <li className="nav-list"><a href="#">Books</a></li>
                 <li className="nav-list"><a href="#">Authors</a></li>
                 <li className="nav-list"><Link  to="/my_books">My Books</Link></li>
+                </>
+                }
             </ul>
         </div>
         <div className="search-container">
