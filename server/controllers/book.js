@@ -67,9 +67,10 @@ const all = (req, res) => {
 
 // Create new book
 const create = (req, res) => {
+    const image = req.file && req.file.path.substring(6);
     const book = new Book({
         ...req.body,
-        image: req.file && req.file.path.substring(6)
+        image
     });
 
     book.save().then((book) => {
@@ -83,10 +84,10 @@ const create = (req, res) => {
 // Update existing book
 const update = (req, res) => {
     const bookId = req.params.bookId;
-    const path = req.file.path.substring(6);
+    const image = req.file && req.file.path.substring(6);
     Book.findByIdAndUpdate(bookId, {
         ...req.body,
-        image: req.file && path
+        image
     }).then((book) => {
         // if a new image is added remove old one
         if(req.file){

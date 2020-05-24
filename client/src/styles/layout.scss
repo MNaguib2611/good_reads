@@ -109,6 +109,7 @@
     padding: 0px;  
 }
 
-// .card_two {
-//     flex-grow: 12;
-// }
+.card_two {
+    display: flex;
+    flex-direction: column;
+}
