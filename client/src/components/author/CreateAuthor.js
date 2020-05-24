@@ -11,12 +11,17 @@ const CreateAuthor = (props) => {
     const initialAuthorState = {
         name: '',
         bio: '',
-        // popularity: 0,
         dateOfBirth: new Date(),
         image: null
     }
 
+    const createURL=`${process.env.REACT_APP_BACKEND_URL}/authors/add`;
+
     const [author, setAuthor] = useState(initialAuthorState);
+    const [nameErr, setNameErr] = useState('')
+    const [imageErr, setImageErr] = useState('')
+    const [dateErr, setDateErr] = useState('')
+    const [bioErr, setBioErr] = useState('')
 
     const onChangeName = e => setAuthor({
         ...author,
@@ -40,10 +45,44 @@ const CreateAuthor = (props) => {
         dateOfBirth: date
     })
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!author.name || !author.dateOfBirth || !author.image || !author.bio) {
+            author.name ? setNameErr("") : setNameErr("Please enter author name");
+            author.dateOfBirth ? setDateErr("") : setDateErr("Please choose a birth-date");
+            author.image ? setImageErr("") : setImageErr("Please choose a picture");
+            author.bio ? setBioErr("") : setBioErr("Please write a bio for author");
+            return
+        }
+        else {
+            setNameErr("")
+            setDateErr("")
+            setBioErr("")
+            let form = new FormData();
+            form.append('name', author.name);
+            form.append('dateOfBirth', author.dateOfBirth);
+            form.append('image', author.image);
+            form.append('bio', author.bio);
+
+            axios.post(createURL, form,{
+                withCredentials: true ,
+            })
+                .then((res) => {
+                    setAuthor([
+                        ...author, res.data
+                    ]);
+                })
+                .catch((err) => {
+                    console.log("test", err)
+                });
+        }
+        window.location = '/';
+    }
+
     return (
         <React.Fragment>
             <div className="main">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="container">
                         <h1>Create Author</h1>
 
