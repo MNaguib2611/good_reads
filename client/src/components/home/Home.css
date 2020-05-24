@@ -33,12 +33,15 @@
     text-align: center;
     margin: 10px 10px;
     transition: 0.3s;
-    text-align: center;
+    text-align: left;
     min-width: 150px;
     min-height: 150px;
     overflow: hidden;
     background-color:bisque;
 
+}
+h4{
+    text-align: center;
 }
 
 .CardDiv:hover {
