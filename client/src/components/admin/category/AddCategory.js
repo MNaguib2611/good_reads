@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CategoryForm from './categoryForm';
-import {addCategory} from '../../../actions/admin/category';
 import {addNewCategory} from '../../../API/category'
 
 const AddCategoryPage = (props) => (  
@@ -10,17 +9,18 @@ const AddCategoryPage = (props) => (
             onSubmit = { category => {
                 // props.dispatch(addCategory(category));
                 console.log(category)
+                console.log(props.location.customNameData);
                 addNewCategory(props, category)
             }} 
         />
     </div>
 );
 
-// const mapStateToProps = (state) => {
-//     return {
-//         category: state.category
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        categoryReducer: state.categoryReducer    
+    }
+}
 
 // const mapDispatchToProps = (dispatch) => {
 //     return {
@@ -30,4 +30,4 @@ const AddCategoryPage = (props) => (
 // }
 
 
-export default connect()(AddCategoryPage);
+export default connect(mapStateToProps)(AddCategoryPage);

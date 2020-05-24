@@ -12,6 +12,7 @@ import CreateAuthor from "./components/author/CreateAuthor";
 import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
+import EditCategory from './components/admin/category/editCategory';
 import ListAllCategories from './components/admin/category/listAllCategories';
 import {
     BrowserRouter as Router,
@@ -43,6 +44,7 @@ function App() {
                     <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
                     <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
+                    <ProtectedRoute exact path='/admin/categories/:id' component={EditCategory} />
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>

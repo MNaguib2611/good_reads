@@ -10,6 +10,11 @@ export default (state = categoryReducerDefaultState, action) => {
                 ...state,
                 action.category
             ];
+        case 'EDIT_CATEGORY':
+            state = []
+            console.log("in reducer");
+            console.log(state);
+            return state;
         default:
             return state;
     }
