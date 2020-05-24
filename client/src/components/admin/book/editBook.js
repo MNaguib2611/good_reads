@@ -6,18 +6,14 @@ import {Link} from "react-router-dom";
 import Layout from '../layout';
 import '../../../styles/form.scss';
 
-const EditBook = ({ location }) => {
+const EditBook = ({ location: { state: { record } } }) => {
     const [ book, setBook ] = useState({
-        name: location.state.record.name,
-        category: location.state.record.category.name,
-        author: location.state.record.author.name,
-        description: location.state.record.description
+        name: record && record.name,
+        category: record && record.category.name,
+        author: record && record.author.name,
+        description: record && record.description
     });
     const [ errors, setErrors ] = useState(false);
-
-    useEffect(() => {
-        console.log(location.state.record);
-    });
 
     const fileInput = React.createRef();
 

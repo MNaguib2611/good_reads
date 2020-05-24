@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../styles/table.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {Link} from "react-router-dom";
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
