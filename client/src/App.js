@@ -1,11 +1,13 @@
 import React from 'react';
-import Header from "./components/Header";
+import Home from "./components/home/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
 // import AddBook from "./components/admin/book/addBook";
+import CreateAuthor from "./components/author/CreateAuthor";
+import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import {
@@ -23,15 +25,16 @@ function App() {
         <Router>
             <Switch>
 
-                    <Route exact path="/" component={Header}/>
+                    <Route exact path="/" component={Home}/>
 
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
                     <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
                     <Route exact path='/unauthorized' component={Unauthorized}/>
                     <Route exact path='/categories/add' component={AddCategory} />
-              </Switch>
-          </Router>
+                    <GuestRoute exact path='/admin/books' component={Books} />
+            </Switch>
+        </Router>
     );
 }
 
