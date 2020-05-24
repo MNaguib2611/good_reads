@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/table.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Table = ({ cols, data }) => {
     return (
@@ -10,7 +11,7 @@ const Table = ({ cols, data }) => {
                 <tr>
                     {cols.map((col) => {
                         return (
-                            <th>{col}</th>
+                            <th>{col.toUpperCase()}</th>
                         );
                     })}
                     <th>Actions</th>
@@ -22,6 +23,7 @@ const Table = ({ cols, data }) => {
                         <tr>
                             {cols.map((col) => {
                                 return (
+                                    
                                     <td>
                                         {typeof record[col] == 'object' && record[col] != null 
                                         ? 

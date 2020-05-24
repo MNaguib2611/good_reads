@@ -45,6 +45,7 @@ const createCategory = (req, res)=>{
 
 // edit category
 const editCategory = (req, res)=>{
+    console.log("req edit from client");
     Category.findById(req.params.id)
         .then(category=>{
             category.name = req.body.name
