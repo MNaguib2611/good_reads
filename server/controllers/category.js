@@ -83,7 +83,6 @@ const categoryBooks = async (req, res)=>{
         res.status(500).json(error)
     }
 }
-<<<<<<< HEAD
 
 // get popular category
 const popularCategories = async (req, res) =>{
@@ -97,7 +96,6 @@ const popularCategories = async (req, res) =>{
     //     res.status(500).json(error);
     // }
 }
-=======
 const popular = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
     Category.find({}, null, {sort: {popularity: -1}, limit: 5}).then((categories) => {
@@ -107,7 +105,6 @@ const popular = (req, res) => {
         res.status(500).end();
     });
 };
->>>>>>> 571137ff48ed3705f21fe55a2655b070c313138c
 
 module.exports = {
     getAllCategories,
