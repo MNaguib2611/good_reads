@@ -173,9 +173,10 @@ const rate = (req, res) => {
 
 const popular = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
-    Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('author').populate('category').then((books) => {
+    Book.find({}, null, {sort: {popularity: -1}, limit: 5}).populate('author').populate('category').then((books) => {
         res.status(200).json(books);
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err);
         res.status(500).end();
     });
 };

@@ -57,7 +57,9 @@ h4{
     text-align: left;
 }  
 
-li{
+.popular-list-item{
     margin-bottom: 15px;
+    font-family: fantasy;
+    font-style: italic;
 }
   

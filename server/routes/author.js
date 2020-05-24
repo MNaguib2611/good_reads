@@ -54,5 +54,6 @@ router.put('/edit/:id',upload.single('image'), authorController.updateAuthor)
 //get author books
 router.get('/books/:author', bookController.getAuthorBooks)
 
+router.get('/popular/all', authorController.popularAuthor);
 
 module.exports = router;

@@ -63,6 +63,6 @@ router.get('/:bookId', bookController.book);
 router.post('/:bookId/rate', bookController.rate);
 
 // Retrieve popular books
-router.get('/popular', bookController.popular);
+router.get('/popular/all', bookController.popular);
 
 module.exports = router;

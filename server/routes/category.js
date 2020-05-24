@@ -21,4 +21,9 @@ router.delete('/:id', categoryController.deleteCategory)
 * */
 router.route('/search').get(categoryController.search);
 
+router.get('/popular/all', categoryController.popular);
+
+
+
+
 module.exports = router;

@@ -71,6 +71,13 @@ app.use(cors({
   "credentials": true
 }));
 
+
+app.use((err, req, res, next)=>{
+    console.log(err);
+});
+  
+
+
 //authentication routes
 app.use("/",authRouter);
 

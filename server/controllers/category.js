@@ -65,7 +65,15 @@ const categoryBooks = async (req, res)=>{
         res.status(500).json(error)
     }
 }
-
+const popular = (req, res) => {
+    // Retrieve books sorted by popularity and limited to 9
+    Category.find({}, null, {sort: {popularity: -1}, limit: 5}).then((categories) => {
+        res.status(200).json(categories);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).end();
+    });
+};
 
 module.exports = {
     getAllCategories,
@@ -73,5 +81,6 @@ module.exports = {
     editCategory,
     deleteCategory,
     categoryBooks,
-    search
+    search,
+    popular
 }
