@@ -28,7 +28,7 @@ const Header = ({ dashboard }) => {
                 <>
                 <li className="nav-list"><a href="#">Categories</a></li>
                 <li className="nav-list"><a href="#">Books</a></li>
-                <li className="nav-list"><a href="#">Authors</a></li>
+                <li className="nav-list"><a href="/create-author">Authors</a></li>
                 <li className="nav-list"><Link  to="/my_books?page=1">My Books</Link></li>
                 </>
                 }

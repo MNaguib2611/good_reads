@@ -9,7 +9,7 @@ const Home = () => {
   const [books,setBooks]=useState([]);
 
   const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books`
- 
+
     useEffect(() => {
       axios.get(booksURL).then(response => {
         console.log(response.data);
@@ -18,9 +18,9 @@ const Home = () => {
         console.log(err);
       })
     }, [])
- 
+
     return (
-    <>    
+    <>
     <Header/>
     <div className="main-container">
     <div key="left-div" className="left-div">
@@ -83,32 +83,32 @@ const Home = () => {
        <Link  key="category5" to="/unauthorized">category5</Link>
        </li>
      </ul>
-    </fieldset>  
+    </fieldset>
     </div>
 
       <div key="right-div"  className="right-div">
-    
-        
+
+
       {
         books.map(book => {
           return(
           <Link  key={book.name} to="/unauthorized">
             <div className="card CardDiv">
-              
+
               <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} width="100%" height="125" alt="Card image cap" className="card-img-top" alt="post"></img>
-              <h4 
+              <h4
               className="card-title">{book.name}</h4>
-            
+
             <small>Category : {book.category.name} </small> <br/>
             <hr/>
-            <small >By:{book.author.name}</small>
+            {/*<small >By:{book.author.name}</small>*/}
             </div>
           </Link>
           )
-          }) 
+          })
       }
 
-      </div>    
+      </div>
     </div>
     </>
 

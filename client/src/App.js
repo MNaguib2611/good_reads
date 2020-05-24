@@ -24,6 +24,7 @@ function App() {
             <Switch>
 
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/create-author" component={CreateAuthor}/>
 
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
