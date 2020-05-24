@@ -19,7 +19,7 @@ const search = async (req, res) => {
 
 // get all category
 const getAllCategories = (req, res)=>{
-    console.log("req from client");
+    console.log("req list from client");
     
     Category.find()
             .select('name')
@@ -32,6 +32,7 @@ const getAllCategories = (req, res)=>{
 
 // create new category
 const createCategory = (req, res)=>{
+    console.log("req create from client");
     const name = req.body.name
     const newCategory = new Category({name})
     newCategory.save()

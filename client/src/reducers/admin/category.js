@@ -1,6 +1,7 @@
+
 // category reducer
 
-const categoryReducerDefaultState = [];
+const categoryReducerDefaultState = []
 
 export default (state = categoryReducerDefaultState, action) => {
     switch(action.type){

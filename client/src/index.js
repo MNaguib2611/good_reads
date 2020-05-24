@@ -9,6 +9,12 @@ import * as serviceWorker from './serviceWorker';
 
 const store = configureStore();
 
+store.subscribe(() => {
+    const state = store.getState();
+    console.log(state.categoryReducer);
+});
+
+
 ReactDOM.render(
 <Provider store={store}>
     <App className="container" />
