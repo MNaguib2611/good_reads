@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import {Switch} from "react-router-dom";
 import configureStore from "./store/configureStore";
+
 const store = configureStore();
 ReactDOM.render(
 <Provider store={store}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from "./components/Header";
+import Home from "./components/home/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
@@ -22,7 +22,7 @@ function App() {
         <Router>
             <Switch>
 
-                    <Route exact path="/" component={Header}/>
+                    <Route exact path="/" component={Home}/>
 
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
