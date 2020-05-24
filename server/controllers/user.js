@@ -90,7 +90,7 @@ const manageShelves = async (req, res) => {
                 select: ['name']
             },
 
-        });
+        }).lean();
 
         const rate = book.book.rate.reduce((acc, rate) => {
             if (rate.user.toString() === userId) {

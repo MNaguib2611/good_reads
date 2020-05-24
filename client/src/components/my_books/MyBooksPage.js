@@ -26,7 +26,7 @@ const MyBooksPage = (props) => {
             <Sidebar/>
 
             <div className="my-books-container">
-                {books.map((book) => (<div key={book.book._id}><BookCard book={book}/>
+                {books.map((book) => (<div key={book.book._id}><BookCard bookID={book.book._id}/>
                     <hr className="solid"/>
                 </div>))}
                 <Pagination page={props.page}

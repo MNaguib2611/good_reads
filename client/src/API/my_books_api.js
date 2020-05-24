@@ -1,4 +1,4 @@
-import {myBooksSuccess, myBooksError, myBooksLoading,updateBook} from "../actions/my_books_action";
+import {myBooksSuccess, myBooksError, myBooksLoading, updateBook, updateRate} from "../actions/my_books_action";
 import axios from 'axios'
 import {getUserData} from "../utils/utils";
 
@@ -21,7 +21,6 @@ export function getMyBooks(dispatch) {
 
 export function updateBookStatus(dispatch) {
     return (book_id,status) => {
-        dispatch(myBooksLoading());
         axios({
             method:'post',
             url:`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books/${book_id}`,
@@ -30,17 +29,34 @@ export function updateBookStatus(dispatch) {
             },
             withCredentials: true
         }).then(response => {
-            // console.log(response.data)
             if (response.data) {
-                dispatch(updateBook(response.data))
+                    dispatch(updateBook(response.data))
             }
         }).catch(error => {
             console.log(error);
-            // dispatch(myBooksError(error.response.data));
         });
 
     }
 }
+
+export const rateBook = (dispatch) => {
+    return (book_id,rating) => {
+        axios({
+            method:'post',
+            url:`${process.env.REACT_APP_BACKEND_URL}/books/${book_id}/rate`,
+            data:{
+                rating
+            },
+            withCredentials: true
+        }).then(response => {
+            dispatch(updateRate(response.data.rate.rating,response.data.avgRate,book_id))
+        }).catch(error => {
+            console.log(error);
+        });
+
+    }
+}
+
 
 
 
