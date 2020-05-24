@@ -1,28 +1,45 @@
-import {myBooksSuccess, myBooksError, myBooksLoading} from "../actions/my_books_action";
-// import {BASE_URL} from "../../utils/constants";
+import {myBooksSuccess, myBooksError, myBooksLoading,updateBook} from "../actions/my_books_action";
 import axios from 'axios'
+import {getUserData} from "../utils/utils";
+
 export function getMyBooks(dispatch) {
     return (query) => {
-        console.log(query)
         dispatch(myBooksLoading());
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/5eb36fdd4c430a63c3c3a788`,{withCredentials: true}).then(response => {
-            if (response.data.user) {
-                console.log("mmmmmmmm",response.data)
-              }
-            }).catch(err => {
-                // setLoggedUser(false);
-                console.log(err);
-          });
-        // axios({
-        //     method: 'get',
-        //     url: `${process.env.REACT_APP_BACKEND_URL}/users/5eb36fdd4c430a63c3c3a788/books${query}`,
-        // },{withCredentials: true}).then(response => {
-        //     console.log(response.data)
-        //     // console.log(response.data,"kkkkkkkkkkkk")
-        //     dispatch(myBooksSuccess(response.data.books,response.data.pages))
-        // }).catch(error => {
-        //     console.log(error)
-        //     // dispatch(myBooksError(error.response.data));
-        // })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books${query}`, {withCredentials: true}).then(response => {
+            if (response.data.books && response.data.pages) {
+                dispatch(myBooksSuccess(response.data.books, response.data.pages))
+            }
+        }).catch(error => {
+            console.log(error);
+            dispatch(myBooksError(error.response.data));
+        });
+
     }
-};
+}
+
+
+export function updateBookStatus(dispatch) {
+    return (book_id,status) => {
+        dispatch(myBooksLoading());
+        axios({
+            method:'post',
+            url:`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books/${book_id}`,
+            data:{
+                status
+            },
+            withCredentials: true
+        }).then(response => {
+            // console.log(response.data)
+            if (response.data) {
+                dispatch(updateBook(response.data))
+            }
+        }).catch(error => {
+            console.log(error);
+            // dispatch(myBooksError(error.response.data));
+        });
+
+    }
+}
+
+
+

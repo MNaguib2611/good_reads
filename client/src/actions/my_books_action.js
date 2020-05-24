@@ -3,6 +3,8 @@ export const MY_BOOKS_SUCCESS = 'MY_BOOKS_SUCCESS';
 export const MY_BOOKS_ERROR = 'MY_BOOKS_ERROR';
 export const SET_STATUS = 'SET_STATUS';
 export const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
+export const UPDATA_STATUS = 'UPDATA_STATUS';
+export const UPDATA_BOOK_DATA = 'UPDATA_BOOK_DATA';
 
 
 export const setStatus = (status) => {
@@ -40,3 +42,10 @@ export const myBooksError = (error) => {
         error
     }
 };
+
+export const updateBook = (book) => {
+    return {
+        type:UPDATA_BOOK_DATA,
+        book
+    }
+}

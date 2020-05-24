@@ -31,3 +31,8 @@ export const buildQuery = (obj) => {
         return `${acc}${key}=${obj[key]}`
     },'?')
 }
+
+
+export const getUserData = () => {
+    return JSON.parse(localStorage.getItem('loggedUser'))
+}
