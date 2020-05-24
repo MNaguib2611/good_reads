@@ -2,11 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from "react-redux";
-import configureStore from "./store/configureStore";
+// import {Switch} from "react-router-dom";
 
 const store = configureStore();
+
+store.subscribe(() => {
+    const state = store.getState();
+    console.log(state.categoryReducer);
+});
+
+
 ReactDOM.render(
 <Provider store={store}>
     <App className="container" />
