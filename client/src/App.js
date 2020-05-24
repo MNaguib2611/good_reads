@@ -5,6 +5,7 @@ import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
+import CreateAuthor from "./components/author/CreateAuthor";
 import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import {
