@@ -53,17 +53,15 @@ const all = (req, res) => {
 
             const data = perPage ? {
                 // return book data with current page number and all pages available
-                "data": {
-                    books,
-                    page,
-                    pages: parseInt(count/perPage)+1 // Count number of available pages
-                }
-            } : {"data": books};
+                books,
+                page,
+                pages: parseInt(count/perPage)+1 // Count number of available pages
+            } : books;
 
             res.status(200).json(data);
         });
-    }).catch((err) => {
-        res.status(500).json({"error": err});
+    }).catch(() => {
+        res.status(500).end();
     });
 };
 
@@ -75,9 +73,9 @@ const create = (req, res) => {
     });
 
     book.save().then((book) => {
-        res.status(200).json({"data": book});
-    }).catch((err) => {
-        res.status(400).json({"error": err});
+        res.status(200).json(book);
+    }).catch(() => {
+        res.status(500).end();
     });
 };
 
@@ -93,9 +91,9 @@ const update = (req, res) => {
         if(req.file){
             fs.unlinkSync(book.image);
         }
-        res.status(200).json({"data": book});
-    }).catch((err) => {
-        res.status(400).json({"error": err});
+        res.status(200).json(book);
+    }).catch(() => {
+        res.status(400).end();
     })
 };
 
@@ -108,9 +106,9 @@ const remove = (req, res) => {
         if(req.file){
             fs.unlinkSync(book.image);
         }
-        res.status(200).json({"data": book});
-    }).catch((err) => {
-        res.status(500).json({"error": err});
+        res.status(200).json(book);
+    }).catch(() => {
+        res.status(500).end();
     })
 };
 
@@ -128,14 +126,14 @@ const book = (req, res) => {
             // Find book status in user's books using current book id and user id
             UserBooksModel.findOne({book: book._id, user: req.user._id}).then(userBook => {
                 // Check if the book is selected by user
-                res.status(200).json({"data": {book, status: userBook? userBook.status : "not selected", userRate: rating ? rating.rating : 0}});
+                res.status(200).json({book, status: userBook? userBook.status : "not selected", userRate: rating ? rating.rating : 0});
             });
         }else{
             // Return book data with no user activity
-            res.status(200).json({"data": book});
+            res.status(200).json(book);
         }
-    }).catch((err) => {
-        res.status(500).json({"error": err});
+    }).catch(() => {
+        res.status(500).end();
     });
 };
 
@@ -163,21 +161,21 @@ const rate = (req, res) => {
         // Apply changes
         book.save().then((book) => {
             // Return last saved document if new rate is added and rate via index if updated
-            res.status(200).json({"data": rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]});
-        }).catch((err) => {
-            res.status(500).json({"error": err});
+            res.status(200).json(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]);
+        }).catch(() => {
+            res.status(500).end();
         });
-    }).catch((err) => {
-        res.status(400).json({"error": err});
+    }).catch(() => {
+        res.status(400).end();
     })
 }
 
 const popular = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
     Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('author').populate('category').then((books) => {
-        res.status(200).json({"data": books});
-    }).catch((err) => {
-        res.status(500).json({"error": err});
+        res.status(200).json(books);
+    }).catch(() => {
+        res.status(500).end();
     });
 };
 
