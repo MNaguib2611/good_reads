@@ -8,6 +8,10 @@ const categorySchema = new mongoose.Schema({
         trim: true,
         required: [true,"name is required"]
     },
+    popularity: {
+        type: Number,
+        default: 0
+    },
  },{
      timestamps: true
  })

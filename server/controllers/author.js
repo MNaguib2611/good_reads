@@ -75,29 +75,46 @@ const updateAuthor = (req, res) => {
 };
 
 //get popular author
+// const popularAuthor = (req, res) => {
+//     // Retrieve books sorted by popularity and limited to 9
+//     Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('book').populate('category').then((books) => {
+//         // Declare a new array
+//         const author_filtered = [];
+//         // Declare an empty object
+//         const uniqueAuthor = {};
+//         // Loop for the array elements
+//         for (let i in books) {
+//             // Extract the author
+//             const objAuthor = books[i]['author'];
+//             // Use the title as the index
+//             uniqueAuthor[objAuthor] = books[i];
+//         }
+//         // Loop to push unique object into array
+//         for (i in uniqueAuthor) {
+//             author_filtered.push(uniqueAuthor[i]);
+//         }
+//         res.status(200).json({"data": author_filtered});
+//     }).catch((err) => {
+//         res.status(500).json({"error": err});
+//     });
+// };
+
+
+
+//Happy eid from Naguib
 const popularAuthor = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
-    Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('book').populate('category').then((books) => {
-        // Declare a new array
-        const author_filtered = [];
-        // Declare an empty object
-        const uniqueAuthor = {};
-        // Loop for the array elements
-        for (let i in books) {
-            // Extract the author
-            const objAuthor = books[i]['author'];
-            // Use the title as the index
-            uniqueAuthor[objAuthor] = books[i];
-        }
-        // Loop to push unique object into array
-        for (i in uniqueAuthor) {
-            author_filtered.push(uniqueAuthor[i]);
-        }
-        res.status(200).json({"data": author_filtered});
+    Author.find({}, null, {sort: {popularity: -1}, limit: 5}).then((authors) => {
+        res.status(200).json(authors);
     }).catch((err) => {
-        res.status(500).json({"error": err});
+        console.log(err);
+        res.status(500).end();
     });
 };
+
+
+
+
 
 
 module.exports = {
@@ -107,5 +124,5 @@ module.exports = {
     deleteAuthor,
     updateAuthor,
     addAuthor,
-    popularAuthor
+    popularAuthor,
 }

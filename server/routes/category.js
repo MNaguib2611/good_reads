@@ -23,4 +23,9 @@ router.get('/popular', categoryController.popularCategories)
 * */
 router.route('/search').get(categoryController.search);
 
+router.get('/popular/all', categoryController.popular);
+
+
+
+
 module.exports = router;
