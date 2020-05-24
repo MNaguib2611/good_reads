@@ -96,6 +96,7 @@ const popularCategories = async (req, res) =>{
     //     res.status(500).json(error);
     // }
 }
+
 const popular = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
     Category.find({}, null, {sort: {popularity: -1}, limit: 5}).then((categories) => {

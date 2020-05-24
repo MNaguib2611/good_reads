@@ -32,6 +32,7 @@ function App() {
                     <Route exact path="/" component={Home}/>
                     <Route exact path='/admin/books' component={Books} />
                     <Route exact path='/unauthorized' component={Unauthorized}/>
+                    <Route exact path="/add-author" component={CreateAuthor} />
 
 
                     {/* route available only if NOT authenticated */}

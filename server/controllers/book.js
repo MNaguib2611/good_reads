@@ -67,12 +67,9 @@ const all = (req, res) => {
 
 // Create new book
 const create = (req, res) => {
-    console.log("gggg");
-    
-    const path = req.file.path.substring(6);
     const book = new Book({
         ...req.body,
-        image: req.file && path
+        image: req.file && req.file.path.substring(6)
     });
 
     book.save().then((book) => {
