@@ -80,9 +80,9 @@ router.get("/fail", (req, res) => {
 
 router.get("/success", (req, res) => {
     if (req.user.isAdmin) {
-        res.status(201).json({"message": "Admin Login success"})     
+        res.status(201).json({"message": "Admin Login success","user":req.user})     
     } else {
-        res.status(200).json({"message": "Login success"})     
+        res.status(200).json({"message": "Login success","user":req.user})     
     }
 })
 

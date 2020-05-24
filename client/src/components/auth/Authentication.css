@@ -3,7 +3,7 @@
 	background:#c8c8c8;
 	color:#6a6f8c;
     font:600 16px/18px 'Open Sans',sans-serif;
-    
+
 } */
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
@@ -167,4 +167,12 @@ a{color:inherit;text-decoration:none}
 	padding: 5px;
 	background-color: #d9534f;
 	color:pink;
+}
+
+.home-link{
+	margin:25px 25px;
+	padding:10px 15px;
+	color:#ffffff;
+	border-radius:10px ;
+	background-color: #F99A3D;
 }

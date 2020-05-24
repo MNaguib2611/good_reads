@@ -27,9 +27,10 @@ const getAllAuthors = (req, res) => {
 
 // Create new author
 const addAuthor = (req, res) => {
+    const path = req.file.path.substring(6);
     const author = new Author({
         ...req.body,
-        image: req.file && req.file.path
+        image: req.file && path
     });
     author.save()
         .then(() => res.status(200).json({"data": author}))

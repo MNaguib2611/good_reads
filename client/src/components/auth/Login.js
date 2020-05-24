@@ -3,7 +3,6 @@ import { useInput } from './hooks/input-hook.js';
 import axios from 'axios';
 import './Authentication.css';
 import { Link, useHistory } from "react-router-dom";
-import auth from "../../auth";
 
 
 const authBackground ="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&w=1000&q=80"
@@ -32,13 +31,11 @@ const Login = (props) => {
 			if (response.status==250){
 				setErrorsLogin(response.data.message)
 			}else if(response.status==200){
-				auth.login(() => {
+					localStorage.setItem('loggedUser',JSON.stringify(response.data.user));
 					history.push("/");
-				});
 			}else if(response.status==201){
-				auth.login(() => {
+					localStorage.setItem('loggedUser',JSON.stringify(response.data.user));
 					history.push("/admin");
-				});
 			}	
 		})
 		.catch(error => {
@@ -51,6 +48,9 @@ const Login = (props) => {
 
     return (
 		<div style={{backgroundImage: `url(${authBackground})`}}>
+<br />
+
+		<Link className="home-link" to="/">Home</Link>
 <div className="login-wrap">
     <div className="login-html">
     <input id="tab-1" type="radio" name="tab" className="sign-in" checked onChange={handleChange}/>
@@ -65,12 +65,12 @@ const Login = (props) => {
 				<div className="group">
 					<label htmlFor="user-login" className="label">Username</label>
 					<input id="user-login" name="username" type="text" className="input"
-						{...bindUsernameLogin}
+						{...bindUsernameLogin} required
 					/>
 				</div>
 				<div className="group">
 					<label htmlFor="pass-login" className="label" >Password</label>
-					<input id="pass-login" type="password" name="password" className="input" data-type="password" {...bindPasswordLogin}/>
+					<input id="pass-login" type="password" name="password" className="input" data-type="password" {...bindPasswordLogin} required/>
 				</div>
 				<div className="group">
 					<input id="check" type="checkbox" className="check" />

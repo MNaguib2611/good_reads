@@ -95,13 +95,23 @@ const manageShelves = async (req, res) => {
         //     }, {new: true});
         // }
         // await user.save()
-        await UserBooksModel.findOneAndUpdate({book:mongoose.Types.ObjectId(bookId),user:mongoose.Types.ObjectId(userId)}, {status}, {
+        const book = await UserBooksModel.findOneAndUpdate({book:mongoose.Types.ObjectId(bookId),user:mongoose.Types.ObjectId(userId)}, {status}, {
             new: true,
             upsert: true // Make this update into an upsert
+        }).populate({
+            path: 'book',
+            select:['avgRate','image','description','name','rate'],
+            populate: {
+                path: 'author',
+                model: 'Author',
+                select:['name']
+            },
+
         });
-        return res.send({"message": "your Shelves updated successfully"})
+
+        return res.send(book)
     } catch (e) {
-        // console.log(e)
+        console.log(e)
         return res.status(500).end()
     }
 }
@@ -117,7 +127,7 @@ const getUserBooks = async (req, res) => {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
-    const limit = 2;
+    const limit = 10;
     try
     {
         /*const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
