@@ -11,7 +11,7 @@ const Table = ({ cols, data }) => {
                 <tr>
                     {cols.map((col) => {
                         return (
-                            <th>{col}</th>
+                            <th>{col.toUpperCase()}</th>
                         );
                     })}
                     <th>Actions</th>

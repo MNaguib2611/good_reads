@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from "react-redux"
 import { Link, useHistory } from "react-router-dom";
 const Sidebar = (props) => {
-    console.log("AAA",props)
     const {status} = props
     return(<div className="sidebar">
         <ul className={"sidebar-ul"}>

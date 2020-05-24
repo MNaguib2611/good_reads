@@ -114,5 +114,6 @@ module.exports = {
     deleteCategory,
     categoryBooks,
     search,
+    popularCategories,
     popular
 }

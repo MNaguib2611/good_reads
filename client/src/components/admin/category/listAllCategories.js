@@ -8,8 +8,11 @@ import {editCategory} from '../../../actions/admin/category';
 
 const ListAllCategories = ({categoryReducer}) => (  
     <div>
-        <Layout />
-        <Table cols={["id", "name"]} data={categoryReducer} />
+        <Layout>
+            <div className="card_two">
+                <Table cols={["id", "name"]} data={categoryReducer} />
+            </div>
+        </Layout>
     </div>
 );
 

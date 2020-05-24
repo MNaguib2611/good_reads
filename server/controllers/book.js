@@ -67,12 +67,10 @@ const all = (req, res) => {
 
 // Create new book
 const create = (req, res) => {
-    console.log("gggg");
-    
-    const path = req.file.path.substring(6);
+    const image = req.file && req.file.path.substring(6);
     const book = new Book({
         ...req.body,
-        image: req.file && path
+        image
     });
 
     book.save().then((book) => {
@@ -86,10 +84,10 @@ const create = (req, res) => {
 // Update existing book
 const update = (req, res) => {
     const bookId = req.params.bookId;
-    const path = req.file.path.substring(6);
+    const image = req.file && req.file.path.substring(6);
     Book.findByIdAndUpdate(bookId, {
         ...req.body,
-        image: req.file && path
+        image
     }).then((book) => {
         // if a new image is added remove old one
         if(req.file){
@@ -165,7 +163,8 @@ const rate = (req, res) => {
         // Apply changes
         book.save().then((book) => {
             // Return last saved document if new rate is added and rate via index if updated
-            res.status(200).json(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]);
+            res.status(200).json({rate:(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]), avgRate:book.avgRate
+        });
         }).catch(() => {
             res.status(500).end();
         });

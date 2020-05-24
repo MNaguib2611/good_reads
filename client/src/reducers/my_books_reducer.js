@@ -4,7 +4,8 @@ import {
     MY_BOOKS_LOADING,
     SET_PAGE_NUMBER,
     SET_STATUS,
-    UPDATA_BOOK_DATA
+    UPDATA_BOOK_DATA,
+    UPDATA_RATE
 } from "../actions/my_books_action";
 
 const defaultData = {
@@ -48,11 +49,18 @@ export default (state = defaultData, action) => {
                 error: action.error
             }
         case UPDATA_BOOK_DATA:
-            const books = updateMyBooks(state.books,action.book)
+            const books = updateMyBooks(state.books, action.book)
             return {
                 ...state,
                 books
             }
+        case UPDATA_RATE:
+            const newBooks = updateRate(state.books, action.userRate,action.avgRate,action.bookID)
+            return {
+                ...state,
+                books:newBooks
+            }
+
         default:
             return state
     }
@@ -62,6 +70,16 @@ const updateMyBooks = (books,newBook) =>{
     return books.map((book) => {
         if (newBook.book._id === book.book._id) {
             book = newBook
+        }
+        return book
+    })
+}
+
+const updateRate = (books,userRate,avgRate,bookID) =>{
+    return books.map((book) => {
+        if (bookID === book.book._id) {
+            book.book.avgRate = avgRate
+            book.book.userRate = userRate
         }
         return book
     })

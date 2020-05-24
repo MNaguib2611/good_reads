@@ -33,12 +33,13 @@ function App() {
                     <Route exact path="/" component={Home}/>
                     <Route exact path='/admin/books' component={Books} />
                     <Route exact path='/unauthorized' component={Unauthorized}/>
+                    <Route exact path="/add-author" component={CreateAuthor} />
 
 
                     {/* route available only if NOT authenticated */}
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
-                    
+
 
                      {/* route available only if  authenticated */}
                     <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
