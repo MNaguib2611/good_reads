@@ -8,7 +8,7 @@ export function addNewCategory (props, category){
             if (response) {
                 console.log(response);
                 // props.dispatch(addCategory(category));
-                getAllCategory(props);
+                getAllCategories(props);
             }
         }).catch(error => {
             console.log(error);   
@@ -16,12 +16,12 @@ export function addNewCategory (props, category){
     }
 }
 
-export function getAllCategory(props){
+export function getAllCategories(dispatch){
     axios.get('http://localhost:5000/categories/', {withCredentials: true})
         .then(response => {
             console.log(response.data)
             const categories = response.data;
-            categories.map(category => props.dispatch(addCategory(category)));
+            categories.map(category => dispatch(addCategory(category)));
         })
         .catch(error => {
             console.log(error)

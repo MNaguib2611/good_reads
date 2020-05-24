@@ -9,10 +9,10 @@ import * as serviceWorker from './serviceWorker';
 
 const store = configureStore();
 
-// store.subscribe(() => {
-//     const state = store.getState();
-//     console.log(state.categoryReducer);
-// });
+store.subscribe(() => {
+    const state = store.getState();
+    console.log(state.categoryReducer);
+});
 
 
 ReactDOM.render(
