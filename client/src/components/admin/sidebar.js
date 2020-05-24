@@ -10,7 +10,7 @@ const Sidebar = ({ children }) => {
     };
 
     return (
-        <div className="container">
+        <div className="layout_container">
             <div className="side nav-container">
                 <div className="card">
                     <ul>

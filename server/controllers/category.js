@@ -113,9 +113,6 @@ module.exports = {
     deleteCategory,
     categoryBooks,
     search,
-<<<<<<< HEAD
-    popularCategories
-=======
+    popularCategories,
     popular
->>>>>>> 571137ff48ed3705f21fe55a2655b070c313138c
 }

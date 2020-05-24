@@ -48,7 +48,7 @@ const getBookById = (books,id) => {
 
 const mapStateToProps = (state) => {
     return {
-        books: state.books,
+        books: state.myBooksReducer.books,
 
     }
 }
