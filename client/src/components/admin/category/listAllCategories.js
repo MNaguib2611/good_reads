@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Table from '../table';
 import Layout from '../layout';
 import { getAllCategories } from '../../../API/category';
+import {editCategory} from '../../../actions/admin/category';
 
 
 const ListAllCategories = ({categoryReducer}) => (  

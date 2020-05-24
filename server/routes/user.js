@@ -16,6 +16,7 @@ const router = express.Router();
 
 router.get('/',ensureAuthentication, userController.getAllUsers);
 
+router.get('/search',ensureAuthentication,userController.search);
 
 router.get('/:id',ensureAuthentication,userController.getOneUser );
 

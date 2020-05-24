@@ -6,7 +6,8 @@ const categorySchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: [true,"name is required"]
+        required: [true,"name is required"],
+        unique: [true, "This Category already exist!"]
     },
     popularity: {
         type: Number,

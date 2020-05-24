@@ -4,9 +4,9 @@ import {addNewCategory} from '../../../API/category'
 export default class CategoryForm extends React.Component{
     constructor(props){
         super(props);
-
+        console.log(props);
         this.state = {
-            name: '',
+            name: props.category ? props.category.name : '',
             error: ''
         };
     }
