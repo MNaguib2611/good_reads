@@ -1,7 +1,11 @@
 @import "src/styles/main";
+.dashboard {
+    overflow: hidden;
+}
+
 .container {
-    height: 100vh;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .content {
@@ -16,25 +20,6 @@
     flex-direction: row;
     flex-grow: 3;
     /* justify-content: space-between; */
-}
-
-.header .card1 {
-    flex-grow: 1;
-    flex-shrink: 5;
-    background-color: cyan;
-    border:5px yellow solid;
-}
-
-.header .card2 {
-    flex-grow: 1;
-    background-color: cyan;
-    border:5px yellow solid;
-}
-
-.header .card3 {
-    flex-grow: 2;
-    background-color: cyan;
-    border:5px yellow solid;
 }
 
 .side {
@@ -94,16 +79,72 @@
 
 .body {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
     flex-grow: 4;
-    align-items: center;
     background-color: $color_accent-lighter;
 }
 
 .body > div {
-    flex-basis: 30%;
-    height: 47%;
-    background-color: darkmagenta;
-    border:5px rgb(153, 96, 56) solid;
+    display: flex;
+    background-color: white;
+    border:10px $color_accent-lighter solid;
 }
+
+.card_one {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    // flex-grow: 1;
+}
+
+.card_one > h5 {
+    justify-content: start;
+    padding: 0px;
+    margin: 0px;
+    color: $color_accent;
+}
+
+.addIcon {
+    justify-content: end;
+    font-size: x-large;
+    color: $color_primary;
+    padding: 0px;  
+}
+
+#table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+#table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+  
+#table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+  
+#table tr:hover {
+    background-color: $color_primary;
+}
+  
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: $color_accent;
+    color: white;
+}
+  
+.actions{
+    display: flex;
+    justify-content: space-around;
+}
+
+// .card_two {
+//     flex-grow: 12;
+// }

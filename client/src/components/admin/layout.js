@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
     const history = useHistory();
 
     return (
-        <div>
+        <div className="dashboard">
             <Header dashboard={true}/>
             <Sidebar>
                 {children}
