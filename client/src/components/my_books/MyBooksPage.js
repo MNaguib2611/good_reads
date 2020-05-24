@@ -10,9 +10,11 @@ import {destructQuery, pageURL} from "../../utils/utils";
 import {setPageNumber, setStatus} from "../../actions/my_books_action";
 
 const MyBooksPage = (props) => {
+    console.log("e1 component")
     const {books} = props;
     const {location: {search}} = props;
     const [query, setQuery] = useState({})
+        // console.log(props)
     useEffect(() => {
         const query = destructQuery(search);
         setQuery(query)
@@ -40,14 +42,18 @@ const MyBooksPage = (props) => {
 }
 
 const mapStateToProps = (state) => {
+    // console.log(state.myBooksReducer)
+    console.log("e1 mapStateToProps")
+
     return {
-        books: state.books,
-        pages: state.pages,
-        page: state.page,
+        books: state.myBooksReducer.books,
+        pages: state.myBooksReducer.pages,
+        page: state.myBooksReducer.page,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
+    console.log("e1 mapDispatchToProps")
     return {
         getMyBooks: getMyBooks(dispatch),
         dispatch
