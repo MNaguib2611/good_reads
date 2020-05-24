@@ -67,6 +67,8 @@ const all = (req, res) => {
 
 // Create new book
 const create = (req, res) => {
+    console.log("gggg");
+    
     const path = req.file.path.substring(6);
     const book = new Book({
         ...req.body,
@@ -75,7 +77,8 @@ const create = (req, res) => {
 
     book.save().then((book) => {
         res.status(200).json(book);
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err);
         res.status(500).end();
     });
 };
@@ -83,18 +86,18 @@ const create = (req, res) => {
 // Update existing book
 const update = (req, res) => {
     const bookId = req.params.bookId;
-
+    const path = req.file.path.substring(6);
     Book.findByIdAndUpdate(bookId, {
         ...req.body,
-        image: req.file && req.file.path
+        image: req.file && path
     }).then((book) => {
         // if a new image is added remove old one
         if(req.file){
             fs.unlinkSync(book.image);
         }
         res.status(200).json(book);
-    }).catch(() => {
-        res.status(400).end();
+    }).catch((err) => {
+        res.status(500).end();
     })
 };
 
@@ -133,7 +136,7 @@ const book = (req, res) => {
             // Return book data with no user activity
             res.status(200).json(book);
         }
-    }).catch(() => {
+    }).catch((err) => {
         res.status(500).end();
     });
 };
@@ -162,7 +165,8 @@ const rate = (req, res) => {
         // Apply changes
         book.save().then((book) => {
             // Return last saved document if new rate is added and rate via index if updated
-            res.status(200).json(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]);
+            res.status(200).json({rate:(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]), avgRate:book.avgRate
+        });
         }).catch(() => {
             res.status(500).end();
         });
@@ -173,9 +177,10 @@ const rate = (req, res) => {
 
 const popular = (req, res) => {
     // Retrieve books sorted by popularity and limited to 9
-    Book.find({}, null, {sort: {popularity: -1}, limit: 9}).populate('author').populate('category').then((books) => {
+    Book.find({}, null, {sort: {popularity: -1}, limit: 5}).populate('author').populate('category').then((books) => {
         res.status(200).json(books);
-    }).catch(() => {
+    }).catch((err) => {
+        console.log(err);
         res.status(500).end();
     });
 };

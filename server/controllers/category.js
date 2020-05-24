@@ -1,4 +1,5 @@
-const Category = require('../models/category')
+const Category = require('../models/category');
+const Book = require('./book');
 
 const search = async (req, res) => {
     const q = req.query.q || ""
@@ -15,7 +16,11 @@ const search = async (req, res) => {
     }
 }
 
+
+// get all category
 const getAllCategories = (req, res)=>{
+    console.log("req list from client");
+    
     Category.find()
             .select('name')
             .then(categories=> {
@@ -24,16 +29,21 @@ const getAllCategories = (req, res)=>{
             .catch(err => res.status(500).json('Error: ' + err))
 }
 
+
+// create new category
 const createCategory = (req, res)=>{
+    console.log("req create from client");
     const name = req.body.name
     const newCategory = new Category({name})
     newCategory.save()
         .then(() => res.status(201).send('Category has been created!'))
         .catch(err => {
-            res.status(400).json('Error: ' + err)
+            res.status(500).json('Error: ' + err)
         })
 }
 
+
+// edit category
 const editCategory = (req, res)=>{
     Category.findById(req.params.id)
         .then(category=>{
@@ -51,11 +61,19 @@ const deleteCategory = (req, res)=>{
         .catch(err => res.status(500).json('Error: ' + err))
 }
 
+
+// get books of category
 const categoryBooks = async (req, res)=>{
     try {
         const category = await Category.findById(req.params.category);
         // console.log(category);
-        await category.populate('books').execPopulate();
+        await category.populate({
+            path: 'books',
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip)
+            }
+        }).execPopulate();
         // console.log(category.books);
         if (!category.books) {
             res.status(404).send('not found')
@@ -65,7 +83,31 @@ const categoryBooks = async (req, res)=>{
         res.status(500).json(error)
     }
 }
+<<<<<<< HEAD
 
+// get popular category
+const popularCategories = async (req, res) =>{
+    // try {
+    //     const books = await Book.popular(req, res)
+    //     if (!books) {
+    //         res.status(404).send('not found')
+    //     }
+    //     res.status(200).json(category.books)
+    // } catch (error) {
+    //     res.status(500).json(error);
+    // }
+}
+=======
+const popular = (req, res) => {
+    // Retrieve books sorted by popularity and limited to 9
+    Category.find({}, null, {sort: {popularity: -1}, limit: 5}).then((categories) => {
+        res.status(200).json(categories);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).end();
+    });
+};
+>>>>>>> 571137ff48ed3705f21fe55a2655b070c313138c
 
 module.exports = {
     getAllCategories,
@@ -73,5 +115,10 @@ module.exports = {
     editCategory,
     deleteCategory,
     categoryBooks,
-    search
+    search,
+<<<<<<< HEAD
+    popularCategories
+=======
+    popular
+>>>>>>> 571137ff48ed3705f21fe55a2655b070c313138c
 }
