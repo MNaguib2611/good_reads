@@ -1,4 +1,4 @@
-const {UserModel,BookModel,UserBooksModel} = require('../models/allModels');
+const {UserModel, BookModel, UserBooksModel} = require('../models/allModels');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -34,10 +34,10 @@ const updateProfile = async function (req, res) {
     user.lastName = lastName;
     user.image = image;
 
-    user.save((err) =>{
+    user.save((err) => {
         if (err) {
             console.log(err);
-            res.status(424).json({"message":err.message});
+            res.status(424).json({"message": err.message});
         } else {
             res.status(200).json({"message": "Account has been updated successfully"});
         }
@@ -52,20 +52,19 @@ const passwordUpdate = async function (req, res) {
             newPassword
         }
     } = req;
-    
+
     const user = await UserModel.findById(req.user.id)
-    if ( await bcrypt.compare(password,user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
         user.password = newPassword;
-        user.save((err) =>{
-            if(err){
-                res.status(424).json({"message":err.message});
-            }
-            else{
-                res.status(200).json({"message":"Password has been updated successfully"});
+        user.save((err) => {
+            if (err) {
+                res.status(424).json({"message": err.message});
+            } else {
+                res.status(200).json({"message": "Password has been updated successfully"});
             }
         })
-    }else{
-        res.status(424).json({"message":"wrong password"});
+    } else {
+        res.status(424).json({"message": "wrong password"});
     }
 }
 
@@ -74,40 +73,32 @@ const manageShelves = async (req, res) => {
     const bookId = req.params["id"];
     const userId = req.params["user_id"];
     const {body: {status}} = req;
-    
+
     try {
-        // const user = await UserModel.findById(userId);
-        // let bookIsExist = false
-        // user.books = user.books.map((book) => {
-        //     if (book.book.toString() === bookId) {
-        //         book.status = status;
-        //         bookIsExist = true;
-        //     }
-        //     return book
-        // })
-        //
-        // if (!bookIsExist) {
-        //     user.books = user.books.concat({book: mongoose.Types.ObjectId(bookId), status});
-        //     BookModel.findByIdAndUpdate(bookId, {
-        //         $inc: {
-        //             popularity: 1
-        //         }
-        //     }, {new: true});
-        // }
-        // await user.save()
-        const book = await UserBooksModel.findOneAndUpdate({book:mongoose.Types.ObjectId(bookId),user:mongoose.Types.ObjectId(userId)}, {status}, {
+        const book = await UserBooksModel.findOneAndUpdate({
+            book: mongoose.Types.ObjectId(bookId),
+            user: mongoose.Types.ObjectId(userId)
+        }, {status}, {
             new: true,
             upsert: true // Make this update into an upsert
         }).populate({
             path: 'book',
-            select:['avgRate','image','description','name','rate'],
+            select: ['avgRate', 'image', 'description', 'name', 'rate'],
             populate: {
                 path: 'author',
                 model: 'Author',
-                select:['name']
+                select: ['name']
             },
 
         });
+
+        const rate = book.book.rate.reduce((acc, rate) => {
+            if (rate.user.toString() === userId) {
+                return acc + rate.rating
+            }
+            return acc
+        }, 0)
+        book.book.userRate = rate
 
         return res.send(book)
     } catch (e) {
@@ -123,76 +114,42 @@ const getUserBooks = async (req, res) => {
     const pages = {
         hasPrevious: false
     }
+    const result = {}
     if (req.query.page && req.query.page > 1) {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
     const limit = 10;
-    try
-    {
-        /*const user = await UserModel.aggregate([{$match: {_id: mongoose.Types.ObjectId(userId)}}, {$unwind: '$books',}, {$match: {'books.status': {$in: status}}}, {
-            $lookup: {
-                from: "books",
-                localField: "books.book",
-                foreignField: "_id",
-                as: "books.book"
-            }
-        }, {$unwind: '$books.book'}, {$addFields: {'books.authors': []}}, {
-            $lookup: {
-                from: "authors",
-                localField: "books.book.author",
-                foreignField: "_id",
-                as: "books.authors"
-            }
-        }, {$unwind: '$books.authors'}, {
-            $group: {
-                _id: '$_id',
-                books: {$push: '$books'}
-            },
-        }, {$addFields: {'pages': {...pages}}}, {
-            $project: {
-                pages: {
-                    ...pages,
-                    "numberOfBooks": {$cond: {if: {$isArray: "$books"}, then: {$size: "$books"}, else: "NA"}},
-                    "hasNext": {$gt: [{$size: "$books"}, (page + 1) * limit]}
-                },
-                books: 1,
-                books: {$slice: ["$books", page * limit, limit]}
-            },
-        }]).exec()
-        if(user.length ===0|| user[0].books.length === 0){
-            return res.status(404).end();
-        }
-        const result = user[0]
-        /!*result.books.forEach(async (book)=>*!/for (let i=0;i<result.books.length;++i){
-            const book = result.books[i];
-            // console.log(book.book.rate[0].user)
-            const books= (await BookModel.findOne({_id:mongoose.Types.ObjectId(book.book._id),"rate.user":mongoose.Types.ObjectId(userId)},{"rate.user":{$elemMatch:mongoose.Types.ObjectId(userId)}}))
-            if(books){
-                const rate = books.rate.reduce((acc,rate)=>{
-                    if(rate.user.toString() === userId) {
-                        return acc + rate.rating
-                    }
-                    return acc
-                },0)
-                book.book.userRate = rate
-                // console.log("fddfddf",book)
-            }
-            // return book
-        }
-        return res.send(result)*/
-        const booksNumbers =  await UserBooksModel.find({user:mongoose.Types.ObjectId(userId),status:{$in:status}}).countDocuments();
-        pages.hasNext = booksNumbers > (page+1)*limit;
-        const books = await UserBooksModel.find({user:mongoose.Types.ObjectId(userId),status:{$in:status}}).limit(limit).skip(limit*page).populate({
+    try {
+
+        const booksNumbers = await UserBooksModel.find({
+            user: mongoose.Types.ObjectId(userId),
+            status: {$in: status}
+        }).countDocuments();
+        pages.hasNext = booksNumbers > (page + 1) * limit;
+        let books = await UserBooksModel.find({
+            user: mongoose.Types.ObjectId(userId),
+            status: {$in: status}
+        }).limit(limit).skip(limit * page).populate({
             path: 'book',
-            select:['avgRate','image','description','name','rate'],
+            select: ['avgRate', 'image', 'description', 'name', 'rate'],
             populate: {
                 path: 'author',
                 model: 'Author',
-                select:['name']
+                select: ['name']
             },
 
-        })
+        }).lean();
+        for (let i = 0; i < books.length; ++i) {
+            const book = books[i];
+            const rate = book.book.rate.reduce((acc, rate) => {
+                if (rate.user.toString() === userId) {
+                    return acc + rate.rating
+                }
+                return acc
+            }, 0)
+            book.book.userRate = rate
+        }
         return res.send({books, pages})
     } catch (e) {
         console.log(e)

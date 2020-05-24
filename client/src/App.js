@@ -33,7 +33,7 @@ function App() {
                     {/* route available only if NOT authenticated */}
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
-                    
+
 
                      {/* route available only if  authenticated */}
                     <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>

@@ -21,7 +21,7 @@ const MyBooksPage = (props) => {
         props.getMyBooks(search)
     }, [search])
     return (<div className="page-container">
-        <Header/>
+        <Header />
         <div className="body-container">
             <Sidebar/>
 

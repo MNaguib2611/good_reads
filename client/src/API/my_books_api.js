@@ -5,7 +5,8 @@ import {getUserData} from "../utils/utils";
 export function getMyBooks(dispatch) {
     return (query) => {
         dispatch(myBooksLoading());
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books${query}`, {withCredentials: true}).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books${query}`,
+            {withCredentials: true}).then(response => {
             if (response.data.books && response.data.pages) {
                 dispatch(myBooksSuccess(response.data.books, response.data.pages))
             }
