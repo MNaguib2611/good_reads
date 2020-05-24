@@ -7,6 +7,7 @@ import GuestRoute from "./components/GuestRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
+import CreateAuthor from "./components/author/CreateAuthor";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import auth from "./auth";
 import {
@@ -38,6 +39,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Header} />
+        <Route exact path="/add-author" component={CreateAuthor} />
 
         <GuestRoute exact path='/login' user={auth.isAuthenticated()} component={Login} />
         <GuestRoute exact path='/register' user={auth.isAuthenticated()} component={Register} />          

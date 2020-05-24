@@ -28,7 +28,7 @@ const Header = () => {
                 <li className="nav-list"><a href="/">Home</a></li>
                 <li className="nav-list"><a href="#">Categories</a></li>
                 <li className="nav-list"><a href="#">Books</a></li>
-                <li className="nav-list"><a href="#">Authors</a></li>
+                <li className="nav-list"><Link  to="/add-author">Authors</Link></li>
                 <li className="nav-list"><Link  to="/my_books">My Books</Link></li>
             </ul>
         </div>
