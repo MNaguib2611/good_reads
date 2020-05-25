@@ -68,3 +68,16 @@ export function deleteCategoryFun(props){
         });
     });
 }
+
+export function getCategoryBooks(){
+    var data
+    axios.get("http://localhost:5000/categories/5ecb8027a4eedd1bfb6d9547?limit=2&skip=0", {withCredentials: true}).then(response => {
+        console.log(data);
+        data = response.data;
+        console.log(data);
+    }).catch(error => {
+        console.log(error); 
+        data = "error while getting books"
+    });
+    return data;
+}

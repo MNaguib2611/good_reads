@@ -1,5 +1,5 @@
 import React from 'react';
-import {addNewCategory} from '../../../API/category'
+import '../../../styles/create_author_form.scss';
 
 export default class CategoryForm extends React.Component{
     constructor(props){
@@ -32,21 +32,22 @@ export default class CategoryForm extends React.Component{
 
     render(){
         return(
-            <div>
-                <div className="container">
-                    <h2 className="header"> Add Category </h2>
-                    {this.state.error && <p>{this.state.error}</p>}
-                    <form onSubmit={this.onSubmit} className="form">
+            <div className="main">
+                {this.state.error && <p>{this.state.error}</p>}
+                <form onSubmit={this.onSubmit} className="form">
+                    <div className="container">
+                        <h1> Add Category </h1>
                         <input 
                             type="text"
-                            placeholder="Name"
+                            placeholder="category name"
                             autoFocus
                             value= {this.state.name}
                             onChange={this.onNameChange}
+                            required
                         />
-                        <button className="submitBtn"> ADD </button>
-                    </form>
-                </div>
+                        <button type="submit" className="register-btn"> ADD </button>
+                    </div>
+                </form>
             </div>
         )
     }

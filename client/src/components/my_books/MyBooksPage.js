@@ -26,7 +26,7 @@ const MyBooksPage = (props) => {
         <div className="body-container">
             <Sidebar/>
 
-            <div className="my-books-container">
+            <div className={props.searchResultIsExist ? "my-books-container go-back" : "my-books-container"}>
                 {books.map((book) => (<div key={book.book._id}><BookCard bookID={book.book._id}/>
                     <hr className="solid"/>
                 </div>))}
@@ -46,6 +46,7 @@ const mapStateToProps = (state) => {
         books: state.myBooksReducer.books,
         pages: state.myBooksReducer.pages,
         page: state.myBooksReducer.page,
+        searchResultIsExist:state.searchReducer.result.length > 0
     }
 }
 

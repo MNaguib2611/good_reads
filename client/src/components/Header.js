@@ -8,6 +8,7 @@ import SearchBar from "./search_bar/SearchBar";
 
 
 const Header = ({ dashboard }) => {
+
     const history = useHistory();
     const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
     const handleLogout =()=>{
