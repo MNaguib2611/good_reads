@@ -19,6 +19,7 @@ const Table = ({ cols, data, editUrl, delUrl }) => {
             </thead>
             <tbody>
                 {data.map((record) => {
+                    console.log(record)
                     return (
                         <tr>
                             {cols.map((col) => {

@@ -1,4 +1,4 @@
-import React ,{useState } from 'react';
+import React  from 'react';
 import '../styles/header.scss';
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";

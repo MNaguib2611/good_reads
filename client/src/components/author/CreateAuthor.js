@@ -94,7 +94,7 @@ const CreateAuthor = (props) => {
                             onChange={onChangeBirthDate}
                         />
                         <input type="file" id="file" className="input-file"/>
-                        <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>  Choose a photo</label>
+                        <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>  Choose a photo</label>
 
                         <textarea placeholder="Write author's bio" value={author.bio} onChange={onChangeBio} required/>
                         <button type="submit" className="register-btn">Add</button>

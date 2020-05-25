@@ -10,12 +10,12 @@ const Authentication = (props) => {
 
 	const [errorsRegister,setErrorsRegister]=useState("");
 
-	const { value:usernameRegister, bind:bindUsernameRegister, reset:resetUsernameRegister } = useInput('');
-	const { value:passwordRegister, bind:bindPasswordRegister, reset:resetPasswordRegister } = useInput('');
-	const { value:passConfRegister, bind:bindPassConfRegister, reset:resetPassConfRegister } = useInput('');
-	const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
-	const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput('');
-	const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput('');
+	const { value:usernameRegister, bind:bindUsernameRegister  } = useInput('');
+	const { value:passwordRegister, bind:bindPasswordRegister } = useInput('');
+	const { value:passConfRegister, bind:bindPassConfRegister } = useInput('');
+	const { value:email, bind:bindEmail } = useInput('');
+	const { value:firstName, bind:bindFirstName } = useInput('');
+	const { value:lastName, bind:bindLastName } = useInput('');
 
 	const registerUrl=`${process.env.REACT_APP_BACKEND_URL}/register`;
 	const handleChange =(e) =>{}
