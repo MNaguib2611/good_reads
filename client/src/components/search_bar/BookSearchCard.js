@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const BookSearchCard = (props) => {
     return (<div className="book-search-card">

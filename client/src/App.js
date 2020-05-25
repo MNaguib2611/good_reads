@@ -25,6 +25,7 @@ import {
     Redirect,
 } from "react-router-dom";
 import listAllCategories from './components/admin/category/listAllCategories';
+import SearchResultPage from "./components/search_bar/SearchResultPage";
 // require('dotenv').config()
 
 
@@ -48,6 +49,7 @@ function App() {
 
                      {/* route available only if  authenticated */}
                     <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
+                <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories/books'  component={CategoryBooks}/>
                     <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />

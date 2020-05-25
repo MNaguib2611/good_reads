@@ -34,6 +34,10 @@
   flex-grow: 2;
 }
 
+.go-back {
+  z-index: -1;
+}
+
 .my-books-container {
   //background-color: #61dafb;
   flex-grow: 10;
@@ -84,7 +88,7 @@
   margin-top: 1em;
   margin-bottom: 1em;
   position: relative;
-  z-index: -3;
+  //z-index: -1;
 }
 
 .module {
@@ -183,7 +187,7 @@
 hr.solid {
   border-top: 1px solid #bbb;
   position: relative;
-  z-index: -3;
+  z-index: -1;
 }
 
 /* Solid border */
