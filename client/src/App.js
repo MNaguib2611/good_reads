@@ -10,7 +10,8 @@ import MyBooksPage from "./components/my_books/MyBooksPage";
 // import AddBook from "./components/admin/book/addBook";
 
 import CreateAuthor from "./components/admin/author/CreateAuthor";
-import Authors from './components/admin/author/authors';
+import ListAuthors from './components/admin/author/ListAuthors';
+import DeleteAuthor from "./components/admin/author/DeleteAuthor";
 import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
@@ -37,10 +38,11 @@ function App() {
                     <Route exact path="/create-author" component={CreateAuthor}/>
                     <Route exact path='/admin/books' component={Books} />
                     <Route exact path='/unauthorized' component={Unauthorized}/>
-                    <Route exact path="/authors" component={Authors} />
+                    <Route exact path="/authors" component={ListAuthors} />
+                    <Route exact path="/delete-author" component={DeleteAuthor} />
 
 
-                    {/* route available only if NOT authenticated */}
+                {/* route available only if NOT authenticated */}
                     <GuestRoute exact path='/login'  component={Login}/>
                     <GuestRoute exact path='/register'  component={Register}/>
 

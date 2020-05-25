@@ -6,7 +6,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 import Table from "../table";
 
-const Authors = () => {
+const ListAuthors = () => {
 
     const cols = ['name', 'bio', 'image'];
     const [ authors, setAuthors ] = useState([]);
@@ -23,15 +23,17 @@ const Authors = () => {
         });
     }, []);
 
-    return (<Layout>
+    return (
+        <Layout>
         <div className="card_one">
             <h5>All authors</h5>
             <Link to="/create-author" className="addIcon"><FontAwesomeIcon icon={faPlusCircle}/></Link>
         </div>
         <div className="card_two">
-            <Table cols={cols} data={authors}/>
+            {(authors.length==0) ? <h1 style={{color: "black", textAlign: "center", marginRight: "250px"}}>There is no data available right now</h1> : <Table cols={cols} data={authors} delUrl="/delete-author"/>}
         </div>
-    </Layout>);
+    </Layout>
+    );
 };
 
-export default Authors
+export default ListAuthors
