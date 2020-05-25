@@ -76,7 +76,12 @@ const categoryBooks = async (req, res)=>{
             options: {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip)
-            }
+            },
+            populate: {
+                path: 'author',
+                model: 'Author',
+                select: ['name']
+            },
         }).execPopulate();
         console.log(category.books);
         if (!category.books) {
