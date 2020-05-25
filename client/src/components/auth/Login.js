@@ -54,7 +54,7 @@ const Login = (props) => {
 <div className="login-wrap">
     <div className="login-html">
     <input id="tab-1" type="radio" name="tab" className="sign-in" checked onChange={handleChange}/>
-        <label htmlFor="tab-1" className="tab">Sign In</label>
+        <label htmlFor="tab-1" className="tab" >Sign In</label>
 		<input id="tab-2" type="radio" name="tab" className="sign-up"/>
         <label htmlFor="tab-2" className="tab">
 			<Link  to="/register">Sign Up</Link>

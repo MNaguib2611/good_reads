@@ -79,7 +79,20 @@ input[type=file] {
   display: none;
 }
 
-label {
+// label {
+//   color: #938A8B;
+//   width: 100%;
+//   background-color: #f1f1f1;
+//   border-radius: 15px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 15px;
+//   margin-bottom: 15px;
+//   font-family: "Montserrat", sans-serif;
+// }
+
+.file-label{
   color: #938A8B;
   width: 100%;
   background-color: #f1f1f1;
