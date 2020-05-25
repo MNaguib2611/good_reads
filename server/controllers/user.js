@@ -1,4 +1,4 @@
-const {UserModel, BookModel, UserBooksModel} = require('../models/allModels');
+const {UserModel, BookModel, UserBooksModel, AuthorModel, CategoryModel} = require('../models/allModels');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -157,6 +157,35 @@ const getUserBooks = async (req, res) => {
     }
 }
 
+const search = async (req, res) => {
+    const q = req.query.q || ""
+    try {
+        const books = await BookModel.find({name: {$regex: q, $options: "i"}}).lean();
+        const categories = await CategoryModel.find({name: {$regex: q,$options: "i"}}).lean();
+        const authors = await AuthorModel.find({name: {$regex: q, $options: "i"}}).lean();
+        books.forEach((book) => { book.type = "Book" })
+        categories.forEach((category) => { category.type = "Category" })
+        authors.forEach((author) => { author.type = "Author" })
+        const result = books.concat(categories).concat(authors)
+        result.sort(function(a, b) {
+            var keyA = a.name,
+                keyB = b.name;
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+        if(result.length === 0)
+        {
+            return res.status(404).end();
+        }
+        res.status(200).send(result);
+
+    } catch (e) {
+        console.log(e)
+        res.status(404).end();
+    }
+}
 
 module.exports = {
     getAllUsers,
@@ -164,5 +193,6 @@ module.exports = {
     updateProfile,
     passwordUpdate,
     manageShelves,
-    getUserBooks
+    getUserBooks,
+    search
 }

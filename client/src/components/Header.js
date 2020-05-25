@@ -1,7 +1,8 @@
 import React ,{useState } from 'react';
 import '../styles/header.scss';
 import axios from 'axios';
-import { Link, useHistory , Redirect} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import SearchBar from "./search_bar/SearchBar";
 
 
 
@@ -34,9 +35,7 @@ const Header = ({ dashboard }) => {
                 }
             </ul>
         </div>
-        <div className="search-container">
-            <input className="search-input" placeholder="search Books, Categories, Authors"/>
-        </div>
+        <SearchBar/>
         
         {loggedUser?
         <>

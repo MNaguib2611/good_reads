@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faListUl, faImage } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -6,12 +6,12 @@ import {Link} from "react-router-dom";
 import Layout from '../layout';
 import '../../../styles/form.scss';
 
-const AddBook = () => {
+const EditBook = ({ location: { state: { record } } }) => {
     const [ book, setBook ] = useState({
-        name: '',
-        category: null,
-        author: null,
-        description: ''
+        name: record && record.name,
+        category: record && record.category.name,
+        author: record && record.author.name,
+        description: record && record.description
     });
     const [ errors, setErrors ] = useState(false);
 
@@ -49,7 +49,7 @@ const AddBook = () => {
             {errors ?
                 <h5>Check required fields</h5>
                 :
-                <h5>Add book</h5>
+                <h5>Edit book</h5>
             }
             <Link to="/admin/books" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
         </div>
@@ -76,4 +76,4 @@ const AddBook = () => {
     </Layout>;
 };
 
-export default AddBook;
+export default EditBook;

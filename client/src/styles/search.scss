@@ -1,0 +1,119 @@
+@import "src/styles/main";
+
+.search-input {
+
+  border-radius: 1.5em;
+  border-style: solid;
+  border-width: 0.126em;
+  border-color: $color_accent;
+
+  outline: none !important;
+
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1.1em;
+  width: 100%;
+  //max-width: available;
+}
+
+.search-container {
+  flex-grow: 1;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+
+.search-result {
+  //visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  //width: max-content;
+  //flex-basis: 100px;
+  position: absolute;
+  border-bottom: #625F61 solid 1px;
+  //border-left: #625F61 solid 1px;
+  //border-right: #625F61 solid 1px;
+  //border-top: #625F61 solid 1px;
+  background-color: white;
+  margin-top: 0.85em;
+  //z-index: 2;
+  //z-index: 20;
+  //opacity: 1;
+  //right: 0;
+  width: 43em;
+}
+
+.book-search-card {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+}
+
+.book-search-cover-container img{
+  width: 4em;
+  height: 6em;
+}
+
+.book-search-info{
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.book-search-info h4,  .book-search-info h5{
+  margin-top: 0.5em;
+  margin-bottom: 0.25em
+}
+
+.book-search-info p, .author-search-info p, .category-search-card p{
+  margin-top: 0.24em;
+  font-size: 0.8rem;
+  color: darkgrey;
+  //margin-bottom: 0.25em
+}
+
+
+
+.author-search-card {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+}
+
+.author-search-cover-container img{
+  width: 4em;
+  height: 4em;
+}
+
+.author-search-info{
+  margin-left: 0.75em;
+  margin-right: 0.5em;
+}
+
+.author-search-info h4{
+  margin-top: 0.5em;
+  margin-bottom: 0.25em
+}
+
+
+
+
+.category-search-card {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+}
+
+.category-search-cover-container img{
+  width: 4em;
+  height: 4em;
+}
+
+.category-search-info{
+  margin-left: 0.75em;
+  margin-right: 0.5em;
+}
+
+.category-search-info h4{
+  margin-top: 0.5em;
+  margin-bottom: 0.25em
+}
