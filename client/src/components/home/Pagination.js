@@ -13,6 +13,7 @@ const Pagination = ({ booksPerPage, totalBooks, currentPage,paginate }) => {
         <div className="pagination">
          {pageNumbers.map(number => (
             <a 
+            key={number}
             className={number===currentPage?"active":null}
             onClick={() => paginate(number)}  >
               {number}
