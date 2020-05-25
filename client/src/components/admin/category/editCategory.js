@@ -6,7 +6,8 @@ import {editCategoryFun} from '../../../API/category'
 const EditCategoryPage = (props) => (  
     <div>
         <CategoryForm 
-            category={props.category}
+            // category={props.category}
+            category={props.location.state.record}
             onSubmit = { category => {
                 console.log(category);
                 editCategoryFun(props,category);
