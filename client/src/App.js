@@ -46,6 +46,7 @@ function App() {
                     <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
                     <ProtectedRoute exact path='/admin/categories/:id' component={EditCategory} />
+                    <ProtectedRoute exact path='/admin/categories/remove/:id' component={EditCategory} />
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
