@@ -8,7 +8,9 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
 // import AddBook from "./components/admin/book/addBook";
-import CreateAuthor from "./components/author/CreateAuthor";
+
+import CreateAuthor from "./components/admin/author/CreateAuthor";
+import Authors from './components/admin/author/authors';
 import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
@@ -30,9 +32,10 @@ function App() {
             <Switch>
                     {/* routes available for all */}
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/create-author" component={CreateAuthor}/>
                     <Route exact path='/admin/books' component={Books} />
                     <Route exact path='/unauthorized' component={Unauthorized}/>
-                    <Route exact path="/add-author" component={CreateAuthor} />
+                    <Route exact path="/authors" component={Authors} />
 
 
                     {/* route available only if NOT authenticated */}

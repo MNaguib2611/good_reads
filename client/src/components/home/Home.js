@@ -56,7 +56,7 @@ const Home = () => {
       popularBooks.map(book => {
           return(
             <li className="popular-list-item">
-              <Link title={`By: ${book.author.name}`} key={book.name} to="/unauthorized">{book.name}</Link>
+              {/*<Link title={`By: ${book.author.name}`} key={book.name} to="/unauthorized">{book.name}</Link>*/}
             </li>
           )
       })   

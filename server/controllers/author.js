@@ -20,7 +20,7 @@ const search = async (req, res) => {
 // Retrieve all authors
 const getAllAuthors = (req, res) => {
     Author.find({})
-        .select('name bio dateOfBirth image books')
+        .select('name bio dateOfBirth image')
         .then(authors => res.status(200).json({"data": authors}))
         .catch(err => res.status(400).json({"error": err}))
 }

@@ -18,6 +18,7 @@ const Table = ({ cols, data }) => {
             </thead>
             <tbody>
                 {data.map((record) => {
+                    console.log(record)
                     return (
                         <tr>
                             {cols.map((col) => {
