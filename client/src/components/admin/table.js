@@ -2,15 +2,16 @@ import React from 'react';
 import '../../styles/table.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
-const Table = ({ cols, data }) => {
+const Table = ({ cols, data, editUrl, delUrl }) => {
     return (
         <table id="table">
             <thead>
                 <tr>
                     {cols.map((col) => {
                         return (
-                            <th>{col.toUpperCase()}</th>
+                            <th>{col}</th>
                         );
                     })}
                     <th>Actions</th>
@@ -33,8 +34,18 @@ const Table = ({ cols, data }) => {
                                 );
                             })}
                             <td className="actions">
-                                <a href="#"><FontAwesomeIcon icon={faEdit}/></a>
-                                <a href="#"><FontAwesomeIcon icon={faTrash}/></a>
+                                <Link to={{
+                                    pathname: editUrl,
+                                    state: {
+                                        record
+                                    }
+                                }} className="edit-record"><FontAwesomeIcon icon={faEdit}/></Link>
+                                <Link to={{
+                                    pathname: delUrl,
+                                    state: {
+                                        record
+                                    }
+                                }} className="delete-record"><FontAwesomeIcon icon={faTrash}/></Link>
                             </td>
                         </tr>
                     );

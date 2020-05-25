@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  //position: relative;
 }
 
 .body-container {
@@ -14,6 +15,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
+  //z-index: 1;
+  //position: absolute;
 }
 
 .sidebar{
@@ -37,6 +40,7 @@
   overflow-y: scroll;
   padding: 1em;
   position: relative;
+  //z-index: -1;
   //margin: 1em;
 }
 
@@ -79,6 +83,8 @@
   //width: auto;
   margin-top: 1em;
   margin-bottom: 1em;
+  position: relative;
+  z-index: -3;
 }
 
 .module {
@@ -176,6 +182,8 @@
 /* Solid border */
 hr.solid {
   border-top: 1px solid #bbb;
+  position: relative;
+  z-index: -3;
 }
 
 /* Solid border */

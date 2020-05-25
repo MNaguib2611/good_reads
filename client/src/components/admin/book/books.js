@@ -21,10 +21,10 @@ const Books = () => {
     return (<Layout>
         <div className="card_one">
             <h5>All books</h5>
-            <Link to="/add-author" className="addIcon"><FontAwesomeIcon icon={faPlusCircle}/></Link>
+            <Link to="/admin/books/add" className="addIcon"><FontAwesomeIcon icon={faPlusCircle}/></Link>
         </div>
         <div className="card_two">
-            <Table cols={cols} data={books}/>
+            <Table cols={cols} data={books} editUrl="/admin/books/edit"/>
         </div>
     </Layout>);
 };

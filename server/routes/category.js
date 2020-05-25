@@ -14,7 +14,7 @@ router.patch('/:id', categoryController.editCategory)
 
 router.delete('/:id', categoryController.deleteCategory)
 
-router.get('/popular', categoryController.popularCategories)
+// router.get('/popular', categoryController.popularCategories)
 
 /*
 * GET /categories/search?q=ahmed
