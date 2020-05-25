@@ -7,8 +7,6 @@ import AdminRoute from "./components/routes/AdminRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
-// import AddBook from "./components/admin/book/addBook";
-
 import CreateAuthor from "./components/admin/author/CreateAuthor";
 import ListAuthors from './components/admin/author/ListAuthors';
 import DeleteAuthor from "./components/admin/author/DeleteAuthor";
@@ -23,12 +21,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
 } from "react-router-dom";
-import listAllCategories from './components/admin/category/listAllCategories';
 import SearchResultPage from "./components/search_bar/SearchResultPage";
 import CategoriesPage from "./components/category/CategoriesPage";
-// require('dotenv').config()
 
 
 function App() {

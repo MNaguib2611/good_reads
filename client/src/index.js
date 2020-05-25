@@ -5,13 +5,11 @@ import App from './App';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-// import {Switch} from "react-router-dom";
 
 const store = configureStore();
 
 store.subscribe(() => {
     const state = store.getState();
-    console.log(state.categoryReducer);
 });
 
 
