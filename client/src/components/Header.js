@@ -25,12 +25,12 @@ const Header = ({ dashboard }) => {
     return (<div className="header">
         <div className="nav-container">
             <ul>
-                <li className="nav-list"><a href="/">Home</a></li>
+                <li className="nav-list"><Link to="/">Home</Link></li>
                 {!dashboard &&
                 <>
-                <li className="nav-list"><a href="#">Categories</a></li>
+                <li className="nav-list"><Link  to="/categories">Categories</Link></li>
                 <li className="nav-list"><a href="#">Books</a></li>
-                <li className="nav-list"><a href="/create-author">Authors</a></li>
+                <li className="nav-list"><Link to="/create-author">Authors</Link></li>
                 <li className="nav-list"><Link  to="/my_books?page=1">My Books</Link></li>
                 </>
                 }
