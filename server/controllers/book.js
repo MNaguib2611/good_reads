@@ -85,6 +85,7 @@ const create = (req, res) => {
 const update = (req, res) => {
     const bookId = req.params.bookId;
     const image = req.file && req.file.path.substring(6);
+    
     Book.findByIdAndUpdate(bookId, {
         ...req.body,
         image
@@ -94,7 +95,8 @@ const update = (req, res) => {
             fs.unlinkSync(book.image);
         }
         res.status(200).json(book);
-    }).catch((err) => {
+    }).catch((error) => {
+        console.log(error);
         res.status(500).end();
     })
 };
