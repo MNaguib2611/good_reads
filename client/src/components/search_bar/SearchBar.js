@@ -14,8 +14,10 @@ const SearchBar = (props) => {
     useEffect(()=>{
         if(pathname === "/search_results") {
             props.dispatch(saveOldResults())
+        } else {
+            props.dispatch(clearStore())
         }
-    },[])
+    },[pathname])
 
     const {result} = props
     const [searchValue,setSearchValue] = useState("");

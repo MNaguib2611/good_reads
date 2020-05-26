@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const CategorySearchCard = (props) => {
     return (<div className="category-search-card">
@@ -6,7 +7,7 @@ const CategorySearchCard = (props) => {
             <img src="../../img/category.svg" alt="category" className="avatar"/>
         </div>
         <div className="category-search-info">
-            <h4>{props.category.name}</h4>
+            <Link to={'/categories/'+props.category._id}><h4>{props.category.name}</h4></Link>
             <p>{props.category.type}</p>
         </div>
     </div>)

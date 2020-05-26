@@ -13,7 +13,7 @@ const BookCard = (props) => {
     }
     return (<div className="book-card">
         <div className="cover-container">
-            <img src={`${process.env.REACT_APP_BACKEND_URL}${book.book.image}`} />
+            <img src={book.book.image ? `${process.env.REACT_APP_BACKEND_URL}${book.book.image}` : "https://www.esm.rochester.edu/uploads/NoPhotoAvailable-335x419.jpg"} alt={book.book.name}/>
         </div>
         <div className="book-info">
             <h3>{book.book.name}</h3>
