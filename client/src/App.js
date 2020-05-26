@@ -14,6 +14,7 @@ import EditAuthor from "./components/admin/author/EditAuthor";
 import Books from "./components/admin/book/books";
 import AddBook from "./components/admin/book/addBook";
 import EditBook from "./components/admin/book/editBook";
+import Book from "./components/book/book";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import EditCategory from './components/admin/category/editCategory';
@@ -58,6 +59,7 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
+                    <ProtectedRoute exact path='/book/:id' component={Book}/>
                     <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
@@ -67,7 +69,6 @@ function App() {
                     <AdminRoute exact path="/add-author" component={CreateAuthor} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />
-                    
                     <AdminRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
                     <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
