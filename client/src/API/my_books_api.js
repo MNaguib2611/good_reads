@@ -1,6 +1,7 @@
 import {myBooksSuccess, myBooksError, myBooksLoading, updateBook, updateRate} from "../actions/my_books_action";
 import axios from 'axios'
 import {getUserData} from "../utils/utils";
+import {Redirect} from "react-router";
 
 export function getMyBooks(dispatch) {
     return (query) => {
@@ -11,7 +12,9 @@ export function getMyBooks(dispatch) {
                 dispatch(myBooksSuccess(response.data.books, response.data.pages))
             }
         }).catch(error => {
-            console.log(error);
+            // console.log(error.response.status === 401);
+
+            localStorage.removeItem('loggedUser');
             dispatch(myBooksError(error.response.data));
         });
 

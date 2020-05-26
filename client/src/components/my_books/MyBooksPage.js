@@ -13,7 +13,6 @@ const MyBooksPage = (props) => {
     const {books} = props;
     const {location: {search}} = props;
     const [query, setQuery] = useState({})
-        // console.log(props)
     useEffect(() => {
         const query = destructQuery(search);
         setQuery(query)
@@ -24,10 +23,9 @@ const MyBooksPage = (props) => {
     return (<div className="page-container">
         <Header />
         <div className="body-container">
-            <Sidebar/>
-
+            <Sidebar />
             <div className={props.searchResultIsExist ? "my-books-container go-back" : "my-books-container"}>
-                {books.map((book) => (<div key={book.book._id}><BookCard bookID={book.book._id}/>
+                {books.length ===0 ?<h1>No Books Available</h1> : books.map((book) => (<div key={book.book._id}><BookCard bookID={book.book._id}/>
                     <hr className="solid"/>
                 </div>))}
                 <Pagination page={props.page}
