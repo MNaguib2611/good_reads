@@ -32,7 +32,7 @@ const SearchBar = (props) => {
         props.search(value)
     }
     return (<div className="search-container">
-        <input className="search-input" value={searchValue} onChange={handleChangeInput} placeholder="search Books, Categories, ListAuthors"/>
+        <input className="search-input" value={searchValue} onChange={handleChangeInput} placeholder="search Books, Categories, Authors"/>
         <div className="search-result">
             {
 
