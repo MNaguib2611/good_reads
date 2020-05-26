@@ -54,10 +54,6 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
-                    <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
-                    <ProtectedRoute exact path='/admin/categories/edit' component={EditCategory} />
-                    <ProtectedRoute exact path='/admin/categories/delete' component={DeleteCategory} />
                     <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookReview} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
@@ -68,6 +64,10 @@ function App() {
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />
                     
+                    <AdminRoute exact path='/admin/categories/' component={ListAllCategories} />
+                    <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
+                    <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
+                    <AdminRoute exact path='/admin/categories/delete' component={DeleteCategory} />
             </Switch>
         </Router>
     );

@@ -118,6 +118,7 @@ const getUserBooks = async (req, res) => {
     if (req.query.page && req.query.page > 1) {
         pages.hasPrevious = true
     }
+
     const page = (req.query.page && req.query.page - 1) || 0
     const limit = 2;
     try {

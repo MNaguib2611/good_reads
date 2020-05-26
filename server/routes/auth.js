@@ -92,7 +92,7 @@ router.get("/logoutToView", (req, res) => {
 })
 
 router.get("/loginToView", ensureNotAuthentication, (req, res) => {
-    res.json({"message": "Please login to view this page."});
+    res.status(401).json({"message": "Please login to view this page."});
 })
 
 

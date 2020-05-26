@@ -11,7 +11,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                 <tr>
                     {cols.map((col) => {
                         return (
-                            <th>{col}</th>
+                            <th>{col.toUpperCase()}</th>
                         );
                     })}
                     <th>Actions</th>
@@ -19,7 +19,6 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
             </thead>
             <tbody>
                 {data.map((record) => {
-                    console.log(record)
                     return (
                         <tr>
                             {cols.map((col) => {
