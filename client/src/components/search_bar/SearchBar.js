@@ -14,8 +14,10 @@ const SearchBar = (props) => {
     useEffect(()=>{
         if(pathname === "/search_results") {
             props.dispatch(saveOldResults())
+        } else {
+            props.dispatch(clearStore())
         }
-    },[])
+    },[pathname])
 
     const {result} = props
     const [searchValue,setSearchValue] = useState("");
@@ -30,7 +32,7 @@ const SearchBar = (props) => {
         props.search(value)
     }
     return (<div className="search-container">
-        <input className="search-input" value={searchValue} onChange={handleChangeInput} placeholder="search Books, Categories, ListAuthors"/>
+        <input className="search-input" value={searchValue} onChange={handleChangeInput} placeholder="search Books, Categories, Authors"/>
         <div className="search-result">
             {
 

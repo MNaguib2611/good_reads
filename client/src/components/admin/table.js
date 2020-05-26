@@ -24,12 +24,11 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                             {cols.map((col) => {
                                 return (
                                     <td>
-                                        { col == "image"?  
-                                            <img src= {typeof record[col] == 'object' && record[col] != null 
+                                        { col === "image"?
+                                            <img src= {typeof record[col] == 'object' && record[col] != null
                                                 ? 
-                                                "http://localhost:5000/"+record[col].name
-                                                : 
-                                                record[col] == 0 ? "-" : record[col]
+                                                "http://localhost:5000/"+record[col]                                               :
+                                                record[col] == 0 ? "-" : "http://localhost:5000/"+record[col]
                                             }/>
                                             : typeof record[col] == 'object' && record[col] != null 
                                                 ? 
@@ -37,7 +36,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                                                 : 
                                                 record[col] == 0 ? "-" : record[col]
                                         }
-                                        
+
                                     </td>
                                 );
                             })}

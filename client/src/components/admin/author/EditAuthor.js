@@ -1,79 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faListUl, faImage } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import {Link} from "react-router-dom";
-import Layout from '../layout';
+import React, {useState} from "react";
 import '../../../styles/form.scss';
+import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faImage, faListUl} from '@fortawesome/free-solid-svg-icons';
+import Layout from "../layout";
+import {Link} from "react-router-dom";
 
-const EditBook = ({ location: { state: { record } } }) => {
-    const [ book, setBook ] = useState({
-        name: record && record.name,
-        category: record && record.category.name,
-        author: record && record.author.name,
-        description: record && record.description
-    });
-    const [ errors, setErrors ] = useState(false);
+const EditAuthor = (props) => {
+    console.log(props.history.location.state.record)
+    const editURL = `${process.env.REACT_APP_BACKEND_URL}/authors/edit/${props.history.location.state.record._id}`;
 
-    const fileInput = React.createRef();
+    const [author, setAuthor] = useState([]);
+    const [name, setName] = useState(props.history.location.state.record.name)
+    const [image, setImage] = useState(props.history.location.state.record.image)
+    const [date, setDate] = useState(new Date())
+    const [bio, setBio] = useState(props.history.location.state.record.bio)
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const createBookUrl = 'http://127.0.0.1:9000/books';
-        if(!book.name || !book.category || !book.author){
-            setErrors(true);
-            setTimeout(() => {
-                setErrors(false);
-            }, 5000);
-        }
+    const onChangeName = (e) => {
+        const {target: {value}} = e;
+        setName(value);
+    }
 
-        const formData = new FormData();
-        formData.set('name', book.name);
-        formData.set('category', book.category);
-        formData.set('author', book.author);
-        formData.append('image', fileInput.current.files[0]);
-        formData.set('description', book.description);
+    const onChangeBirthDate = date => setDate(date);
 
-        axios.post(createBookUrl, formData, {
-            withCredentials: true ,
-        }).then((res) => {
-            console.log(res);
+    const onChangeBio = (e) => {
+        const {target: {value}} = e;
+        setBio(value);
+    }
+
+    const onChangeImage = (e) => {
+        setImage(e.target.files[0]);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let form = new FormData();
+        form.append('name', name);
+        form.append('dateOfBirth', date);
+        form.append('image', image);
+        form.append('bio', bio);
+
+        axios.put(editURL, form, {
+            withCredentials: true,
         })
+            .then((res) => {
+                setAuthor([
+                    ...author, res.data
+                ]);
+            })
             .catch((err) => {
                 console.log("test", err)
             });
-    };
+        props.history.push("/authors");
+    }
 
-    return <Layout>
-        <div className="card_one" style={{backgroundColor: errors && 'red'}}>
-            {errors ?
-                <h5>Check required fields</h5>
-                :
-                <h5>Edit book</h5>
-            }
-            <Link to="/admin/books" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
-        </div>
-        <div className="card_two">
-            <form onSubmit={handleSubmit}>
-                <div className="form_container">
-                    <input type="text" placeholder="Enter book name" value={book.name} onChange={event => setBook({...book, name: event.target.value})} style={{border: errors && '1px red solid'}} />
-                    <select name="category" id="category" value={book.category} onChange={event => setBook({...book, category: event.target.value})} style={{border: errors && '1px red solid'}} >
-                        <option disabled selected value="volvo">Select category</option>
-                        <option value="5ebc76af0d3c043fd85726b7">Test category</option>
-                    </select>
-                    <select name="author" id="author" value={book.author} onChange={event => setBook({...book, author: event.target.value})} style={{border: errors && '1px red solid'}} >
-                        <option disabled selected value="volvo">Select author</option>
-                        <option value="5ebc783e0d3c043fd85726b8">Kareem Saeed</option>
-                    </select>
-                    <input type="file" id="file" className="input-file" ref={fileInput}/>
-                    <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>  Select book photo</label>
-
-                    <textarea placeholder="Write book's description" value={book.description} onChange={event => setBook({...book, description: event.target.value})}/>
-                    <button type="submit" className="submit-btn">Add</button>
+    return (
+        <React.Fragment>
+            <Layout>
+                <div className="card_one">
+                    <h5>update Author</h5>
+                    <Link to="/authors" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
                 </div>
-            </form>
-        </div>
-    </Layout>;
-};
+                <div className="card_two">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form_container">
+                            <input type="text" name="name"
+                                   value={name}
+                                   placeholder="Enter author name"
+                                   onChange={onChangeName} required/>
 
-export default EditBook;
+                            <DatePicker name="dateOfBirth"
+                                        selected={date}
+                                        onChange={onChangeBirthDate}
+                            />
+
+                            <input type="file" name="image" id="file" onChange={onChangeImage}
+                                   className="input-file"/>
+                            <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>
+                                Choose a photo</label>
+
+                            <textarea name="bio" placeholder="Write author's bio"
+                                      value={bio} onChange={onChangeBio} required/>
+
+                            <button type="submit" className="submit-btn">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </Layout>
+        </React.Fragment>
+    )
+}
+
+export default EditAuthor

@@ -32,23 +32,21 @@ export default class CategoryForm extends React.Component{
 
     render(){
         return(
-            <div className="main">
+            <form onSubmit={this.onSubmit} className="form">
                 {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit} className="form">
-                    <div className="container">
-                        <h1> Add Category </h1>
-                        <input 
-                            type="text"
-                            placeholder="category name"
-                            autoFocus
-                            value= {this.state.name}
-                            onChange={this.onNameChange}
-                            required
-                        />
-                        <button type="submit" className="register-btn"> ADD </button>
-                    </div>
-                </form>
-            </div>
+                <div className="form_container">
+                    <h1> Add Category </h1>
+                    <input 
+                        type="text"
+                        placeholder="category name"
+                        autoFocus
+                        value= {this.state.name}
+                        onChange={this.onNameChange}
+                        required
+                    />
+                    <button type="submit" className="submit-btn"> ADD </button>
+                </div>
+            </form>
         )
     }
 }

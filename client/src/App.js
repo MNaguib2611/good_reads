@@ -10,6 +10,7 @@ import MyBooksPage from "./components/my_books/MyBooksPage";
 import CreateAuthor from "./components/admin/author/CreateAuthor";
 import ListAuthors from './components/admin/author/ListAuthors';
 import DeleteAuthor from "./components/admin/author/DeleteAuthor";
+import EditAuthor from "./components/admin/author/EditAuthor";
 import Books from "./components/admin/book/books";
 import AddBook from "./components/admin/book/addBook";
 import EditBook from "./components/admin/book/editBook";
@@ -20,6 +21,9 @@ import EditCategory from './components/admin/category/editCategory';
 import DeleteCategory from './components/admin/category/deleteCategory';
 import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
+import ListAllComments from './components/comments/listBookComments';
+import AddBookComment from './components/comments/commentForm';
+import Layout from './components/admin/layout';
 import {
     BrowserRouter as Router,
     Switch,
@@ -41,6 +45,8 @@ function App() {
                     <Route exact path='/unauthorized' component={Unauthorized}/>
                     <Route exact path="/authors" component={ListAuthors} />
                     <Route exact path="/delete-author" component={DeleteAuthor} />
+                    <Route exact path="/edit-author" component={EditAuthor} />
+
 
 
                 {/* route available only if NOT authenticated */}
@@ -54,9 +60,11 @@ function App() {
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
                     <ProtectedRoute exact path='/book/:id' component={Book}/>
+                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
+                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
                     {/* routes available for admins only */}
-                    <AdminRoute exact path='/admin'  component={Home}/>
+                    <AdminRoute exact path='/admin'  component={Books}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
                     <AdminRoute exact path="/add-author" component={CreateAuthor} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
