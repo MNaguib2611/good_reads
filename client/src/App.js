@@ -60,8 +60,8 @@ function App() {
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
                     <ProtectedRoute exact path='/book/:id' component={Book}/>
-                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
-                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
+                    {/*<ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
+                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />*/}
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Books}/>

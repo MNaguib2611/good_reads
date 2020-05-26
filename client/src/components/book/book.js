@@ -5,7 +5,9 @@ import OperationHolder from './operationHolder';
 import BookDetails from './bookDetails';
 import Review from './review';
 
-const Book = () => {
+const Book = (props) => {
+    const bookId  = props.computedMatch.params.id;
+    
     return (
         <>
             <Header />
@@ -15,7 +17,7 @@ const Book = () => {
                     <BookDetails />
                 </div>
                 <div className="bottom-card">
-                    <Review />
+                    <Review bookId={bookId} />
                 </div>
             </div>
         </>
