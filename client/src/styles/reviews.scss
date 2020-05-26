@@ -1,7 +1,12 @@
-.user-div {
-    width: 150px;
+.commentDiv {
+    height: auto;
     display: flex;
-    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.userDiv {
+    margin-left: 30px;
+    width: 100%;
 }
 
 .user-photo {
@@ -19,4 +24,16 @@
     color: white;
     font-size: large;
     float: right;
+}
+
+.commentBody {
+    border: solid 1px rgb(209, 205, 205);
+    background-color: rgb(240, 239, 239);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.createdAt {
+    color: gray;
+    font-size: smaller;
 }

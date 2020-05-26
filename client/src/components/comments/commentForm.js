@@ -75,14 +75,21 @@ export default (props) => {
                 {
                     comments.map(comment => {
                         return ( 
-                            <div >
-                                <div className="user-div">
+                            <div className="commentDiv">
+                                <div className="userImage">
                                     <img src="../../../img/user_avatar.jpg" alt="By:" className="user-photo"/>
-                                    <h4> {comment.user.username} </h4>
                                 </div>
-                                <p>{comment.content}</p>
-                                <small>Created At: {comment.createdAt} </small>
-                                <hr />
+                                <div className="userDiv">
+                                    <div className="userName">
+                                        <h4> 
+                                            {comment.user.username} 
+                                            <small className="createdAt"> . { comment.createdAt } </small> 
+                                        </h4>
+                                    </div>
+                                    <div className="commentBody">
+                                        <p>{comment.content}</p>
+                                    </div>
+                                </div>               
                             </div> 
                         )
                     })
