@@ -49,7 +49,7 @@ function App() {
                     <ProtectedRoute exact path='/my_books' component={MyBooksPage}/>
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
-                    <ProtectedRoute exact path='/categories/books'  component={CategoryBooks}/>
+                    <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
                     <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
                     <ProtectedRoute exact path='/admin/categories/edit' component={EditCategory} />
