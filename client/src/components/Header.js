@@ -14,7 +14,7 @@ const Header = ({ dashboard }) => {
     const handleLogout =()=>{
         const logout = `${process.env.REACT_APP_BACKEND_URL}/logout`
         axios.delete(logout,{withCredentials: true}).then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             localStorage.removeItem("loggedUser");
             history.push("/login");
         }).catch(err=>{
