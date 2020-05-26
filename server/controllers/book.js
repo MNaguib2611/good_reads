@@ -33,7 +33,7 @@ const search = async (req, res) => {
 //get author's books
 const getAuthorBooks = (req, res)=>{
     Book.find({author: req.params.author})
-        .select('name author image')
+        // .select('name image')
         .then(books=> {
             res.status(200).json({"data": books})
         })
