@@ -21,12 +21,12 @@ const Header = ({ dashboard }) => {
           console.log(err);
         });
       }
-
+      console.log(loggedUser)
     return (<div className="header">
         <div className="nav-container">
             <ul>
                 <li className="nav-list"><Link to="/">Home</Link></li>
-                {!dashboard && !loggedUser.isAdmin &&
+                {!dashboard && loggedUser && !loggedUser.isAdmin &&
                 <>
                 <li className="nav-list"><Link  to="/categories">Categories</Link></li>
                 <li className="nav-list"><a href="#">Books</a></li>
