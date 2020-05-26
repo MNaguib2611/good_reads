@@ -12,6 +12,7 @@ import MyBooksPage from "./components/my_books/MyBooksPage";
 import CreateAuthor from "./components/admin/author/CreateAuthor";
 import ListAuthors from './components/admin/author/ListAuthors';
 import DeleteAuthor from "./components/admin/author/DeleteAuthor";
+import EditAuthor from "./components/admin/author/EditAuthor";
 import Books from "./components/admin/book/books";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
@@ -42,6 +43,8 @@ function App() {
                     <Route exact path='/unauthorized' component={Unauthorized}/>
                     <Route exact path="/authors" component={ListAuthors} />
                     <Route exact path="/delete-author" component={DeleteAuthor} />
+                    <Route exact path="/edit-author" component={EditAuthor} />
+
 
 
                 {/* route available only if NOT authenticated */}

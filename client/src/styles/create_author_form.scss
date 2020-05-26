@@ -14,17 +14,16 @@ body {
 }
 
 /* Add padding to containers */
-.container {
-  padding: 16px;
-  background-color: $color_accent-light;
-  width: 50%;
+.form_container-new {
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
+  padding: 16px;
+  background-color: white;
+  width: 100%;
 }
 
 /* Full-width input fields */
-input[type=text], textarea{
+input[type=text], textarea, select{
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -34,20 +33,22 @@ input[type=text], textarea{
   border-radius: 15px;
 }
 
-input[type=text]:focus, textarea:focus{
+select {
+  color: #938A8B;
+}
+
+input[type=text]:focus, textarea:focus, select:focus{
   background-color: #ddd;
   outline: none;
 }
 
 /* Set a style for the submit button */
-.register-btn {
+.submit-btn-new {
   background-color: $color_primary_light;
   color: white;
   padding: 16px 20px;
-  margin-left: 130px;
   border: none;
   cursor: pointer;
-  width: 60%;
   opacity: 0.9;
   font-size: x-large;
   font-weight: bolder;
@@ -59,40 +60,15 @@ input[type=text]:focus, textarea:focus{
   opacity: 1;
 }
 
-
-.main {
-  margin-left: 100px;
-  margin-top: 10px;
-  width: 100%;
-}
-
-h1 {
-  margin-left: 220px;
-  color: white;
-}
-
 textarea {
-  height: 150px;
+  height: 100px;
 }
 
 input[type=file] {
   display: none;
 }
 
-// label {
-//   color: #938A8B;
-//   width: 100%;
-//   background-color: #f1f1f1;
-//   border-radius: 15px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 15px;
-//   margin-bottom: 15px;
-//   font-family: "Montserrat", sans-serif;
-// }
-
-.file-label{
+label {
   color: #938A8B;
   width: 100%;
   background-color: #f1f1f1;
