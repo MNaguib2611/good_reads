@@ -19,6 +19,8 @@ import EditCategory from './components/admin/category/editCategory';
 import DeleteCategory from './components/admin/category/deleteCategory';
 import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
+import ListAllComments from './components/reviews/listAllReviews';
+import AddBookReview from './components/reviews/reviewForm';
 import {
     BrowserRouter as Router,
     Switch,
@@ -52,6 +54,8 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
+                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookReview} />
+                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
@@ -59,6 +63,7 @@ function App() {
                     <AdminRoute exact path="/add-author" component={CreateAuthor} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />
+                    
                     <AdminRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
                     <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
