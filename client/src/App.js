@@ -11,6 +11,8 @@ import CreateAuthor from "./components/admin/author/CreateAuthor";
 import ListAuthors from './components/admin/author/ListAuthors';
 import DeleteAuthor from "./components/admin/author/DeleteAuthor";
 import Books from "./components/admin/book/books";
+import AddBook from "./components/admin/book/addBook";
+import EditBook from "./components/admin/book/editBook";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import EditCategory from './components/admin/category/editCategory';
@@ -57,7 +59,10 @@ function App() {
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
-
+                    <AdminRoute exact path='/admin/books' component={Books} />
+                    <AdminRoute exact path="/add-author" component={CreateAuthor} />
+                    <AdminRoute exact path="/admin/books/add" component={AddBook} />
+                    <AdminRoute exact path="/admin/books/edit" component={EditBook} />
             </Switch>
         </Router>
     );

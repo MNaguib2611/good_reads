@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-const Table = ({ cols, data, editUrl, delUrl }) => {
+const Table = ({ cols, data, editUrl, delUrl, del }) => {
     return (
         <table id="table">
             <thead>
@@ -49,12 +49,16 @@ const Table = ({ cols, data, editUrl, delUrl }) => {
                                         record
                                     }
                                 }} className="edit-record"><FontAwesomeIcon icon={faEdit}/></Link>
-                                <Link to={{
-                                    pathname: delUrl,
-                                    state: {
-                                        record
-                                    }
-                                }} className="delete-record"><FontAwesomeIcon icon={faTrash}/></Link>
+                                {del ?
+                                    <a onClick={() => del(record)} className="delete-record"><FontAwesomeIcon icon={faTrash}/></a>
+                                    :
+                                    <Link to={{
+                                        pathname: delUrl,
+                                        state: {
+                                            record
+                                        }
+                                    }} className="delete-record"><FontAwesomeIcon icon={faTrash}/></Link>
+                                }
                             </td>
                         </tr>
                     );

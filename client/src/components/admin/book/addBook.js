@@ -1,79 +1,92 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faListUl, faImage } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { faListUl } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 import Layout from '../layout';
-import '../../../styles/form.scss';
+import BookForm from './bookForm';
+import { add } from '../../../API/book';
+import { addBook } from '../../../actions/admin/book';
+import { getAllCategories } from '../../../API/category';
 
-const AddBook = () => {
+const AddBook = ({ dispatch, categoryReducer, history }) => {
     const [ book, setBook ] = useState({
         name: '',
         category: null,
         author: null,
         description: ''
     });
-    const [ errors, setErrors ] = useState(false);
+
+    const [ alert, setAlert ] = useState({
+        errors: false,
+        success: false,
+        message: ''
+    });
 
     const fileInput = React.createRef();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const createBookUrl = 'http://127.0.0.1:9000/books';
+        const createBookUrl = 'http://127.0.0.1:5000/books';
         if(!book.name || !book.category || !book.author){
-            setErrors(true);
+            setAlert({
+                errors: true,
+                message: 'Check required fields'
+            });
             setTimeout(() => {
-                setErrors(false);
+                setAlert({
+                    errors: false,
+                    message: ''
+                });
             }, 5000);
+            return;
         }
-
-        const formData = new FormData();
-        formData.set('name', book.name);
-        formData.set('category', book.category);
-        formData.set('author', book.author);
-        formData.append('image', fileInput.current.files[0]);
-        formData.set('description', book.description);
         
-        axios.post(createBookUrl, formData, {
-            withCredentials: true ,
-        }).then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log("test", err)
-        });
+        add(createBookUrl, book, fileInput, dispatch).then(res => {
+            setAlert({
+                success: true,
+                message: 'New book added successfully',
+            });
+            setTimeout(() => {
+                setBook({
+                    name: '',
+                    category: null,
+                    author: null,
+                    description: ''
+                });
+
+                history.push('/admin/books');
+            }, 1000);
+        }).catch(err => console.log(err));
     };
 
     return <Layout>
-        <div className="card_one" style={{backgroundColor: errors && 'red'}}>
-            {errors ?
-                <h5>Check required fields</h5>
+        <div className="card_one" style={{backgroundColor: alert.errors && 'red' || alert.success && '#2ecc71'}}>
+            {alert.errors || alert.success ?
+                <h5>{alert.message}</h5>
                 :
                 <h5>Add book</h5>
             }
             <Link to="/admin/books" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
         </div>
         <div className="card_two">
-            <form onSubmit={handleSubmit}>
-                <div className="form_container">
-                    <input type="text" placeholder="Enter book name" value={book.name} onChange={event => setBook({...book, name: event.target.value})} style={{border: errors && '1px red solid'}} />
-                    <select name="category" id="category" value={book.category} onChange={event => setBook({...book, category: event.target.value})} style={{border: errors && '1px red solid'}} >
-                        <option disabled selected value="volvo">Select category</option>
-                        <option value="5ebc76af0d3c043fd85726b7">Test category</option>
-                    </select>
-                    <select name="author" id="author" value={book.author} onChange={event => setBook({...book, author: event.target.value})} style={{border: errors && '1px red solid'}} >
-                        <option disabled selected value="volvo">Select author</option>
-                        <option value="5ebc783e0d3c043fd85726b8">Kareem Saeed</option>
-                    </select>
-                    <input type="file" id="file" className="input-file" ref={fileInput}/>
-                    <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>  Select book photo</label>
-
-                    <textarea placeholder="Write book's description" value={book.description} onChange={event => setBook({...book, description: event.target.value})}/>
-                    <button type="submit" className="submit-btn">Add</button>
-                </div>
-            </form>
+            <BookForm book={book} setBook={setBook} handleSubmit={handleSubmit} fileInput={fileInput} errors={alert.errors} categories={categoryReducer} operation="Add"/>
         </div>
     </Layout>;
 };
 
-export default AddBook;
+const mapStateToProps = state => {
+    return {
+        bookReducer: state.bookReducer,
+        categoryReducer: state.categoryReducer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllCategories: getAllCategories(dispatch),
+        dispatch
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddBook);
