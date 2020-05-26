@@ -4,9 +4,11 @@ import Header from "../Header";
 import OperationHolder from './operationHolder';
 import BookDetails from './bookDetails';
 import Review from './review';
+import axios from 'axios';
 import { book as getBook } from '../../API/book';
 
 const Book = ({ match }) => {
+    const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books/`
     const [ book, setBook ] = useState({
         name: '',
         author: {},
@@ -18,10 +20,20 @@ const Book = ({ match }) => {
 
     useEffect(() => {
         const { bookId } = match && match.params;
-        getBook(bookId).then(book => {
-            console.log(book);
-            setBook(book);
-        }).catch(error => console.error(error));
+        // getBook(bookId).then(book => {
+        //     console.log(book);
+        //     setBook(book);
+        // }).catch(error => console.error(error));
+        
+         axios.get(`${booksURL}${bookId}`, {
+            withCredentials: true,
+        }).then(res => {
+            console.log("jjjjjjjjjjjjjjjjj",res.data);
+            
+            setBook(res.data.book);
+        }).catch(error => {
+            return error;
+        });
     }, []);
 
     return (

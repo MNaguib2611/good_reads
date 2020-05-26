@@ -65,6 +65,7 @@ export const all = (dispatch) => {
     });
 }
 
+
 export const book = (id) => {
     const url = `${domain}/books/${id}`;
     return axios.get(url, {
