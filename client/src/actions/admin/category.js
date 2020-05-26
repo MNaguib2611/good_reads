@@ -12,3 +12,9 @@ export const addCategory = ( { name = '', _id= ''} = {}) => ({
 export const editCategory = () => ({
     type: 'EDIT_CATEGORY'
 });
+
+// SET_ERROR
+export const setError = () => ({
+    type: 'SET_ERROR',
+    error: ""
+});

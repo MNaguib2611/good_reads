@@ -19,7 +19,6 @@ const search = async (req, res) => {
 
 // get all category
 const getAllCategories = (req, res)=>{
-    console.log("req list from client");
     
     Category.find()
             .select('name')

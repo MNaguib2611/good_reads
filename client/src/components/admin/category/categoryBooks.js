@@ -32,7 +32,7 @@ export default (props) => {
                     currentBooks.map(book => {
                         return ( 
                             <div className="card CardDiv catBookDiv" length="300px">
-                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
+                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" />
                                 <Link to="#"><h4 className="card-title">{book.name}</h4></Link><br />
                                 <hr/>
                                 <Link to="#"><small>By: {book.author.name}</small></Link>

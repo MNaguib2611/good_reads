@@ -23,9 +23,13 @@ export function addNewCategory (props, category){
 }
 
 export function getAllCategories(dispatch){
+    
     axios.get('http://localhost:5000/categories/', {withCredentials: true})
         .then(response => {
-            console.log(response.data)
+            if (response.data.length == 0) {
+                // const error = "No Categories found"
+                // dispatch(addCategory(error))
+            }
             const categories = response.data;
             categories.map(category => dispatch(addCategory(category)));
         })
@@ -46,7 +50,7 @@ export function editCategoryFun(props, category){
             console.log(error); 
             // props.history.push('/admin/categories/add', {err: 'this Category is already exist'}); 
             props.history.push({
-                pathname: '/admin/categories/add',
+                pathname: '/admin/categories/',
                 customNameData: "this Category is already exist",
               });
         });
@@ -63,7 +67,7 @@ export function deleteCategoryFun(props){
     }).catch(error => {
         console.log(error); 
         props.history.push({
-            pathname: '/admin/categories/add',
+            pathname: '/admin/categories/',
             customNameData: "error while deleting category",
         });
     });

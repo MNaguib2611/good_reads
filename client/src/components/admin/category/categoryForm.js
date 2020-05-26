@@ -35,7 +35,7 @@ export default class CategoryForm extends React.Component{
             <form onSubmit={this.onSubmit} className="form">
                 {this.state.error && <p>{this.state.error}</p>}
                 <div className="form_container">
-                    <h1> Add Category </h1>
+                    <h1> {this.props.category ? "Edit Category" : "Add Category"}  </h1>
                     <input 
                         type="text"
                         placeholder="category name"
