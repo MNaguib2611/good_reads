@@ -31,6 +31,7 @@ import {
 } from "react-router-dom";
 import SearchResultPage from "./components/search_bar/SearchResultPage";
 import CategoriesPage from "./components/category/CategoriesPage";
+import AuthorPage from "./components/user_author/AuthorPage";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
                     <ProtectedRoute exact path='/book/:id' component={Book}/>
                     <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
+                    <ProtectedRoute exact path='/authors/:id' component={AuthorPage} />
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Books}/>
