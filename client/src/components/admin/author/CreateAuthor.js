@@ -95,7 +95,7 @@ const CreateAuthor = (props) => {
 
                             <input type="file" name="image" id="file" onChange={onChangeImage}
                                    className="input-file"/>
-                            <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>
+                            <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>
                                 Choose a photo</label>
                             <p style={{color: "red", fontSize: '12px'}}>{imageErr}</p>
 
