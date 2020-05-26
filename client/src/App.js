@@ -22,6 +22,7 @@ import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
 import ListAllComments from './components/comments/listBookComments';
 import AddBookComment from './components/comments/commentForm';
+import Layout from './components/admin/layout';
 import {
     BrowserRouter as Router,
     Switch,
@@ -61,7 +62,7 @@ function App() {
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
                     {/* routes available for admins only */}
-                    <AdminRoute exact path='/admin'  component={Home}/>
+                    <AdminRoute exact path='/admin'  component={Books}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
                     <AdminRoute exact path="/add-author" component={CreateAuthor} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
