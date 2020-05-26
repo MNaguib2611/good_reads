@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faListUl } from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 import Layout from '../layout';
 import BookForm from './bookForm';
 import { add } from '../../../API/book';
-import { addBook } from '../../../actions/admin/book';
 import { getAllCategories } from '../../../API/category';
+import { all } from '../../../API/author';
 
 const AddBook = ({ dispatch, categoryReducer, history }) => {
     const [ book, setBook ] = useState({
@@ -23,11 +23,18 @@ const AddBook = ({ dispatch, categoryReducer, history }) => {
         message: ''
     });
 
+    const [ authors, setAuthors ] = useState([]);
+
+    useEffect(() => {
+        all().then(authors => {
+            setAuthors(authors);
+        });
+    }, []);
+
     const fileInput = React.createRef();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const createBookUrl = 'http://127.0.0.1:5000/books';
         if(!book.name || !book.category || !book.author){
             setAlert({
                 errors: true,
@@ -42,7 +49,7 @@ const AddBook = ({ dispatch, categoryReducer, history }) => {
             return;
         }
         
-        add(createBookUrl, book, fileInput, dispatch).then(res => {
+        add(book, fileInput, dispatch).then(res => {
             setAlert({
                 success: true,
                 message: 'New book added successfully',
@@ -70,7 +77,7 @@ const AddBook = ({ dispatch, categoryReducer, history }) => {
             <Link to="/admin/books" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
         </div>
         <div className="card_two">
-            <BookForm book={book} setBook={setBook} handleSubmit={handleSubmit} fileInput={fileInput} errors={alert.errors} categories={categoryReducer} operation="Add"/>
+            <BookForm book={book} setBook={setBook} handleSubmit={handleSubmit} fileInput={fileInput} errors={alert.errors} categories={categoryReducer} authors={authors} operation="Add"/>
         </div>
     </Layout>;
 };

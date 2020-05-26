@@ -134,6 +134,7 @@ const book = (req, res) => {
             });
         }else{
             // Return book data with no user activity
+            console.log('+++++++++++++++ not loggedin');
             res.status(200).json(book);
         }
     }).catch((err) => {
@@ -165,8 +166,13 @@ const rate = (req, res) => {
         // Apply changes
         book.save().then((book) => {
             // Return last saved document if new rate is added and rate via index if updated
-            res.status(200).json({rate:(rateIndex === -1 ? book.rate[book.rate.length - 1] : book.rate[rateIndex]), avgRate:book.avgRate
-        });
+            res.status(200).json({
+                rate:(rateIndex === -1 
+                ? 
+                book.rate[book.rate.length - 1] 
+                : 
+                book.rate[rateIndex]), avgRate:book.avgRate
+            });
         }).catch(() => {
             res.status(500).end();
         });
