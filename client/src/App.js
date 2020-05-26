@@ -13,6 +13,7 @@ import DeleteAuthor from "./components/admin/author/DeleteAuthor";
 import Books from "./components/admin/book/books";
 import AddBook from "./components/admin/book/addBook";
 import EditBook from "./components/admin/book/editBook";
+import Book from "./components/book/book";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import EditCategory from './components/admin/category/editCategory';
@@ -52,6 +53,7 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
+                    <ProtectedRoute exact path='/book/:id' component={Book}/>
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
