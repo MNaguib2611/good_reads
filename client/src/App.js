@@ -20,6 +20,7 @@ import DeleteCategory from './components/admin/category/deleteCategory';
 import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
 import ListAllComments from './components/reviews/listAllReviews';
+import AddBookReview from './components/reviews/reviewForm';
 import {
     BrowserRouter as Router,
     Switch,
@@ -57,6 +58,7 @@ function App() {
                     <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
                     <ProtectedRoute exact path='/admin/categories/edit' component={EditCategory} />
                     <ProtectedRoute exact path='/admin/categories/delete' component={DeleteCategory} />
+                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookReview} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
                     {/* routes available for admins only */}
