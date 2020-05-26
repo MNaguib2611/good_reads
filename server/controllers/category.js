@@ -66,11 +66,8 @@ const deleteCategory = (req, res)=>{
 // get books of category
 const categoryBooks = async (req, res)=>{
     console.log("req list books from client");
-    console.log(req);
     try {
         const category = await Category.findById(req.params.category);
-        console.log(category);
-        console.log("after category");
         await category.populate({
             path: 'books',
             options: {
@@ -83,7 +80,6 @@ const categoryBooks = async (req, res)=>{
                 select: ['name']
             },
         }).execPopulate();
-        console.log(category.books);
         if (!category.books) {
             res.status(404).send('not found')
         }

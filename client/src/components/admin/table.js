@@ -27,7 +27,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                                         { col == "image"?  
                                             <img src= {typeof record[col] == 'object' && record[col] != null 
                                                 ? 
-                                                record[col].name 
+                                                "http://localhost:5000/"+record[col].name
                                                 : 
                                                 record[col] == 0 ? "-" : record[col]
                                             }/>

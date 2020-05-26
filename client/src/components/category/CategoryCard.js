@@ -7,7 +7,7 @@ const CategoryCard = ({category}) => {
         <hr className="solid"/>
         <img src="../../../img/category.svg"/>
         <hr className="solid"/>
-        <Link to="">See Books</Link>
+        <Link to={'/categories/'+category._id}>See Books</Link>
     </div>)
 }
 
