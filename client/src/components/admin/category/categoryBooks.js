@@ -47,15 +47,13 @@ export default (props) => {
             <div className="right-div category-books">
                 {
                     currentBooks.map(book => {
-                        return (
-                            <Link  key={book.name} to="">
-                                <div className="card CardDiv">
+                        return ( 
+                            <div className="card CardDiv">
                                 <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
-                                <h4 className="card-title">{book.name}</h4>
+                                <Link to="#"><h4 className="card-title">{book.name}</h4></Link>
                                 <hr/>
-                                <small>By: {book.author.name}</small>
-                                </div>
-                            </Link>
+                                <Link to="#"><small>By: {book.author.name}</small></Link>
+                            </div> 
                         )
                     })
                 }

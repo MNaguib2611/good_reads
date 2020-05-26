@@ -15,14 +15,19 @@ const saveComment = async (req, res)=>{
     }
 }
 
-const getAllComments = async (req, res) => {
+const getBookComments = async (req, res) => {
     try {
-        const comments = await CommentModel.find().select('content');
+        const comments = await CommentModel.find({book: req.params.book}).populate({
+            path: 'user', 
+            select: 'username' 
+        }).exec();
+        
         if(!comments){
             res.status(404).send('not found');
         }
         res.status(200).json(comments)
     } catch (error) {
+        console.log(error);
         res.status(500).json(error);
     }
 }
@@ -55,5 +60,5 @@ const userComments = async (req, res)=>{
 module.exports = {
     saveComment,
     userComments,
-    getAllComments,
+    getBookComments,
 }
