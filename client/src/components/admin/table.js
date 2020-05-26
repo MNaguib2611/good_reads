@@ -36,7 +36,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                                                 : 
                                                 record[col] == 0 ? "-" : record[col]
                                         }
-                                        
+
                                     </td>
                                 );
                             })}

@@ -26,8 +26,8 @@
     /* background-color: rgb(212, 205, 195,0.5); */
 }
 .CardDiv{
-    width: 200px;
-    height: 220px;
+    width: 300px;
+    height: 400px;
     box-shadow: 0px 0px 20px grey;
     padding: 5px;
     transition: 0.3s;

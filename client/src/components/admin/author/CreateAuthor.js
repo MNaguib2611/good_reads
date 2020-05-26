@@ -4,8 +4,9 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faImage} from '@fortawesome/free-solid-svg-icons';
+import {faImage, faListUl} from '@fortawesome/free-solid-svg-icons';
 import Layout from "../layout";
+import {Link} from "react-router-dom";
 
 const CreateAuthor = (props) => {
 
@@ -68,17 +69,19 @@ const CreateAuthor = (props) => {
                     console.log("test", err)
                 });
         }
-        window.location = '/create-author';
+        props.history.push("/authors");
     }
 
     return (
         <React.Fragment>
             <Layout>
-                <div className="main">
+                <div className="card_one">
+                    <h5>Add Author</h5>
+                    <Link to="/authors" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
+                </div>
+                <div className="card_two">
                     <form onSubmit={handleSubmit}>
-                        <div className="container">
-                            <h1>Create Author</h1>
-
+                        <div className="form_container">
                             <input type="text" name="name"
                                    placeholder="Enter author name"
                                    onChange={onChangeName} required/>
@@ -92,7 +95,7 @@ const CreateAuthor = (props) => {
 
                             <input type="file" name="image" id="file" onChange={onChangeImage}
                                    className="input-file"/>
-                            <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>
+                            <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>
                                 Choose a photo</label>
                             <p style={{color: "red", fontSize: '12px'}}>{imageErr}</p>
 
@@ -100,7 +103,7 @@ const CreateAuthor = (props) => {
                                       onChange={onChangeBio} required/>
                             <p style={{color: "red", fontSize: '12px'}}>{bioErr}</p>
 
-                            <button type="submit" className="register-btn">Add</button>
+                            <button type="submit" className="submit-btn">Add</button>
                         </div>
                     </form>
                 </div>

@@ -26,7 +26,7 @@ body {
 input[type=text], textarea, select{
   width: 100%;
   padding: 15px;
-  margin: 5px 0 15px 0;
+  margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
   background: #f1f1f1;
@@ -68,7 +68,7 @@ input[type=file] {
   display: none;
 }
 
-label {
+.file-label {
   color: #938A8B;
   width: 100%;
   background-color: #f1f1f1;

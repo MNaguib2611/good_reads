@@ -21,7 +21,7 @@ const bookForm = ({ book, setBook, handleSubmit, fileInput, errors, categories, 
                     <option value="5ebc783e0d3c043fd85726b8">Kareem Saeed</option>
                 </select>
                 <input type="file" id="file" className="input-file" ref={fileInput}/>
-                <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>  Select book photo</label>
+                <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>  Select book photo</label>
 
                 <textarea placeholder="Write book's description" value={book.description} onChange={event => setBook({...book, description: event.target.value})}/>
                 <button type="submit" className="submit-btn">{operation}</button>

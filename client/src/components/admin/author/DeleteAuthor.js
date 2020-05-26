@@ -18,6 +18,7 @@ const handleDeleteAuthor = (props) => {
             console.log(err);
         });
     window.location = "/authors";
+    // props.history.push("/authors");
 }
 
 export default handleDeleteAuthor
