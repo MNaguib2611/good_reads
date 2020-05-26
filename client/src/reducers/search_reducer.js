@@ -1,9 +1,10 @@
-import {SEARCH_SUCCESS, CLEAR_STORE} from "../actions/search_action";
+import {SEARCH_SUCCESS, CLEAR_STORE, SAVE_OLD_RESULTS, CLEAR_OLD_RESULTS} from "../actions/search_action";
 
 
 const defaultData = {
     isLoading: false,
     result: [],
+    oldResults:[],
     error: {},
 }
 
@@ -19,6 +20,20 @@ export default (state = defaultData, action) => {
             return {
                 ...state,
                 isLoading: false,
+                result: []
+            }
+        case CLEAR_OLD_RESULTS:
+            return {
+                ...state,
+                isLoading: false,
+                oldResults: []
+            }
+        case SAVE_OLD_RESULTS:
+            const oldResults = state.result
+            return {
+                ...state,
+                isLoading: false,
+                oldResults,
                 result: []
             }
         default:

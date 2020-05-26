@@ -20,17 +20,17 @@ const search = async (req, res) => {
 // Retrieve all authors
 const getAllAuthors = (req, res) => {
     Author.find({})
-        .select('name bio dateOfBirth image books')
+        .select('name bio dateOfBirth image')
         .then(authors => res.status(200).json({"data": authors}))
         .catch(err => res.status(400).json({"error": err}))
 }
 
 // Create new author
 const addAuthor = (req, res) => {
-    const path = req.file.path.substring(6);
+    const image = req.file && req.file.path.substring(6);
     const author = new Author({
         ...req.body,
-        image: req.file && path
+        image
     });
     author.save()
         .then(() => res.status(200).json({"data": author}))
@@ -50,7 +50,7 @@ const deleteAuthor = (req, res) => {
 
     Author.findByIdAndDelete(authorId).then((author) => {
         fs.unlinkSync(author.image);
-        res.status(200).json({"data": author});
+        res.status(200).json({"data": "author has been deleted"});
     }).catch((err) => {
         res.status(400).json({"error": err});
     })
@@ -59,10 +59,10 @@ const deleteAuthor = (req, res) => {
 // Update existing author
 const updateAuthor = (req, res) => {
     const authorId = req.params.id;
-
+    const image = req.file && req.file.path.substring(6);
     Author.findOneAndUpdate({_id: authorId}, {
         ...req.body,
-        image: req.file.path
+        image
     }).then((author) => {
         // if a new image is added remove old one
         if (req.file) {

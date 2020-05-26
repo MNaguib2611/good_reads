@@ -11,7 +11,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                 <tr>
                     {cols.map((col) => {
                         return (
-                            <th>{col.toUpperCase()}</th>
+                            <th>{col}</th>
                         );
                     })}
                     <th>Actions</th>
@@ -19,17 +19,26 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
             </thead>
             <tbody>
                 {data.map((record) => {
+                    console.log(record)
                     return (
                         <tr>
                             {cols.map((col) => {
                                 return (
-                                    
                                     <td>
-                                        {typeof record[col] == 'object' && record[col] != null 
-                                        ? 
-                                        record[col].name 
-                                        : 
-                                        record[col] == 0 ? "-" : record[col]}
+                                        { col == "image"?  
+                                            <img src= {typeof record[col] == 'object' && record[col] != null 
+                                                ? 
+                                                record[col].name 
+                                                : 
+                                                record[col] == 0 ? "-" : record[col]
+                                            }/>
+                                            : typeof record[col] == 'object' && record[col] != null 
+                                                ? 
+                                                record[col].name 
+                                                : 
+                                                record[col] == 0 ? "-" : record[col]
+                                        }
+                                        
                                     </td>
                                 );
                             })}

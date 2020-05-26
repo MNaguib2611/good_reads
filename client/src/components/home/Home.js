@@ -1,16 +1,19 @@
 import React ,{useState ,useEffect} from 'react';
 import Header from '../Header';
 import './Home.css';
+import BookHome from './BookHome'
 import axios from 'axios';
 import { Link } from "react-router-dom";
-
+import Pagination from './Pagination'
 
 const Home = () => {
   const [books,setBooks]=useState([]);
   const [popularBooks,setpopulaBooks]=useState([]);
   const [popularAuthors,setpopularAuthors]=useState([]);
   const [poularCategories,setpoularCategories]=useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage] = useState(8);
   
   const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books`
   const popularBooksURL = `${process.env.REACT_APP_BACKEND_URL}/books/popular/all`
@@ -18,6 +21,8 @@ const Home = () => {
   const popularCategoryURL = `${process.env.REACT_APP_BACKEND_URL}/categories/popular/all`
 
     useEffect(  () => {
+      setLoading(true);
+      const fetchPosts =() =>{
        axios.get(booksURL).then(response => {
         // console.log(response.data);
         setBooks(response.data);
@@ -42,8 +47,17 @@ const Home = () => {
       }).catch(err=>{
         console.log(err);
       });
-    }, [])
+      }
+      setLoading(false);
 
+      fetchPosts();
+    }, [])
+    const indexOfLastPost = currentPage * booksPerPage;
+    const indexOfFirstPost = indexOfLastPost - booksPerPage;
+    const currentBooks = books.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
     <>
     <Header/>
@@ -55,8 +69,8 @@ const Home = () => {
      {
       popularBooks.map(book => {
           return(
-            <li className="popular-list-item">
-              <Link title={`By: ${book.author.name}`} key={book.name} to="/unauthorized">{book.name}</Link>
+            <li key={book.name} className="popular-list-item">
+              <Link title={`By: ${book.author.name}`} to="/unauthorized">{book.name}</Link>
             </li>
           )
       })   
@@ -71,8 +85,8 @@ const Home = () => {
      {
       popularAuthors.map(author => {
           return(
-            <li className="popular-list-item">
-              <Link key={author.name} to="/unauthorized">{author.name}</Link>
+            <li key={author.name} className="popular-list-item">
+              <Link  to="/unauthorized">{author.name}</Link>
             </li>
           )
       })   
@@ -85,8 +99,8 @@ const Home = () => {
      {
       poularCategories.map(category => {
           return(
-            <li className="popular-list-item">
-              <Link key={category.name} to="/unauthorized">{category.name}</Link>
+            <li  key={category.name} className="popular-list-item">
+              <Link to="/unauthorized">{category.name}</Link>
             </li>
           )
       })   
@@ -96,33 +110,21 @@ const Home = () => {
     </fieldset>
     </div>
 
-      <div key="right-div"  className="right-div">
+  
+     
+      <BookHome books={currentBooks} loading={loading} />
+      <Pagination
+        booksPerPage={booksPerPage}
+        totalBooks={books.length}
+        currentPage={currentPage}
+        paginate={paginate}
+      />
 
 
-      {
-        books.map(book => {
-          return(
-          <Link  key={book.name} to="/unauthorized">
-            <div className="card CardDiv">
-
-              <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} width="100%" height="125" alt="Card image cap" className="card-img-top" alt="post"></img>
-              <h4
-              className="card-title">{book.name}</h4>
-
-            <small>Category : {book.category.name} </small> <br/>
-            <hr/>
-            {/*<small >By:{book.author.name}</small>*/}
-            </div>
-          </Link>
-          )
-          })
-      }
-
-      </div>
     </div>
     </>
 
-
+      
     )
 }
 

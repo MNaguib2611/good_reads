@@ -36,8 +36,7 @@ export function getAllCategories(dispatch){
 
 export function editCategoryFun(props, category){
     if (!category.error) {
-        console.log(category);
-        axios.patch(`http://localhost:5000/categories/${props.category.id}`, {name: category.name, withCredentials: true}).then(response => {
+        axios.patch(`http://localhost:5000/categories/${props.location.state.record.id}`, {name: category.name, withCredentials: true}).then(response => {
             if (response) {
                 console.log(response);
                 props.dispatch(editCategory())
@@ -52,4 +51,33 @@ export function editCategoryFun(props, category){
               });
         });
     }
+}
+
+export function deleteCategoryFun(props){
+    axios.delete(`http://localhost:5000/categories/${props.location.state.record.id}`, {name: props.location.state.record.name, withCredentials: true}).then(response => {
+        if (response) {
+            console.log(response);
+            props.dispatch(editCategory())
+            props.history.push('/admin/categories/');
+        }
+    }).catch(error => {
+        console.log(error); 
+        props.history.push({
+            pathname: '/admin/categories/add',
+            customNameData: "error while deleting category",
+        });
+    });
+}
+
+export function getCategoryBooks(){
+    var data
+    axios.get("http://localhost:5000/categories/5ecb8027a4eedd1bfb6d9547?limit=2&skip=0", {withCredentials: true}).then(response => {
+        console.log(data);
+        data = response.data;
+        console.log(data);
+    }).catch(error => {
+        console.log(error); 
+        data = "error while getting books"
+    });
+    return data;
 }

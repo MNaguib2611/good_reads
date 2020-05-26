@@ -8,7 +8,6 @@ export function getMyBooks(dispatch) {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${getUserData()._id}/books${query}`,
             {withCredentials: true}).then(response => {
             if (response.data.books && response.data.pages) {
-                console.log(response.data.books)
                 dispatch(myBooksSuccess(response.data.books, response.data.pages))
             }
         }).catch(error => {
