@@ -5,7 +5,7 @@ import categoriesReducer from "../reducers/category_reducer";
 import categoryReducer from '../reducers/admin/category'
 import searchReducer from '../reducers/search_reducer'
 import bookReducer from '../reducers/admin/book';
-
+import authorReducer from "../reducers/author_reducer";
 export default () => {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(
@@ -14,7 +14,8 @@ export default () => {
             categoryReducer,
             searchReducer,
             bookReducer,
-            categoriesReducer
+            categoriesReducer,
+            authorReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     );

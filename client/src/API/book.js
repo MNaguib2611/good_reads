@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { addBook, retrieveBooks, deleteBook } from '../actions/admin/book';
 
+const domain = 'http://127.0.0.1:5000';
+
 export const bookFormData = (book, fileInput) => {
     const formData = new FormData();
     formData.set('name', book.name);
@@ -11,7 +13,8 @@ export const bookFormData = (book, fileInput) => {
     return formData;
 }
 
-export const add = (url, book, fileInput, dispatch) => {
+export const add = (book, fileInput, dispatch) => {
+    const url = `${domain}/books`;
     const formData = bookFormData(book, fileInput);
 
     return axios.post(url, formData, {
@@ -24,11 +27,12 @@ export const add = (url, book, fileInput, dispatch) => {
     });
 }
 
-export const edit = (url, book, fileInput) => {
+export const edit = (id, book, fileInput) => {
+    const url = `${domain}/books/${id}`;
     const formData = bookFormData(book, fileInput);
     
     return axios.put(url, formData, {
-        withCredentials: true ,
+        withCredentials: true,
     }).then((res) => {
         return res;
     })
@@ -37,9 +41,10 @@ export const edit = (url, book, fileInput) => {
     });
 }
 
-export const remove = (url, dispatch) => {
+export const remove = (id, dispatch) => {
+    const url = `${domain}/books/${id}`;
     return axios.delete(url, {
-        withCredentials: true ,
+        withCredentials: true,
     }).then((res) => {
         console.log(res);
         dispatch(deleteBook(res.data));
@@ -50,9 +55,23 @@ export const remove = (url, dispatch) => {
 }
 
 export const all = (dispatch) => {
-    return axios.get('http://127.0.0.1:5000/books/').then(res => {
+    const url = `${domain}/books/`;
+    return axios.get(url, {
+        withCredentials: true,
+    }).then(res => {
         dispatch(retrieveBooks(res.data));
     }).catch(error => {
-        console.log(error);
+        return error;
+    });
+}
+
+export const book = (id) => {
+    const url = `${domain}/books/${id}`;
+    return axios.get(url, {
+        withCredentials: true,
+    }).then(res => {
+        return res.data;
+    }).catch(error => {
+        return error;
     });
 }

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import '../../../styles/form.scss';
 
-const bookForm = ({ book, setBook, handleSubmit, fileInput, errors, categories, operation }) => {
+
+const bookForm = ({ book, setBook, handleSubmit, fileInput, errors, categories, authors, operation }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="form_container">
@@ -18,7 +19,11 @@ const bookForm = ({ book, setBook, handleSubmit, fileInput, errors, categories, 
                 </select>
                 <select name="author" id="author" value={book.author} onChange={event => setBook({...book, author: event.target.value})} style={{border: errors && '1px red solid'}} >
                     <option disabled selected value="volvo">Select author</option>
-                    <option value="5ebc783e0d3c043fd85726b8">Kareem Saeed</option>
+                    {
+                        authors.map(author => {
+                            return <option value={author.id}>{author.name}</option>;
+                        })
+                    }
                 </select>
                 <input type="file" id="file" className="input-file" ref={fileInput}/>
                 <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>  Select book photo</label>
