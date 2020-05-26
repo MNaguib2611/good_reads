@@ -50,7 +50,7 @@ const deleteAuthor = (req, res) => {
 
     Author.findByIdAndDelete(authorId).then((author) => {
         fs.unlinkSync(author.image);
-        res.status(200).json({"data": author});
+        res.status(200).json({"data": "author has been deleted"});
     }).catch((err) => {
         res.status(400).json({"error": err});
     })

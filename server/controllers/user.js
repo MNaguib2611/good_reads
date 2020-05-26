@@ -119,7 +119,7 @@ const getUserBooks = async (req, res) => {
         pages.hasPrevious = true
     }
     const page = (req.query.page && req.query.page - 1) || 0
-    const limit = 10;
+    const limit = 2;
     try {
 
         const booksNumbers = await UserBooksModel.find({
@@ -170,7 +170,6 @@ const search = async (req, res) => {
         result.sort(function(a, b) {
             var keyA = a.name,
                 keyB = b.name;
-            // Compare the 2 dates
             if (keyA < keyB) return -1;
             if (keyA > keyB) return 1;
             return 0;

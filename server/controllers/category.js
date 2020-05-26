@@ -73,7 +73,12 @@ const categoryBooks = async (req, res)=>{
             options: {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip)
-            }
+            },
+            populate: {
+                path: 'author',
+                model: 'Author',
+                select: ['name']
+            },
         }).execPopulate();
         if (!category.books) {
             res.status(404).send('not found')

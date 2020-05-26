@@ -117,3 +117,16 @@
   margin-top: 0.5em;
   margin-bottom: 0.25em
 }
+
+.more-results-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75em;
+  color: $color_primary;
+  border-top: $color_accent solid 1px;
+  cursor: pointer;
+  //position: fixed;
+  //z-index: 4
+  //font-weight: bold;
+}
