@@ -12,9 +12,7 @@ const Books = ({ bookReducer, dispatch }) => {
     const cols = ['name', 'avgRate', 'category', 'author'];
 
     const deleteBook = (record) => {
-        const deleteBookUrl = `http://127.0.0.1:5000/books/${record._id}`;
-
-        remove(deleteBookUrl, dispatch).then(response => {
+        remove(record._id, dispatch).then(response => {
             bookReducer.filter((book) => {
                 return book._id != record._id;
             });

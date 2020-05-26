@@ -23,7 +23,6 @@ import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
 import ListAllComments from './components/comments/listBookComments';
 import AddBookComment from './components/comments/commentForm';
-import Layout from './components/admin/layout';
 import {
     BrowserRouter as Router,
     Switch,
@@ -59,7 +58,7 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/book/:id' component={Book}/>
+                    <ProtectedRoute exact path='/books/:bookId' component={Book}/>
                     <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
