@@ -48,6 +48,10 @@
   //margin: 1em;
 }
 
+.my-books-container h1{
+  color: black;
+  margin-left: 40%;
+}
 
 .sidebar-ul {
   list-style-type: none;
@@ -190,7 +194,7 @@ hr.solid {
   z-index: -1;
 }
 
-/* Solid border */
-hr.solid {
-  border-top: 1px solid #bbb;
-}
+///* Solid border */
+//hr.solid {
+//  border-top: 1px solid #bbb;
+//}

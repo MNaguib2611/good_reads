@@ -7,28 +7,28 @@ import AdminRoute from "./components/routes/AdminRoute";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import MyBooksPage from "./components/my_books/MyBooksPage";
-// import AddBook from "./components/admin/book/addBook";
-
 import CreateAuthor from "./components/admin/author/CreateAuthor";
 import ListAuthors from './components/admin/author/ListAuthors';
 import DeleteAuthor from "./components/admin/author/DeleteAuthor";
 import EditAuthor from "./components/admin/author/EditAuthor";
 import Books from "./components/admin/book/books";
+import AddBook from "./components/admin/book/addBook";
+import EditBook from "./components/admin/book/editBook";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import EditCategory from './components/admin/category/editCategory';
 import DeleteCategory from './components/admin/category/deleteCategory';
 import ListAllCategories from './components/admin/category/listAllCategories';
 import CategoryBooks from './components/admin/category/categoryBooks';
+import ListAllComments from './components/comments/listBookComments';
+import AddBookComment from './components/comments/commentForm';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Redirect,
 } from "react-router-dom";
-import listAllCategories from './components/admin/category/listAllCategories';
 import SearchResultPage from "./components/search_bar/SearchResultPage";
-// require('dotenv').config()
+import CategoriesPage from "./components/category/CategoriesPage";
 
 
 function App() {
@@ -53,17 +53,24 @@ function App() {
 
 
                      {/* route available only if  authenticated */}
-                    <ProtectedRoute exact path='/my_books'  component={MyBooksPage}/>
-                <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
-                    <ProtectedRoute exact path='/categories/books'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/admin/categories/' component={ListAllCategories} />
-                    <ProtectedRoute exact path='/admin/categories/add' component={AddCategory} />
-                    <ProtectedRoute exact path='/admin/categories/edit' component={EditCategory} />
-                    <ProtectedRoute exact path='/admin/categories/delete' component={DeleteCategory} />
+                    <ProtectedRoute exact path='/my_books' component={MyBooksPage}/>
+                    <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
+                    <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
+                    <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
+                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
+                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
 
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
-
+                    <AdminRoute exact path='/admin/books' component={Books} />
+                    <AdminRoute exact path="/add-author" component={CreateAuthor} />
+                    <AdminRoute exact path="/admin/books/add" component={AddBook} />
+                    <AdminRoute exact path="/admin/books/edit" component={EditBook} />
+                    
+                    <AdminRoute exact path='/admin/categories/' component={ListAllCategories} />
+                    <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
+                    <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
+                    <AdminRoute exact path='/admin/categories/delete' component={DeleteCategory} />
             </Switch>
         </Router>
     );

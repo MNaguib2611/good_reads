@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux"
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Sidebar = (props) => {
     const {status} = props
     return(<div className="sidebar">
@@ -14,7 +14,7 @@ const Sidebar = (props) => {
 }
 const mapStateToProps = (state) => {
     return {
-        status: state.selectedStatus
+        status: state.myBooksReducer.selectedStatus
     }
 }
 export default connect(mapStateToProps)(Sidebar);
