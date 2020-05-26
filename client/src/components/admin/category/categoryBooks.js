@@ -3,9 +3,12 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../../home/Home.css';
 import Header from '../../Header';
+import Pagination from '../../home/Pagination';
 
 export default (props) => {
     const [books,setBooks]=useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [booksPerPage] = useState(8);
     // const [authors, setAuthors] = useState([]);
 
     useEffect( () => {
@@ -33,27 +36,37 @@ export default (props) => {
           });
     }, []);
 
+    const indexOfLastPost = currentPage * booksPerPage;
+    const indexOfFirstPost = indexOfLastPost - booksPerPage;
+    const currentBooks = books.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     return (
         <>
-            <Header />
-            
-                <div className="right-div">
-                    {
-                        books.map(book => {
-                            return (
-                                <Link  key={book.name} to="">
-                                    <div className="card CardDiv">
-                                    <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
-                                    <h4 className="card-title">{book.name}</h4>
-                                    <hr/>
-                                    <small>By: {book.author.name}</small>
-                                    </div>
-                                </Link>
-                            )
-                        })
-                    }
+            <Header />     
+            <div className="right-div category-books">
+                {
+                    currentBooks.map(book => {
+                        return (
+                            <Link  key={book.name} to="">
+                                <div className="card CardDiv">
+                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
+                                <h4 className="card-title">{book.name}</h4>
+                                <hr/>
+                                <small>By: {book.author.name}</small>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
               
             </div>
+            <Pagination
+                booksPerPage={booksPerPage}
+                totalBooks={books.length}
+                currentPage={currentPage}
+                paginate={paginate}
+            />
         </>
     )
 }
