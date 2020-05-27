@@ -2,10 +2,7 @@ const CommentModel = require('../models/comment');
 const User = require('../models/user');
 
 const saveComment = async (req, res)=>{
-    console.log("req comment from user");
-    
     try {
-        console.log(req.body);
         const content = req.body.comment.content;
         const user = req.body.comment.user;
         const book = req.body.comment.book;
@@ -19,7 +16,7 @@ const saveComment = async (req, res)=>{
 
 const getBookComments = async (req, res) => {
     try {
-        const comments = await CommentModel.find({book: req.params.book}).populate({
+        const comments = await CommentModel.find({book: req.params.book}).sort('-createdAt').populate({
             path: 'user', 
             select: 'username' 
         }).exec();

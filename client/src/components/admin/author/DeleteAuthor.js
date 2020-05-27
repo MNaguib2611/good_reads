@@ -17,8 +17,8 @@ const handleDeleteAuthor = (props) => {
         .catch(err => {
             console.log(err);
         });
-    window.location = "/authors";
-    // props.history.push("/authors");
+    // window.location = "/admin/authors";
+    props.history.push("/admin/authors");
 }
 
 export default handleDeleteAuthor

@@ -9,6 +9,7 @@ import { book as getBook } from '../../API/book';
 
 const Book = ({ match }) => {
     const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books/`
+    
     const [ book, setBook ] = useState({
         name: '',
         author: {},
@@ -45,7 +46,7 @@ const Book = ({ match }) => {
                     <BookDetails book={book}/>
                 </div>
                 <div className="bottom-card">
-                    <Review />
+                    <Review bookId={bookID} />
                 </div>
             </div>
         </>

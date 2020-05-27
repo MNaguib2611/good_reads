@@ -25,7 +25,7 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
                                 return (
                                     <td>
                                         { col === "image"?
-                                            <img src= {typeof record[col] == 'object' && record[col] != null
+                                            <img style={{width: "50px", height: "50px"}} src= {typeof record[col] == 'object' && record[col] != null
                                                 ? 
                                                 "http://localhost:5000/"+record[col]                                               :
                                                 record[col] == 0 ? "-" : "http://localhost:5000/"+record[col]

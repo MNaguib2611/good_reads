@@ -73,9 +73,9 @@
     margin: auto;
   }
   .center-pagination{
- text-align: center;
- margin: auto;
- margin-top: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 15px;
 }
   
   .pagination a {
@@ -108,5 +108,12 @@
     margin-left: 100px;
   }
 
+  /* .catBookDiv{
+    height: 270px;
+  } */
+
+  .bookData:hover {
+    color: blue;
+  }
 
   

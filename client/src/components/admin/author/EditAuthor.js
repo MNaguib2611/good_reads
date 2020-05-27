@@ -53,7 +53,7 @@ const EditAuthor = (props) => {
             .catch((err) => {
                 console.log("test", err)
             });
-        props.history.push("/authors");
+        props.history.push("/admin/authors");
     }
 
     return (
