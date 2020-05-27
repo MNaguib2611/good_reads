@@ -5,7 +5,6 @@ import '../../../styles/reviews.scss';
 export default class CategoryForm extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.state = {
             name: props.category ? props.category.name : '',
             error: ''
@@ -23,7 +22,7 @@ export default class CategoryForm extends React.Component{
         if (!this.state.name) {
             this.setState(() => ({ error: 'Please provide category name.' }));
             setTimeout(()=>{
-                setStatus('');
+                this.setState(() => ({ error: '' }));
             }, 3000)
         } else {
             this.setState(() => ({ error: '' }));
