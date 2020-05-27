@@ -62,7 +62,7 @@ function App() {
                     <ProtectedRoute exact path='/authors/:id' component={AuthorPage} />
 
                     {/* routes available for admins only */}
-                    <AdminRoute exact path='/admin' component={Books}/>
+                    <AdminRoute exact path='/admin' component={ListAllCategories}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />

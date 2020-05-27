@@ -26,7 +26,7 @@ const OperationHolder = ({ book, setBook }) => {
     }
     return (
         <div className="left-card">
-            <img className="book-img" src={book.image ? `http://localhost:5000${book.image}` : "../../img/book.png"}/>
+            <img className="book-img" src={book.image ? `${process.env.REACT_APP_BACKEND_URL}${book.image}` : "https://www.esm.rochester.edu/uploads/NoPhotoAvailable-335x419.jpg"}/>
             <select className="shelve-options" name="category" id="category" value={book.status} onChange={addToShelve} >
                 <option disabled selected value="not selected">Add to shelve</option>
                 <option value="read">Read</option>
