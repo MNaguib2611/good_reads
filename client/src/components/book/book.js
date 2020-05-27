@@ -13,7 +13,10 @@ const Book = ({ match }) => {
         category: {},
         description: '',
         avgRate: 0,
-        rate: 0
+        rate: 0,
+        image: null,
+        status: 'not selected',
+        userRate: 0
     });
 
     useEffect(() => {
@@ -29,7 +32,7 @@ const Book = ({ match }) => {
             <Header />
             <div className="book-container">
                 <div className="upper-card">
-                    <OperationHolder book={book}/>
+                    <OperationHolder book={book} setBook={setBook}/>
                     <BookDetails book={book}/>
                 </div>
                 <div className="bottom-card">

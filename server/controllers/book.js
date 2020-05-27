@@ -21,15 +21,6 @@ const search = async (req, res) => {
     }
 }
 
-// const categoryBooks = (req, res)=>{
-//     Book.find({category: req.params.category})
-//         .select('name author image')
-//         .then(categories=> {
-//             res.status(200).json(categories)
-//         })
-//         .catch(err => res.status(400).json('Error: ' + err))
-// }
-
 //get author's books
 const getAuthorBooks = (req, res)=>{
     Book.find({author: req.params.author})
@@ -138,7 +129,6 @@ const book = (req, res) => {
             });
         }else{
             // Return book data with no user activity
-            console.log('+++++++++++++++ not loggedin');
             res.status(200).json(book);
         }
     }).catch((err) => {

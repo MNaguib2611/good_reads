@@ -106,7 +106,8 @@ router.get("/login", ensureNotAuthentication, (req, res) => {
 router.post("/login", ensureNotAuthentication, passport.authenticate('local', {
     successRedirect: '/success',
     failureRedirect: '/fail',
-    failureFlash: true
+    failureFlash: true,
+    session: true
 }))
 
 

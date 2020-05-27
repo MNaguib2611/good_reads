@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { addBook, retrieveBooks, deleteBook } from '../actions/admin/book';
 
-const domain = 'http://127.0.0.1:5000';
+export const domain = 'http://127.0.0.1:5000';
 
 export const bookFormData = (book, fileInput) => {
     const formData = new FormData();
@@ -46,7 +46,6 @@ export const remove = (id, dispatch) => {
     return axios.delete(url, {
         withCredentials: true,
     }).then((res) => {
-        console.log(res);
         dispatch(deleteBook(res.data));
         return res;
     }).catch((err) => {
@@ -68,10 +67,57 @@ export const all = (dispatch) => {
 export const book = (id) => {
     const url = `${domain}/books/${id}`;
     return axios.get(url, {
-        withCredentials: true,
+        withCredentials: true
     }).then(res => {
         return res.data;
     }).catch(error => {
+        return error;
+    });
+}
+
+export const updateBookStatus = (userId, bookId, status) => {
+    return axios({
+        method:'post',
+        url:`${domain}/users/${userId}/books/${bookId}`,
+        data:{
+            status
+        },
+        withCredentials: true
+    }).then(response => {
+        if (response.data) {
+            console.log(response);
+            return response;
+        }else {
+            const error = 'Something went wrong';
+            return {
+                error
+            }
+        }
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+export const rateBook = (bookId, rating) => {
+    return axios({
+        method:'post',
+        url:`${domain}/books/${bookId}/rate`,
+        data:{
+            rating
+        },
+        withCredentials: true
+    }).then(response => {
+        if (response.data) {
+            console.log(response);
+            return response;
+        }else {
+            const error = 'Something went wrong';
+            return {
+                error
+            }
+        }
+    }).catch(error => {
+        console.log(error);
         return error;
     });
 }
