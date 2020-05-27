@@ -56,7 +56,7 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/book/:id' component={Book}/>
+                    <ProtectedRoute exact path='/books/:id' component={Book}/>
                     {/*<ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />*/}
                     <ProtectedRoute exact path='/authors/:id' component={AuthorPage} />

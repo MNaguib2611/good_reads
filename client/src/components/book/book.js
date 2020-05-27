@@ -9,6 +9,7 @@ import { book as getBook } from '../../API/book';
 
 const Book = ({ match }) => {
     const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books/`
+    const bookID = match.params.id;
     
     const [ book, setBook ] = useState({
         name: '',
@@ -20,13 +21,13 @@ const Book = ({ match }) => {
     });
 
     useEffect(() => {
-        const { bookId } = match && match.params;
+        // const { bookId } = match && match.params;
         // getBook(bookId).then(book => {
         //     console.log(book);
         //     setBook(book);
         // }).catch(error => console.error(error));
         
-         axios.get(`${booksURL}${bookId}`, {
+         axios.get(`${booksURL}${bookID}`, {
             withCredentials: true,
         }).then(res => {
             console.log("jjjjjjjjjjjjjjjjj",res.data);
