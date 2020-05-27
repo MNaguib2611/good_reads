@@ -9,8 +9,7 @@ import ReactStars from "react-rating-stars-component";
 const AuthorPage = (props) => {
     console.log(props.computedMatch.params.id)
     const id = props.computedMatch.params.id
-    const {author,books} = props
-    console.log(books)
+    const {author,books} = props;
     useEffect(()=>{
         props.getAuthorData(id)
         props.getAuthorBooks(id)
@@ -34,6 +33,8 @@ const AuthorPage = (props) => {
             </div>
 
             {books.map((book)=>{
+                console.log(book);
+                
                 return (<div className="book-card">
                     <div className="cover-container">
                         <img src={book.image ? `${process.env.REACT_APP_BACKEND_URL}${book.image}` : "https://www.esm.rochester.edu/uploads/NoPhotoAvailable-335x419.jpg"} alt={book.name}/>
@@ -50,8 +51,9 @@ const AuthorPage = (props) => {
                                 size={24}
                                 value={book.avgRate}
                                 edit={false}
-                                color2={'#F99A3D'} />
-                            <p className="rate-text">{book.rate.length} ratings </p>
+                                color2={'#F99A3D'} 
+                            />
+                            <p className="rate-text">{book.rate? book.rate.length: 0} ratings </p>
                         </div>
                     </div>
                 </div>)
