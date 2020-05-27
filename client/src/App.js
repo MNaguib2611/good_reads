@@ -30,11 +30,8 @@ import {
 } from "react-router-dom";
 import SearchResultPage from "./components/search_bar/SearchResultPage";
 import CategoriesPage from "./components/category/CategoriesPage";
-<<<<<<< HEAD
 import GetAllAuthors from "./components/userlistauthor/UserListAuthor";
-=======
 import AuthorPage from "./components/user_author/AuthorPage";
->>>>>>> 704f964952f52336298f74850f05a9685b703333
 
 
 function App() {
