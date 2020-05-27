@@ -26,7 +26,7 @@ const Sidebar = ({ children }) => {
                     <ul>
                         <li className="nav-list" style={{backgroundColor: selectedOption === 1 && '#F56D3A'}}><Link to="/admin/categories/"><FontAwesomeIcon icon={faThLarge} size="lg"/><span>Categories</span></Link></li>
                         <li className="nav-list" style={{backgroundColor: selectedOption === 2 && '#F56D3A'}}><Link to="/admin/books/"><FontAwesomeIcon icon={faBook} size="lg"/><span>Books</span></Link></li>
-                        <li className="nav-list" style={{backgroundColor: selectedOption === 3 && '#F56D3A'}}><Link><FontAwesomeIcon icon={faAt} size="lg"/><span>Authors</span></Link></li>
+                        <li className="nav-list" style={{backgroundColor: selectedOption === 3 && '#F56D3A'}}><Link to="/admin/authors/"><FontAwesomeIcon icon={faAt} size="lg"/><span>Authors</span></Link></li>
                     </ul>
                 </div>
             </div>

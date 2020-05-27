@@ -24,7 +24,7 @@ const search = async (req, res) => {
 //get author's books
 const getAuthorBooks = (req, res)=>{
     Book.find({author: req.params.author})
-        .select('name author image')
+        // .select('name image')
         .then(books=> {
             res.status(200).json({"data": books})
         })
@@ -33,6 +33,8 @@ const getAuthorBooks = (req, res)=>{
 
 // Retrieve all books
 const all = (req, res) => {
+    console.log("allBooks",req.isAuthenticated());
+    
     const perPage = req.query.page ? 8 : null; // Books per page
     const page = perPage ? parseInt(req.query.page) : 0; // Check if there is a query string for page number
 
@@ -114,10 +116,13 @@ const remove = (req, res) => {
 // Get each book
 const book = (req, res) => {
     const bookId = req.params.bookId;
-
+    console.log("getOneBook-isAuthenticated",req.isAuthenticated());
+    
     // Find book by id and populate author and category data
     Book.findById(bookId).populate('author').populate('category').then((book) => {
         if(req.user){
+            console.log("inside get book by id Authenticated user");
+    
             // Get user book status options and rating
             // Find user rating on current book
             const rating = book.rate.find(rate => rate.user.toString() === req.user._id.toString());

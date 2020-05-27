@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../../styles/create_author_form.scss';
+import '../../../styles/reviews.scss';
 
 export default class CategoryForm extends React.Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.state = {
             name: props.category ? props.category.name : '',
             error: ''
@@ -21,6 +21,9 @@ export default class CategoryForm extends React.Component{
 
         if (!this.state.name) {
             this.setState(() => ({ error: 'Please provide category name.' }));
+            setTimeout(()=>{
+                this.setState(() => ({ error: '' }));
+            }, 3000)
         } else {
             this.setState(() => ({ error: '' }));
             this.props.onSubmit({
@@ -33,9 +36,9 @@ export default class CategoryForm extends React.Component{
     render(){
         return(
             <form onSubmit={this.onSubmit} className="form">
-                {this.state.error && <p>{this.state.error}</p>}
+                {this.state.error && <p className="error">{this.state.error}</p>}
                 <div className="form_container">
-                    <h1> Add Category </h1>
+                    <h1> {this.props.category ? "Edit Category" : "Add Category"}  </h1>
                     <input 
                         type="text"
                         placeholder="category name"

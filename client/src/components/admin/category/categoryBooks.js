@@ -7,30 +7,18 @@ import Pagination from '../../home/Pagination';
 
 export default (props) => {
     const [books,setBooks]=useState([]);
+    const [status, setStatus] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [booksPerPage] = useState(8);
-    // const [authors, setAuthors] = useState([]);
 
     useEffect( () => {
-        console.log(props.computedMatch.params.id);
         
-        axios.get(`http://localhost:5000/categories/${props.computedMatch.params.id}`, {withCredentials: true}).then(response => {
-            console.log(response.data);
-            setBooks(response.data);
-            // data.map(book =>{
-            //     console.log(book.author);
-                
-                // axios.get(`http://localhost:5000/authors/${book.author}`, {withCredentials: true}).then(response => {
-                //     console.log(response.data.data);
-                //     let obj = {
-                //         name: response.data.data.name,
-                //         authorId: response.data.data._id
-                //     }
-                //     setAuthors(authors => authors.concat(obj));
-            //     }).catch(error => {
-            //         console.log(error);
-            //     });
-            // })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/categories/${props.computedMatch.params.id}`, {withCredentials: true}).then(response => {
+            if (response.data.length == 0) {
+                setStatus('No books found');
+            } else {
+                setBooks(response.data);
+            }
           }).catch(error => {
             console.log(error);
           });
@@ -45,14 +33,15 @@ export default (props) => {
         <>
             <Header />     
             <div className="right-div category-books">
-                {
+            {status && <div className="bookStatus"> <p>{status}</p> </div>}
+                {   
                     currentBooks.map(book => {
                         return ( 
-                            <div className="card CardDiv">
-                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
-                                <Link to="#"><h4 className="card-title">{book.name}</h4></Link>
+                            <div className="card CardDiv catBookDiv" length="300px" key={book._id}>
+                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${book.image}`} alt="book image"  className="card-img-top"  width="100%" />
+                                <Link to={`/book/${book._id}`}><h4 className="card-title bookData">{book.name}</h4></Link><br />
                                 <hr/>
-                                <Link to="#"><small>By: {book.author.name}</small></Link>
+                                <Link to={`/authors/${book.author._id}`}><small className="bookData">By: {book.author.name}</small></Link>
                             </div> 
                         )
                     })
