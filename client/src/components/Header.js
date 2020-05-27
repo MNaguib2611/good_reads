@@ -21,7 +21,6 @@ const Header = ({ dashboard }) => {
           console.log(err);
         });
       }
-      console.log(loggedUser)
     return (<div className="header">
         <div className="nav-container">
             <ul>

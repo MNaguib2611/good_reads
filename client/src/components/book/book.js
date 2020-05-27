@@ -7,7 +7,6 @@ import Review from './review';
 import { book as getBook } from '../../API/book';
 
 const Book = ({ match }) => {
-    console.log(match);
     const bookID = match.params.id;
     
     const [ book, setBook ] = useState({

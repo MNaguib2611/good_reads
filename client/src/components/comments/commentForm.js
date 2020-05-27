@@ -4,7 +4,6 @@ import '../../styles/reviews.scss';
 
 
 export default (props) => {
-    console.log(props);
     
     const [comment,setComment] = useState('');
     const [error, setError] = useState('');
@@ -12,6 +11,7 @@ export default (props) => {
     const [comments,setComments]=useState([]);
     const userId = JSON.parse(localStorage.getItem('loggedUser'))._id;
     const bookId = props.bookId;
+    
 
     const listCmments = ()=>{
         axios.get(`http://localhost:5000/comments/${props.bookId}`, {withCredentials: true}).then(response => {
@@ -33,6 +33,9 @@ export default (props) => {
 
         if (!comment) {
             setError(() => ('Can not save empty review!' ));
+            setTimeout(()=>{
+                setError('');
+            }, 3000)
         } else {
             setError(() => (''));
             const commentObj = {
@@ -43,20 +46,22 @@ export default (props) => {
     
             axios.post(`http://localhost:5000/comments/`, {comment: commentObj, withCredentials: true}).then(response => {
             if (response) {
-                setStatus('Review was saved');
                 setComment('');
                 listCmments();
             }
             }).catch(error => {
                 setStatus('Faild, error while saving review');
+                setTimeout(()=>{
+                    setStatus('');
+                }, 3000)
             });
         }
     }
 
     return ( 
         <div className="main">
-            {error && <p className="error">{error}</p>}
-            {status && <p className="status">{status}</p>}
+            {error && <p className="error">*{error}</p>}
+            {status && <p className="status">*{status}</p>}
             <form onSubmit={handleSubmit} className="form">
                 <div className="container">
                     <textarea 
@@ -65,7 +70,8 @@ export default (props) => {
                         autoFocus
                         value= {comment}
                         onChange={handleChange}
-                        
+                        className="textareaField"
+                        required
                     />
                     <button type="submit" className="addBtn"> Submit </button>
                 </div>
@@ -75,7 +81,7 @@ export default (props) => {
                 {
                     comments.map(comment => {
                         return ( 
-                            <div className="commentDiv">
+                            <div className="commentDiv" key={comment._id}>
                                 <div className="userImage">
                                     <img src="../../../img/user_avatar.jpg" alt="By:" className="user-photo"/>
                                 </div>
