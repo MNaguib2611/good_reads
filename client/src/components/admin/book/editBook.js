@@ -8,6 +8,7 @@ import BookForm from './bookForm';
 import { edit } from '../../../API/book';
 import { getAllCategories } from '../../../API/category';
 import { all } from '../../../API/author';
+import { handleError, handleSuccess } from '../../../errors/book';
 
 const EditBook = ({ location: { state: { record } = {} } = {}, history, categoryReducer } = {}) => {
     const [ book, setBook ] = useState({
@@ -37,37 +38,23 @@ const EditBook = ({ location: { state: { record } = {} } = {}, history, category
     const handleSubmit = (event) => {
         event.preventDefault();
         if(!book.name || !book.category || !book.author){
-            setAlert({
-                errors: true,
-                message: 'Check required fields'
-            });
-            setTimeout(() => {
-                setAlert({
-                    errors: false,
-                    message: ''
-                });
-            }, 5000);
+            handleError(setAlert, 'Please check required fields');
             return;
         }
         
-        edit(record._id, book, fileInput).then(response => {
-            setAlert({
-                success: true,
-                message: 'Book data updated successfully',
-            });
-            setTimeout(() => {
-                setBook({
-                    name: '',
-                    category: null,
-                    author: null,
-                    description: ''
-                });
+        edit(record._id, book, fileInput).then(res => {
+            if(!res.data){
+                handleError(setAlert, 'Connection error');
+                return;
+            }
 
+            handleSuccess(setAlert, 'Book data updated successfully', 1000, () => {
                 history.push('/admin/books');
-            }, 1000);
+            })
         }).catch(error => {
-            console.log(error);
-        });;
+            handleError(setAlert, '500 Error');
+            return;
+        });
     };
 
     return <Layout>

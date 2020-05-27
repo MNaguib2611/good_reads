@@ -76,8 +76,12 @@ const create = (req, res) => {
     book.save().then((book) => {
         res.status(200).json(book);
     }).catch((err) => {
-        console.log(err);
-        res.status(500).end();
+        // Check book name unique validation
+        if(err.code === 11000){
+            res.status(400).json({error: 'Book name is already in use'});
+        }else{
+            res.status(500).json({error: '500 Server error'})
+        }
     });
 };
 
@@ -138,7 +142,7 @@ const book = (req, res) => {
             res.status(200).json(book);
         }
     }).catch((err) => {
-        res.status(500).end();
+        res.status(500).json({error: err});
     });
 };
 
@@ -199,7 +203,6 @@ module.exports = {
     remove,
     rate,
     search,
-
     popular,
     book
 }

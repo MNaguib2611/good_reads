@@ -8,6 +8,7 @@ import BookForm from './bookForm';
 import { add } from '../../../API/book';
 import { getAllCategories } from '../../../API/category';
 import { all } from '../../../API/author';
+import { handleError, handleSuccess } from '../../../errors/book';
 
 const AddBook = ({ dispatch, categoryReducer, history }) => {
     const [ book, setBook ] = useState({
@@ -36,35 +37,24 @@ const AddBook = ({ dispatch, categoryReducer, history }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if(!book.name || !book.category || !book.author){
-            setAlert({
-                errors: true,
-                message: 'Check required fields'
-            });
-            setTimeout(() => {
-                setAlert({
-                    errors: false,
-                    message: ''
-                });
-            }, 5000);
+            handleError(setAlert, 'Please check required fields');
             return;
         }
-        
-        add(book, fileInput, dispatch).then(res => {
-            setAlert({
-                success: true,
-                message: 'New book added successfully',
-            });
-            setTimeout(() => {
-                setBook({
-                    name: '',
-                    category: null,
-                    author: null,
-                    description: ''
-                });
 
+        add(book, fileInput, dispatch).then(res => {
+            if(!res.data){
+                handleError(setAlert, res.response.data.error);
+                return;
+            }
+            
+            handleSuccess(setAlert, 'New book added successfully', 1000, () => {
                 history.push('/admin/books');
-            }, 1000);
-        }).catch(err => console.log(err));
+            })
+        }).catch(err => {
+            console.log(err);
+            handleError(setAlert, '500 Error');
+            return;
+        });
     };
 
     return <Layout>
