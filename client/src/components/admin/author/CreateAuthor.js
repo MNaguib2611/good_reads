@@ -69,7 +69,7 @@ const CreateAuthor = (props) => {
                     console.log("test", err)
                 });
         }
-        props.history.push("/authors");
+        props.history.push("/admin/authors");
     }
 
     return (
@@ -77,7 +77,7 @@ const CreateAuthor = (props) => {
             <Layout>
                 <div className="card_one">
                     <h5>Add Author</h5>
-                    <Link to="/authors" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
+                    <Link to="/admin/authors" className="addIcon"><FontAwesomeIcon icon={faListUl}/></Link>
                 </div>
                 <div className="card_two">
                     <form onSubmit={handleSubmit}>

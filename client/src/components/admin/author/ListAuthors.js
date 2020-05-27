@@ -8,7 +8,7 @@ import Table from "../table";
 
 const ListAuthors = () => {
 
-    const cols = ['name', 'bio', 'image'];
+    const cols = ['name', 'bio', 'dateOfBirth'];
     const [ authors, setAuthors ] = useState([]);
 
     const getURL = `${process.env.REACT_APP_BACKEND_URL}/authors/`;
@@ -27,10 +27,10 @@ const ListAuthors = () => {
         <Layout>
         <div className="card_one">
             <h5>All authors</h5>
-            <Link to="/create-author" className="addIcon"><FontAwesomeIcon icon={faPlusCircle}/></Link>
+            <Link to="/admin/authors/add" className="addIcon"><FontAwesomeIcon icon={faPlusCircle}/></Link>
         </div>
         <div className="card_two">
-            {(authors.length==0) ? <h1 style={{color: "black", textAlign: "center", marginRight: "250px"}}>There is no data available right now</h1> : <Table cols={cols} data={authors} delUrl="/delete-author" editUrl="/edit-author"/>}
+            {(authors.length==0) ? <h1 style={{color: "black", textAlign: "center", marginLeft: "80px"}}>There is no data available right now</h1> : <Table cols={cols} data={authors} delUrl="/admin/authors/delete" editUrl="/admin/authors/edit"/>}
         </div>
     </Layout>
     );

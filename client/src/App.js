@@ -29,6 +29,7 @@ import {
 } from "react-router-dom";
 import SearchResultPage from "./components/search_bar/SearchResultPage";
 import CategoriesPage from "./components/category/CategoriesPage";
+import GetAllAuthors from "./components/userlistauthor/UserListAuthor";
 
 
 function App() {
@@ -38,13 +39,9 @@ function App() {
             <Switch>
                     {/* routes available for all */}
                     <Route exact path="/" component={Home}/>
-                    <Route exact path="/create-author" component={CreateAuthor}/>
                     <Route exact path='/admin/books' component={Books} />
+                    <Route exact path='/author-list' component={GetAllAuthors} />
                     <Route exact path='/unauthorized' component={Unauthorized}/>
-                    <Route exact path="/authors" component={ListAuthors} />
-                    <Route exact path="/delete-author" component={DeleteAuthor} />
-                    <Route exact path="/edit-author" component={EditAuthor} />
-
 
 
                 {/* route available only if NOT authenticated */}
@@ -63,7 +60,6 @@ function App() {
                     {/* routes available for admins only */}
                     <AdminRoute exact path='/admin'  component={Home}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
-                    <AdminRoute exact path="/add-author" component={CreateAuthor} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />
                     
@@ -71,6 +67,11 @@ function App() {
                     <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
                     <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
                     <AdminRoute exact path='/admin/categories/delete' component={DeleteCategory} />
+
+                    <AdminRoute exact path="/admin/authors" component={ListAuthors} />
+                    <AdminRoute exact path="/admin/authors/add" component={CreateAuthor} />
+                    <AdminRoute exact path="/admin/authors/delete" component={DeleteAuthor} />
+                    <AdminRoute exact path="/admin/authors/edit" component={EditAuthor} />
             </Switch>
         </Router>
     );
