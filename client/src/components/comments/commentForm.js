@@ -55,8 +55,8 @@ export default (props) => {
 
     return ( 
         <div className="main">
-            {error && <p>{error}</p>}
-            {status && <p>{status}</p>}
+            {error && <p className="error">{error}</p>}
+            {status && <p className="status">{status}</p>}
             <form onSubmit={handleSubmit} className="form">
                 <div className="container">
                     <textarea 
@@ -65,7 +65,7 @@ export default (props) => {
                         autoFocus
                         value= {comment}
                         onChange={handleChange}
-                        required
+                        
                     />
                     <button type="submit" className="addBtn"> Submit </button>
                 </div>
