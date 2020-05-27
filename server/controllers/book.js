@@ -116,7 +116,6 @@ const remove = (req, res) => {
 // Get each book
 const book = (req, res) => {
     const bookId = req.params.bookId;
-    console.log("getOneBook-isAuthenticated",req.isAuthenticated());
     
     // Find book by id and populate author and category data
     Book.findById(bookId).populate('author').populate('category').then((book) => {
@@ -136,8 +135,8 @@ const book = (req, res) => {
             // Return book data with no user activity
             res.status(200).json(book);
         }
-    }).catch((err) => {
-        res.status(500).json({error: err});
+    }).catch((error) => {
+        res.status(500).json({error: error});
     });
 };
 

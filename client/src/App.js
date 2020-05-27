@@ -56,13 +56,13 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/books/:id' component={Book}/>
+                    <ProtectedRoute exact path='/books/:id' component={Book} />
                     {/*<ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
                     <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />*/}
                     <ProtectedRoute exact path='/authors/:id' component={AuthorPage} />
 
                     {/* routes available for admins only */}
-                    <AdminRoute exact path='/admin'  component={Books}/>
+                    <AdminRoute exact path='/admin' component={Books}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />

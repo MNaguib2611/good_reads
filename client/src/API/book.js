@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { addBook, retrieveBooks, deleteBook } from '../actions/admin/book';
 
-export const domain = 'http://127.0.0.1:5000';
+export const domain = `${process.env.REACT_APP_BACKEND_URL}`;
 
 export const bookFormData = (book, fileInput) => {
     const formData = new FormData();
@@ -70,7 +70,8 @@ export const book = (id) => {
     return axios.get(url, {
         withCredentials: true
     }).then(res => {
-        return res.data;
+        if(res.data)
+            return res.data;
     }).catch(error => {
         return error;
     });
