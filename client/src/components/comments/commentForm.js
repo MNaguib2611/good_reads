@@ -14,7 +14,7 @@ export default (props) => {
     
 
     const listCmments = ()=>{
-        axios.get(`http://localhost:5000/comments/${props.bookId}`, {withCredentials: true}).then(response => {
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/comments/${props.bookId}`, {withCredentials: true}).then(response => {
             setComments(response.data);
         }).catch(error => {
             console.log(error);
@@ -44,7 +44,7 @@ export default (props) => {
                 book: bookId
             }
     
-            axios.post(`http://localhost:5000/comments/`, {comment: commentObj, withCredentials: true}).then(response => {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/comments/`, {comment: commentObj, withCredentials: true}).then(response => {
             if (response) {
                 setComment('');
                 listCmments();
