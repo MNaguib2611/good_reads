@@ -78,7 +78,7 @@ const EditAuthor = (props) => {
 
                             <input type="file" name="image" id="file" onChange={onChangeImage}
                                    className="input-file"/>
-                            <label htmlFor="file"><FontAwesomeIcon icon={faImage}/>
+                            <label htmlFor="file" className="file-label"><FontAwesomeIcon icon={faImage}/>
                                 Choose a photo</label>
 
                             <textarea name="bio" placeholder="Write author's bio"

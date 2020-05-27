@@ -8,6 +8,16 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       props => {
            
         if (loggedUser) {
+          // if(loggedUser.isAdmin){     //make sure admin will not visit users pages
+          //   return <Redirect to={
+          //   {
+          //     pathname: '/admin',
+          //     state: {
+          //       from: props.location
+          //     }
+          //   }
+          // } />
+          // }
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={

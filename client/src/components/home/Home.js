@@ -13,7 +13,7 @@ const Home = () => {
   const [poularCategories,setpoularCategories]=useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage] = useState(8);
+  const [booksPerPage] = useState(6);
   
   const booksURL = `${process.env.REACT_APP_BACKEND_URL}/books`
   const popularBooksURL = `${process.env.REACT_APP_BACKEND_URL}/books/popular/all`
@@ -70,7 +70,7 @@ const Home = () => {
       popularBooks.map(book => {
           return(
             <li key={book.name} className="popular-list-item">
-              <Link title={`By: ${book.author.name}`} to="/unauthorized">{book.name}</Link>
+              <Link title={`By: ${book.author.name}`} to={`/books/${book._id}`}>{book.name}</Link>
             </li>
           )
       })   
@@ -86,7 +86,7 @@ const Home = () => {
       popularAuthors.map(author => {
           return(
             <li key={author.name} className="popular-list-item">
-              <Link  to="/unauthorized">{author.name}</Link>
+              <Link  to={`/authors/${author._id}`}>{author.name}</Link>
             </li>
           )
       })   
@@ -100,7 +100,7 @@ const Home = () => {
       poularCategories.map(category => {
           return(
             <li  key={category.name} className="popular-list-item">
-              <Link to="/unauthorized">{category.name}</Link>
+              <Link to={`/categories/${category._id}`}>{category.name}</Link>
             </li>
           )
       })   

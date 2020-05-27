@@ -14,6 +14,7 @@ import EditAuthor from "./components/admin/author/EditAuthor";
 import Books from "./components/admin/book/books";
 import AddBook from "./components/admin/book/addBook";
 import EditBook from "./components/admin/book/editBook";
+import Book from "./components/book/book";
 import Unauthorized from './components/unauthorized/Unauthorized';
 import AddCategory from './components/admin/category/AddCategory';
 import EditCategory from './components/admin/category/editCategory';
@@ -29,7 +30,11 @@ import {
 } from "react-router-dom";
 import SearchResultPage from "./components/search_bar/SearchResultPage";
 import CategoriesPage from "./components/category/CategoriesPage";
+<<<<<<< HEAD
 import GetAllAuthors from "./components/userlistauthor/UserListAuthor";
+=======
+import AuthorPage from "./components/user_author/AuthorPage";
+>>>>>>> 704f964952f52336298f74850f05a9685b703333
 
 
 function App() {
@@ -54,15 +59,16 @@ function App() {
                     <ProtectedRoute exact path='/search_results' component={SearchResultPage}/>
                     <ProtectedRoute exact path='/categories' component={CategoriesPage}/>
                     <ProtectedRoute exact path='/categories/:id'  component={CategoryBooks}/>
-                    <ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
-                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />
+                    <ProtectedRoute exact path='/book/:id' component={Book}/>
+                    {/*<ProtectedRoute exact path='/books/comment/:bookId' component={AddBookComment} />
+                    <ProtectedRoute exact path='/books/:bookId' component={ListAllComments} />*/}
+                    <ProtectedRoute exact path='/authors/:id' component={AuthorPage} />
 
                     {/* routes available for admins only */}
-                    <AdminRoute exact path='/admin'  component={Home}/>
+                    <AdminRoute exact path='/admin'  component={Books}/>
                     <AdminRoute exact path='/admin/books' component={Books} />
                     <AdminRoute exact path="/admin/books/add" component={AddBook} />
                     <AdminRoute exact path="/admin/books/edit" component={EditBook} />
-                    
                     <AdminRoute exact path='/admin/categories/' component={ListAllCategories} />
                     <AdminRoute exact path='/admin/categories/add' component={AddCategory} />
                     <AdminRoute exact path='/admin/categories/edit' component={EditCategory} />
