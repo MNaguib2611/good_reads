@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {Link} from "react-router-dom";
 
-const ListAllCategories = ({categoryReducer}) => (  
+const ListAllCategories = ({categoryReducer}) => (   
     <Layout>
     <div className="card_one">
         <h5>All Categories</h5>
@@ -16,7 +16,7 @@ const ListAllCategories = ({categoryReducer}) => (
     </div>
         <div className="card_two">
             <Table 
-                cols={["id", "name"]} 
+                cols={["name", "createdAt"]} 
                 data={categoryReducer} 
                 editUrl="/admin/categories/edit" 
                 delUrl="/admin/categories/delete"

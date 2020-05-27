@@ -3,7 +3,6 @@ import {addCategory, editCategory} from '../actions/admin/category';
 
 export function addNewCategory (props, category){
     if (!category.error) {
-        console.log(category);
         axios.post('http://localhost:5000/categories/', {name: category.name, withCredentials: true}).then(response => {
             if (response) {
                 console.log(response);
@@ -31,6 +30,7 @@ export function getAllCategories(dispatch){
                 // dispatch(addCategory(error))
             }
             const categories = response.data;
+            
             categories.map(category => dispatch(addCategory(category)));
         })
         .catch(error => {
@@ -42,7 +42,6 @@ export function editCategoryFun(props, category){
     if (!category.error) {
         axios.patch(`${process.env.REACT_APP_BACKEND_URL}/categories/${props.location.state.record.id}`, {name: category.name, withCredentials: true}).then(response => {
             if (response) {
-                console.log(response);
                 props.dispatch(editCategory())
                 props.history.push('/admin/categories/');
             }
@@ -60,7 +59,6 @@ export function editCategoryFun(props, category){
 export function deleteCategoryFun(props){
     axios.delete(`${process.env.REACT_APP_BACKEND_URL}/categories/${props.location.state.record.id}`, {name: props.location.state.record.name, withCredentials: true}).then(response => {
         if (response) {
-            console.log(response);
             props.dispatch(editCategory())
             props.history.push('/admin/categories/');
         }

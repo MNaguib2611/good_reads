@@ -18,10 +18,8 @@ const search = async (req, res) => {
 
 
 // get all category
-const getAllCategories = (req, res)=>{
-    
+const getAllCategories = (req, res)=>{ 
     Category.find()
-            .select('name')
             .then(categories=> {
                 res.json(categories)
             })
@@ -31,7 +29,6 @@ const getAllCategories = (req, res)=>{
 
 // create new category
 const createCategory = (req, res)=>{
-    console.log("req create from client");
     const name = req.body.name
     const newCategory = new Category({name})
     newCategory.save()
@@ -44,7 +41,6 @@ const createCategory = (req, res)=>{
 
 // edit category
 const editCategory = (req, res)=>{
-    console.log("req edit from client");
     Category.findById(req.params.id)
         .then(category=>{
             category.name = req.body.name
@@ -64,7 +60,6 @@ const deleteCategory = (req, res)=>{
 
 // get books of category
 const categoryBooks = async (req, res)=>{
-    console.log("req list books from client");
     try {
         const category = await Category.findById(req.params.category);
         await category.populate({
