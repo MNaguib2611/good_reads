@@ -31,6 +31,7 @@ export function getAllCategories(dispatch){
             }
             const categories = response.data;
             
+            dispatch(editCategory());
             categories.map(category => dispatch(addCategory(category)));
         })
         .catch(error => {
