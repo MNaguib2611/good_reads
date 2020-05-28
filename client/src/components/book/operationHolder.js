@@ -3,8 +3,9 @@ import ReactStars from 'react-rating-stars-component';
 import '../../styles/operation_holder.scss';
 import { updateBookStatus, rateBook } from '../../API/book';
 import {getUserData} from "../../utils/utils";
+import { handleSuccess, handleError } from '../../errors/book';
 
-const OperationHolder = ({ book, setBook }) => {
+const OperationHolder = ({ book, setBook, setAlert, alert }) => {
     const addToShelve = (event) => {
         const status = event.target.value;
         updateBookStatus(getUserData()._id, book._id, status).then(res => {
@@ -12,7 +13,8 @@ const OperationHolder = ({ book, setBook }) => {
                 ...book,
                 status
             });
-        })
+            handleSuccess(setAlert, 'Book added to shelve successfully', 5000);
+        }).catch(err => handleError(setAlert, 'Server error'))
     }
 
     const rate = (newRate) => {
@@ -22,13 +24,14 @@ const OperationHolder = ({ book, setBook }) => {
                 ...book,
                 userRate: newRate
             });
-        }).catch(err => console.log(err))
+            handleSuccess(setAlert, 'Your book rate is submitted successfully', 5000);
+        }).catch(err => handleError(setAlert, 'Server error'))
     }
     return (
         <div className="left-card">
             <img className="book-img" src={book.image ? `${process.env.REACT_APP_BACKEND_URL}${book.image}` : "https://www.esm.rochester.edu/uploads/NoPhotoAvailable-335x419.jpg"}/>
             <select className="shelve-options" name="category" id="category" value={book.status} onChange={addToShelve} >
-                <option disabled selected value="not selected">Add to shelve</option>
+                <option disabled value="not selected">Add to shelve</option>
                 <option value="read">Read</option>
                 <option value="reading">Reading</option>
                 <option value="want to read">Want to read</option>

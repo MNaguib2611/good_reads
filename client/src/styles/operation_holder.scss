@@ -23,3 +23,7 @@
     background-color: $color_primary;
     color: white;
 }
+
+.shelve-options:focus {
+    background-color: $color_accent;
+}

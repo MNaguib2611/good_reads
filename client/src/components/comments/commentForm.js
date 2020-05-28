@@ -14,14 +14,16 @@ export default (props) => {
     
 
     const listCmments = ()=>{
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/comments/${props.bookId}`, {withCredentials: true}).then(response => {
-            setComments(response.data);
-        }).catch(error => {
-            console.log(error);
-        });
+        if(props.bookId != null){
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/comments/${props.bookId}`, {withCredentials: true}).then(response => {
+                setComments(response.data);
+            }).catch(error => {
+                console.log(error);
+            });
+        }
     }
 
-    useEffect( () => { listCmments() }, []);
+    useEffect( () => { listCmments() }, [props.bookId]);
 
     const handleChange = (e) => {
         e.preventDefault();

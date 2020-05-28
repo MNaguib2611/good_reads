@@ -1,5 +1,4 @@
-const books = [];
-
+// Book reducer function
 export default function booksOperations(books = [], action) {
     switch(action.type){
         case 'ADD_BOOK':
