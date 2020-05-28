@@ -29,7 +29,6 @@ mongoose.connect("mongodb://localhost:27017/good_reads",{
 },(err)=>{
     if (!err) console.log('\x1b[32m%s\x1b[0m','Connected to Mongodb');
     else console.log(err);
-    
 });
 
 // initializePassport(
@@ -46,7 +45,8 @@ app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    cookie: { secure: false }
 }));
 
 // passport intialization
@@ -64,11 +64,11 @@ app.use(express.static('public'));
 
 // app.use(cors());
 app.use(cors({
-  "origin": "http://localhost:3000",
+  origin: "http://localhost:3000",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": true,
   "optionsSuccessStatus": 200,
-  "credentials": true
+  credentials: true
 }));
 
 

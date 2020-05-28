@@ -22,6 +22,8 @@
     padding: 0px 0px 0px 10px;
     background-color: $color_primary;
     color: white;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
+}
+
+.shelve-options:focus {
+    background-color: $color_accent;
 }

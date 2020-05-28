@@ -14,7 +14,7 @@ export default (props) => {
     useEffect( () => {
         
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/categories/${props.computedMatch.params.id}`, {withCredentials: true}).then(response => {
-            if (response.data.length == 0) {
+            if (response.data.length === 0) {
                 setStatus('No books found');
             } else {
                 setBooks(response.data);

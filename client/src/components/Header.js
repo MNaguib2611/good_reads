@@ -28,10 +28,11 @@ const Header = ({ dashboard }) => {
                 {!dashboard && loggedUser && !loggedUser.isAdmin &&
                 <>
                 <li className="nav-list"><Link  to="/categories">Categories</Link></li>
-                <li className="nav-list"><a href="#">Books</a></li>
+                {/* <li className="nav-list"><a href="#">Books</a></li> */}
                 <li className="nav-list"><Link to="/author-list">Authors</Link></li>
                 <li className="nav-list"><Link  to="/my_books?page=1">My Books</Link></li>
-                </> ||
+                </> ||  loggedUser && loggedUser.isAdmin &&
+
                 <li className="nav-list"><Link  to="/admin">Dashboard</Link></li>
                 }
             </ul>

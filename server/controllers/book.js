@@ -21,15 +21,6 @@ const search = async (req, res) => {
     }
 }
 
-// const categoryBooks = (req, res)=>{
-//     Book.find({category: req.params.category})
-//         .select('name author image')
-//         .then(categories=> {
-//             res.status(200).json(categories)
-//         })
-//         .catch(err => res.status(400).json('Error: ' + err))
-// }
-
 //get author's books
 const getAuthorBooks = (req, res)=>{
     Book.find({author: req.params.author})
@@ -42,6 +33,8 @@ const getAuthorBooks = (req, res)=>{
 
 // Retrieve all books
 const all = (req, res) => {
+    console.log("allBooks",req.isAuthenticated());
+    
     const perPage = req.query.page ? 8 : null; // Books per page
     const page = perPage ? parseInt(req.query.page) : 0; // Check if there is a query string for page number
 
@@ -76,8 +69,12 @@ const create = (req, res) => {
     book.save().then((book) => {
         res.status(200).json(book);
     }).catch((err) => {
-        console.log(err);
-        res.status(500).end();
+        // Check book name unique validation
+        if(err.code === 11000){
+            res.status(400).json({error: 'Book name is already in use'});
+        }else{
+            res.status(500).json({error: '500 Server error'})
+        }
     });
 };
 
@@ -119,10 +116,12 @@ const remove = (req, res) => {
 // Get each book
 const book = (req, res) => {
     const bookId = req.params.bookId;
-
+    
     // Find book by id and populate author and category data
     Book.findById(bookId).populate('author').populate('category').then((book) => {
         if(req.user){
+            console.log("inside get book by id Authenticated user");
+    
             // Get user book status options and rating
             // Find user rating on current book
             const rating = book.rate.find(rate => rate.user.toString() === req.user._id.toString());
@@ -134,11 +133,10 @@ const book = (req, res) => {
             });
         }else{
             // Return book data with no user activity
-            console.log('+++++++++++++++ not loggedin');
             res.status(200).json(book);
         }
-    }).catch((err) => {
-        res.status(500).end();
+    }).catch((error) => {
+        res.status(500).json({error: error});
     });
 };
 
@@ -199,7 +197,6 @@ module.exports = {
     remove,
     rate,
     search,
-
     popular,
     book
 }

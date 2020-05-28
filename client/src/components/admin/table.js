@@ -9,9 +9,9 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
         <table id="table">
             <thead>
                 <tr>
-                    {cols.map((col) => {
+                    {cols.map((col, id) => {
                         return (
-                            <th>{col.toUpperCase()}</th>
+                            <th key={id}>{col.toUpperCase()}</th>
                         );
                     })}
                     <th>Actions</th>
@@ -20,10 +20,10 @@ const Table = ({ cols, data, editUrl, delUrl, del }) => {
             <tbody>
                 {data.map((record) => {
                     return (
-                        <tr>
-                            {cols.map((col) => {
+                        <tr key={record._id}>
+                            {cols.map((col, id) => {
                                 return (
-                                    <td>
+                                    <td key={id}>
                                         { col === "image"?
                                             <img style={{width: "50px", height: "50px"}} src= {typeof record[col] == 'object' && record[col] != null
                                                 ? 

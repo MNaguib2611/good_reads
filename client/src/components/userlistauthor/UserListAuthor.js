@@ -36,9 +36,9 @@ const GetAllAuthors = (props) => {
                     currentauthors.map(author => {
                         return (
                             <div className="card CardDiv">
-                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${author.image}`} alt="book image"  className="card-img-top"  width="100%" height="140" />
+                                <img  src={`${process.env.REACT_APP_BACKEND_URL}${author.image}`}   className="card-img-top"  width="100%" height="80%" />
                                 <hr/>
-                                <Link to=""><h4 className="card-title">{author.name}</h4></Link>
+                                <Link to={`authors/${author._id}`}><h4 className="card-title">{author.name}</h4></Link>
                             </div>
                         )
                     })

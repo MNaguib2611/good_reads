@@ -42,11 +42,13 @@ const SearchBar = (props) => {
                     }
                     switch (item.type) {
                         case 'Book':
-                            return  <BookSearchCard key={item._id} book={item}/>
+                            return    <Link  to={`/books/${item._id}`}><BookSearchCard key={item._id} book={item}/></Link>
                         case 'Author':
-                            return  <AuthorSearchCard key={item._id} author={item}/>
+                            return   <Link  to={`/authors/${item._id}`}><AuthorSearchCard key={item._id} author={item}/></Link>
                         case 'Category':
-                            return  <CategorySearchCard key={item._id} category={item}/>
+                            return  <Link  to={`/categories/${item._id}`}><CategorySearchCard key={item._id} category={item}/></Link>
+                        default:
+                            return <></>
                     }
 
                 })

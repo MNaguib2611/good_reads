@@ -1,4 +1,4 @@
-import {ALL_CATEGORIES_ERROR, ALL_CATEGORIES_SUCCESS, ALL_CATEGORIES_LOADING} from "../actions/category_action";
+import { ALL_CATEGORIES_SUCCESS } from "../actions/category_action";
 
 const defaultData = {
     isLoading: false,

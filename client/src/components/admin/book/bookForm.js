@@ -20,8 +20,8 @@ const bookForm = ({ book, setBook, handleSubmit, fileInput, errors, categories, 
                 <select name="author" id="author" value={book.author} onChange={event => setBook({...book, author: event.target.value})} style={{border: errors && '1px red solid'}} >
                     <option disabled selected value="volvo">Select author</option>
                     {
-                        authors.map(author => {
-                            return <option value={author.id}>{author.name}</option>;
+                        authors && authors.map(author => {
+                            return <option value={author._id}>{author.name}</option>;
                         })
                     }
                 </select>
