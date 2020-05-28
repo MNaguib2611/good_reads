@@ -8,10 +8,6 @@ import * as serviceWorker from './serviceWorker';
 
 const store = configureStore();
 
-store.subscribe(() => {
-    const state = store.getState();
-});
-
 
 ReactDOM.render(
 <Provider store={store}>

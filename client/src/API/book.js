@@ -71,7 +71,7 @@ export const book = (id) => {
         withCredentials: true
     }).then(res => {
         if(res.data)
-            return res.data;
+            return res;
     }).catch(error => {
         return error;
     });
