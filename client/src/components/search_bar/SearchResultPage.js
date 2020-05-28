@@ -24,6 +24,8 @@ const SearchResultPage = ({results,dispatch}) => {
                         return  <AuthorSearchCard key={item._id} author={item}/>
                     case 'Category':
                         return  <CategorySearchCard key={item._id} category={item}/>
+                    default:
+                        return <></>
                 }
 
             })}

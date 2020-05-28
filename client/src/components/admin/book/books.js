@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../layout';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ const Books = ({ bookReducer, dispatch }) => {
     const deleteBook = (record) => {
         remove(record._id, dispatch).then(response => {
             bookReducer.filter((book) => {
-                return book._id != record._id;
+                return book._id !== record._id;
             });
         }).catch(error => {
             console.log(error);
